@@ -22,6 +22,7 @@ public class Submarino extends Barco {
 			casilla.setEstadoImpactado(false);
 			casilla.setEstadoVisibilidad(false);
 		}
+		vistaPartida.imprimirReparacion();
 	}
 
 	@Override

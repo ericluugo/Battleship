@@ -18,7 +18,8 @@ public class Portaviones extends Barco {
 	@Override
 	public void habilidad(Tablero tableroEnemigo, IVistaPartida vistaPartida) {
 		List<Integer> coordenadas = vistaPartida.pedirCasilla();
-		tableroEnemigo.recibirCoordenadas(coordenadas);
+		Barco atacado = tableroEnemigo.recibirCoordenadas(coordenadas);
+		vistaPartida.imprimirResultadoContraataque(atacado);
 	}
 
 	@Override

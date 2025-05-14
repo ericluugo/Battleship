@@ -86,40 +86,52 @@ public class ControladorPartida implements IControladorPartida {
 
     public void jugarPartida(Partida partida) {
         Partida partidaEnJuego = partida;
-        //BATTLESHIP
+        //Bienvenida
+        vistaPartida.imprimirBienvenida();
         // Partida iniciada : IJugable vs IJugable
+        vistaPartida.imprimirRivalidad(partidaEnJuego.getJugador1().getId(),partidaEnJuego.getJugador2().getId());
         while (!partidaEnJuego.verificarFinPartida()){
-            generarTableros(partidaEnJuego);
             if (partidaEnJuego.isTurno()){
                 // turno jugador1
+                vistaPartida.imprimirTurno(partidaEnJuego.getJugador1().getId());
                 // imprimir tableros
+                generarTableros(partidaEnJuego);
                 List<Integer> coordenadasAtacar = partida.getJugador1().seleccionarCasilla(vistaPartida);
                 Barco atacado = atacar(partidaEnJuego.getTablero2(),partidaEnJuego.getJugador1(),coordenadasAtacar);
+                vistaPartida.imprimirCasillaAtacada(coordenadasAtacar);
                 // imprimir por pantalla FALLO o Acierto y casilla atacada
                 if (atacado != null && atacado.habilidadDisponible()){
-                    // imprimir por pantalla Tipo barco pegado
+                    vistaPartida.imprimirObjetoImpacto(atacado.getNombre());
                     if (partidaEnJuego.getJugador1().decisionHabilidad(vistaPartida)){
                         atacado.habilidad(partidaEnJuego.getTablero2(),vistaPartida);
                     }
                 }
+                vistaPartida.imprimirObjetoImpacto("");
             }else {
                 // turno jugador2
+                vistaPartida.imprimirTurno(partidaEnJuego.getJugador2().getId());
                 //imprimir tableros
-                    List<Integer> coordenadasAtacar = partida.getJugador2().seleccionarCasilla(vistaPartida);
-                    Barco atacado = atacar(partidaEnJuego.getTablero1(),partidaEnJuego.getJugador2(),coordenadasAtacar);
+                generarTableros(partidaEnJuego);
+                List<Integer> coordenadasAtacar = partida.getJugador2().seleccionarCasilla(vistaPartida);
+                Barco atacado = atacar(partidaEnJuego.getTablero1(),partidaEnJuego.getJugador2(),coordenadasAtacar);
                 // imprimir por pantalla FALLO o Acierto y casilla atacada
-                    if (atacado != null && atacado.habilidadDisponible()){
+                vistaPartida.imprimirCasillaAtacada(coordenadasAtacar);
+                if (atacado != null && atacado.habilidadDisponible()){
                         // imprimir por pantalla Tipo barco pegado
-                        if (partidaEnJuego.getJugador2().decisionHabilidad(vistaPartida)){
+                    vistaPartida.imprimirObjetoImpacto(atacado.getNombre());
+                    if (partidaEnJuego.getJugador2().decisionHabilidad(vistaPartida)){
                             atacado.habilidad(partidaEnJuego.getTablero1(),vistaPartida);
-                        }
                     }
+                }
+                vistaPartida.imprimirObjetoImpacto("");
             }
             partidaEnJuego.cambiarTurno();
         }
         finalizarPartida(partidaEnJuego);
         //imprimir puntuaciones
+        vistaPartida.imprimirPuntuacion(partidaEnJuego.getJugador1().getId(),partidaEnJuego.getPuntosJugador1(),partidaEnJuego.getJugador2().getId(),partidaEnJuego.getPuntosJugador2());
         //imprimir ganador
+        vistaPartida.imprimirGanador(partidaEnJuego.getGanador().getId());
         partidas.add(partidaEnJuego);
     }
 

@@ -22,6 +22,7 @@ public class Patrullero extends Barco {
 		for (int j = 0; j<tableroEnemigo.getNumColumnas();j++){
 			getSuTablero().getTablero()[fila][j].setEstadoVisibilidad(true);
 		}
+		vistaPartida.imprimirFilaRevelo(fila);
 	}
 
 	@Override

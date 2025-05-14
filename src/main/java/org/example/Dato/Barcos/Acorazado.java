@@ -36,7 +36,9 @@ public class Acorazado extends Barco {
 		for(int index = 0; index<coordenadasVecinas.size();index++){
 			List<Integer> coordenadaActual = coordenadasVecinas.get(index);
 			if ((coordenadaActual.get(0)>= 0 && coordenadaActual.get(0)<=9) && (coordenadaActual.get(1)>= 0 && coordenadaActual.get(1)<=9)){
-				tableroEnemigo.recibirCoordenadas(coordenadaActual);
+				Barco atacado = tableroEnemigo.recibirCoordenadas(coordenadaActual);
+				vistaPartida.imprimirCasillaAtacada(coordenadaActual);
+				vistaPartida.imprimirResultadoContraataque(atacado);
 			}
 		}
 	}
