@@ -1,0 +1,145 @@
+package org.example.Dato.Partida;
+import org.example.Dato.Barcos.Barco;
+import org.example.Dato.Casilla;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class Tablero {
+
+	private Casilla[][] tablero;
+	private int numFilas;
+	private int numColumnas;
+	private List<Barco> barcos;
+
+
+	public Tablero(int numFilas, int numColumnas) {
+		this.tablero = new Casilla[numFilas][numColumnas];
+		this.numFilas = numFilas;
+		this.numColumnas = numColumnas;
+		this.barcos = new ArrayList<>();
+	}
+
+	public String mostrarTablero() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("   ");
+		for (int col = 0; col < 10; col++) {
+			sb.append(col).append(" ");
+		}
+		sb.append("\n");
+
+		for (int i = 0; i < 10; i++) {
+			sb.append(i).append("  ");
+			for (int j = 0; j < 10; j++) {
+				Casilla casilla = tablero[i][j];
+
+				if (!casilla.isEstadoVisibilidad()) {
+					sb.append("  "); //agua
+				} else if (casilla.isEstadoImpactado() && casilla.isOcupada()) {
+					sb.append("X "); //acierto
+				} else if (casilla.isEstadoImpactado() && !casilla.isOcupada()) {
+					sb.append("O "); //fallo
+				} else if (!casilla.isEstadoImpactado() && !casilla.isOcupada()) {
+					sb.append(". "); // revelado vacio
+				} else if (!casilla.isEstadoImpactado() && casilla.isOcupada()) {
+					sb.append("… "); // revelado con barco
+				}
+			}
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+
+	public Barco recibirCoordenadas(List<Integer> coordenadas) {
+		Barco barcoImpactado = null;
+		tablero[coordenadas.get(0)][coordenadas.get(1)].setEstadoVisibilidad(true);
+		tablero[coordenadas.get(0)][coordenadas.get(1)].setEstadoImpactado(true);
+		for (Barco barco: barcos){
+			int index = 0;
+			while(index<barco.getCasillas().size() && barcoImpactado == null){
+				if (barco.getCasillas().get(index).getFila() == coordenadas.get(0) && barco.getCasillas().get(index).getColumna() == coordenadas.get(1)) {
+					barcoImpactado = barco;
+				}
+				index++;
+			}
+		}
+		return barcoImpactado;
+	}
+
+	public boolean todosBarcosMuertos() {
+		for (Barco barco : barcos) {
+			if (barco.isVivo()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public List<Casilla>colocacionBarcos(int tamanio) {
+		Random rand = new Random();
+		List<Casilla> seleccionadas = new ArrayList<>();
+		boolean hecho = false;
+
+		while (!hecho) {
+			seleccionadas.clear();
+			int fila = rand.nextInt(numFilas);
+			int columna = rand.nextInt(numColumnas);
+			int direccion = rand.nextInt(2); // 0 = vertical, 1 = horizontal
+
+			boolean valido = true;
+			for (int i = 0; i < tamanio; i++) {
+				int f = fila + (direccion == 0 ? i : 0);
+				int c = columna + (direccion == 1 ? i : 0);
+
+				if (f >= numFilas || c >= numColumnas || tablero[f][c].isOcupada()) {
+					valido = false;
+				} else {
+					seleccionadas.add(tablero[f][c]);
+				}
+			}
+
+			// Solo si todas las casillas fueron válidas y suficientes
+			if (valido && seleccionadas.size() == tamanio) {
+				for (Casilla casilla : seleccionadas) {
+					casilla.setOcupada(true);
+				}
+				hecho = true;
+			}
+		}
+		return seleccionadas;
+	}
+
+	public int getNumFilas() {
+		return numFilas;
+	}
+
+	public void setNumFilas(int numFilas) {
+		this.numFilas = numFilas;
+	}
+
+	public int getNumColumnas() {
+		return numColumnas;
+	}
+
+	public void setNumColumnas(int numColumnas) {
+		this.numColumnas = numColumnas;
+	}
+
+	public List<Barco> getBarcos() {
+		return barcos;
+	}
+
+	public void setBarcos(List<Barco> barcos) {
+		this.barcos = barcos;
+	}
+
+	public Casilla[][] getTablero() {
+		return tablero;
+	}
+
+	public void setTablero(Casilla[][] tablero) {
+		this.tablero = tablero;
+	}
+}

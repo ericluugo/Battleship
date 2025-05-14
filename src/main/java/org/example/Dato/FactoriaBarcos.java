@@ -1,0 +1,24 @@
+package org.example.Dato;
+
+import org.example.Dato.Barcos.*;
+import org.example.Dato.Partida.Tablero;
+
+import java.util.List;
+
+public class FactoriaBarcos {
+
+    public static Barco crearBarco(String tipo, Tablero tablero, List<Casilla> casillas) {
+        switch (tipo) {
+            case "Acorazado":
+                return new Acorazado("Acorazado",3 , tablero, casillas);
+            case "Submarino":
+                return new Submarino("Submarino",3, tablero, casillas);
+            case "Patrullero":
+                return new Patrullero("Patrullero", 2, tablero, casillas);
+            case "Portaviones":
+                return new Portaviones("Portaviones", 4, tablero, casillas);
+            default:
+                throw new IllegalArgumentException("Tipo de barco no válido: " + tipo);
+        }
+    }
+}
