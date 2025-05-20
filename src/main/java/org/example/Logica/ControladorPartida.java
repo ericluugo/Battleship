@@ -139,4 +139,20 @@ public class ControladorPartida implements IControladorPartida {
         Barco afectado = tableroEnemigo.recibirCoordenadas(coordenadas);
         return afectado;
     }
+
+    public List<Partida> getPartidas() {
+        return partidas;
+    }
+
+    public void setPartidas(List<Partida> partidas) {
+        this.partidas = partidas;
+    }
+
+    public IVistaPartida getVistaPartida() {
+        return vistaPartida;
+    }
+
+    public void setVistaPartida(IVistaPartida vistaPartida) {
+        this.vistaPartida = vistaPartida;
+    }
 }

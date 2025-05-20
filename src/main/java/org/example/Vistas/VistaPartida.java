@@ -12,6 +12,8 @@ import java.util.Objects;
 
 public class VistaPartida implements IVistaPartida {
 
+	private IControladorPartida controladorPartida;
+
 	public VistaPartida() {}
 
 	public void mostarPuntuaciones(IControladorPartida controladorPartida){
@@ -128,5 +130,13 @@ public class VistaPartida implements IVistaPartida {
 
 		// Mensaje en consola
 		System.out.println("¡GANADOR: " + id + "!");
+	}
+
+	public IControladorPartida getControladorPartida() {
+		return controladorPartida;
+	}
+
+	public void setControladorPartida(IControladorPartida controladorPartida) {
+		this.controladorPartida = controladorPartida;
 	}
 }

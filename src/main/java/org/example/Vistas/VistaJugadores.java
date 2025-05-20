@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class VistaJugadores implements IVistaJugadores{
     private JugadorHumano jugadorLogueado;
+    private IControladorJugadores controladorJugadores;
 
 
     public VistaJugadores() {
@@ -16,7 +17,7 @@ public class VistaJugadores implements IVistaJugadores{
 
     }
 
-    public boolean solicitudDatosAlta(IControladorJugadores iControladorJugadores, Scanner teclado){
+    public boolean solicitudDatosAlta(IControladorJugadores iControladorJugadores){
         boolean nuevoJugador = true;
         String nombre = Utilidades.leerCadena("Introduzca su nombre: ");
        String email = Utilidades.leerCadena("Introduzca su email ");
@@ -42,20 +43,20 @@ public class VistaJugadores implements IVistaJugadores{
     public JugadorHumano getJugadorLogueado() {
         return jugadorLogueado;
     }
-    public boolean iniciarSesion(IControladorJugadores iControladorJugadores){
+    public boolean iniciarSesion(){
         boolean sesionIniciada= false;
         String email = Utilidades.leerCadena("Introduce su email: ");
 
         //Comprobar si hay un jugador que ya exista que tenga este email
-        if (!iControladorJugadores.comprobarEmail(email)){
+        if (!controladorJugadores.comprobarEmail(email)){
             System.out.println("No hay un jugador registrado con este email, debe darse de alta primero");
         }else {
             //Comprobar contraseña
             String contrasenia = Utilidades.leerCadena("Introduce la contraseña: ");
-            if (!iControladorJugadores.comprobarContrasenia(email, contrasenia)){
+            if (!controladorJugadores.comprobarContrasenia(email, contrasenia)){
                 System.out.println("Contraseña incorrecta. ");
             } else {
-                this.jugadorLogueado =iControladorJugadores.iniciarSesion(email, contrasenia);
+                this.jugadorLogueado =controladorJugadores.iniciarSesion(email, contrasenia);
                 if (this.jugadorLogueado==null) System.out.println("Ha ocurrido un error al iniciar sesion. ");
                 else {
                     sesionIniciada=true;
@@ -80,6 +81,19 @@ public class VistaJugadores implements IVistaJugadores{
             System.out.println("No hay ningún jugador logueado.");
         }
         return darBaja;
-        }
     }
+
+    public IControladorJugadores getControladorJugadores() {
+        return controladorJugadores;
+    }
+
+    public void setControladorJugadores(IControladorJugadores controladorJugadores) {
+        this.controladorJugadores = controladorJugadores;
+    }
+
+    public void setJugadorLogueado(JugadorHumano jugadorLogueado) {
+        this.jugadorLogueado = jugadorLogueado;
+    }
+}
+
 

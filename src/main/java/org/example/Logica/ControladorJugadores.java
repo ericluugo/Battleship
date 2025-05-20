@@ -3,6 +3,7 @@ package org.example.Logica;
 import org.example.Dato.Jugadores.Jugador;
 import org.example.Dato.Jugadores.JugadorHumano;
 import org.example.Dato.Jugadores.Maquina;
+import org.example.Vistas.IVistaJugadores;
 import servidor.ObtencionDeRol;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.Random;
 
 public class ControladorJugadores implements IControladorJugadores{
     private List<Jugador> listaJugadores;
+    IVistaJugadores vistaJugadores;
 
     public ControladorJugadores() {
         this.listaJugadores = new ArrayList<>();
@@ -69,5 +71,21 @@ public class ControladorJugadores implements IControladorJugadores{
         st.append(random);
         Maquina maquina = new Maquina(st.toString());
         listaJugadores.add(maquina);
+    }
+
+    public List<Jugador> getListaJugadores() {
+        return listaJugadores;
+    }
+
+    public void setListaJugadores(List<Jugador> listaJugadores) {
+        this.listaJugadores = listaJugadores;
+    }
+
+    public IVistaJugadores getVistaJugadores() {
+        return vistaJugadores;
+    }
+
+    public void setVistaJugadores(IVistaJugadores vistaJugadores) {
+        this.vistaJugadores = vistaJugadores;
     }
 }

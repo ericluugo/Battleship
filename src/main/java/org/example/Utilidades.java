@@ -64,4 +64,24 @@ public final class Utilidades {
 
         return string;
     }
+
+    public static int leerNumeroIntervalo(String mensaje,int min, int max) {
+        boolean correcto = false;
+        int numero = 0;
+        while (!correcto) {
+            System.out.print(mensaje);
+            try {
+                numero = teclado.nextInt();
+                if (numero >= min && numero <= max) {
+                    correcto = true;
+                } else {
+                    System.out.println("Introduzca una opcion valida...");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Por favor, introduzca un número.");
+                teclado.next(); // limpia el valor incorrecto del buffer
+            }
+        }
+        return numero;
+    }
 }
