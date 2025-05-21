@@ -1,8 +1,10 @@
 package org.example.Dato.Jugadores;
 
+import org.example.Logica.ControladorPartida;
 import org.example.ModelException;
 import org.example.Validaciones;
 import org.example.Vistas.IVistaAtacable;
+import org.example.Vistas.VistaGeneral;
 
 import java.util.List;
 
@@ -19,18 +21,20 @@ public class JugadorHumano extends Jugador {
 		this.contrasenia = contrasenia;
 		this.esAdmin = esAdmin;
 	}
+
 	@Override
-	public List<Integer> seleccionarCasilla(IVistaAtacable vistaPartida) {
-		return vistaPartida.pedirCasilla();
+	public List<Integer> seleccionarCasilla() {
+		return ControladorPartida.getInstancia().getVistaAtacable().pedirCasilla();
 	}
+
 	@Override
 	public String getId() {
 		return email;
 	}
 
 	@Override
-	public boolean decisionHabilidad(IVistaAtacable vistaPartida) {
-		return vistaPartida.pedirDecision();
+	public boolean decisionHabilidad() {
+		return ControladorPartida.getInstancia().getVistaAtacable().pedirDecision();
 	}
 
 	public String getEmail() {

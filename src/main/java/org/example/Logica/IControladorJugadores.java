@@ -10,7 +10,7 @@ public interface IControladorJugadores {
     public JugadorHumano iniciarSesion(String email, String contraseña);
     public boolean comprobarEmail(String email);
     public boolean comprobarContrasenia(String email, String contraseña);
-    public Maquina crearMaquina();
+    public Maquina crearMaquina() throws ModelException;
 
 
 }

@@ -2,8 +2,7 @@ package org.example.Dato.Barcos;
 
 import org.example.Dato.Casilla;
 import org.example.Dato.Partida.Tablero;
-import org.example.Utilidades;
-import org.example.Vistas.IVistaAtacable;
+import org.example.Logica.ControladorPartida;
 
 import java.util.List;
 
@@ -18,13 +17,13 @@ public class Submarino extends Barco {
 	}
 
 	@Override
-	public void habilidad(Tablero tableroEnemigo, IVistaAtacable vistaPartida) {
+	public void habilidad(Tablero tableroEnemigo) {
 		for (Casilla casilla : getCasillas()){
 			casilla.setEstadoImpactado(false);
 			casilla.setEstadoVisibilidad(false);
 		}
 		setVivo(true);
-		Utilidades.imprimir("Se ha reparado el Submarino");
+		ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha reparado el Submarino");
 	}
 
 	@Override

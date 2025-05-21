@@ -15,13 +15,13 @@ public abstract class Jugador implements IJugable {
 	}
 
 	@Override
-	public  abstract List<Integer> seleccionarCasilla(IVistaAtacable vistaPartida);
+	public  abstract List<Integer> seleccionarCasilla();
 
 	@Override
 	public abstract String getId();
 
 	@Override
-	public abstract boolean decisionHabilidad(IVistaAtacable vistaPartida);
+	public abstract boolean decisionHabilidad();
 
 	public String getNombre() {
 		return nombre;

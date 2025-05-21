@@ -20,7 +20,7 @@ public abstract class Barco{
 		this.vivo = true;
 	}
 
-	public abstract void habilidad(Tablero tableroEnemigo, IVistaAtacable vistaPartida);
+	public abstract void habilidad(Tablero tableroEnemigo);
 
 	public abstract boolean habilidadDisponible();
 

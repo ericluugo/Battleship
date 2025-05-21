@@ -1,5 +1,6 @@
 package org.example.Dato.Jugadores;
 
+import org.example.ModelException;
 import org.example.Vistas.IVistaAtacable;
 
 import java.util.ArrayList;
@@ -9,12 +10,12 @@ import java.util.Random;
 
 public class Maquina extends Jugador {
 
-	public Maquina(String nombre) {
+	public Maquina(String nombre) throws ModelException {
 		super(nombre);
 	}
 
 	@Override
-	public List<Integer> seleccionarCasilla(IVistaAtacable vistaPartida) {
+	public List<Integer> seleccionarCasilla() {
 		List<Integer> coordenadas = new ArrayList<>();
 		Random rand = new Random();
 		Integer coorX = rand.nextInt(10);
@@ -30,7 +31,7 @@ public class Maquina extends Jugador {
 	}
 
 	@Override
-	public boolean decisionHabilidad(IVistaAtacable vistaPartida) {
+	public boolean decisionHabilidad() {
 		return true;
 	}
 }

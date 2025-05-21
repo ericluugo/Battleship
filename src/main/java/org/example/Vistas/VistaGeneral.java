@@ -4,7 +4,9 @@ import org.example.Dato.Jugadores.IJugable;
 import org.example.Logica.ControladorJugadores;
 import org.example.Logica.ControladorPartida;
 import org.example.ModelException;
-import org.example.Utilidades;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class VistaGeneral {
     private VistaPartida vistaPartida;
@@ -12,8 +14,10 @@ public class VistaGeneral {
     private ControladorPartida controladorPartida;
     private ControladorJugadores controladorJugadores;
     private static VistaGeneral instancia;
+    private static final Scanner teclado = new Scanner(System.in);
 
-    private VistaGeneral(){
+
+    private VistaGeneral() throws Exception{
         vistaPartida = new VistaPartida();
         vistaJugadores = new VistaJugadores();
         controladorJugadores = new ControladorJugadores();
@@ -27,7 +31,7 @@ public class VistaGeneral {
     }
 
     // 3. Método público para obtener la instancia única
-    public static VistaGeneral getInstancia() {
+    public static VistaGeneral getInstancia() throws Exception {
         if (instancia == null) {
             instancia = new VistaGeneral();
         }
@@ -35,13 +39,13 @@ public class VistaGeneral {
     }
     public void programa(){
         boolean ejecucionCorrecta = false;
-       Utilidades.imprimir("Bienvenido al sistema de juego Battleship");
+       imprimir("Bienvenido al sistema de juego Battleship");
        do {
            try {
                publicSwitch();
                ejecucionCorrecta = true;
            } catch (Exception e) {
-               Utilidades.imprimir("Ha ocurrido un error...");
+               imprimir("Ha ocurrido un error...");
            }
        }while(!ejecucionCorrecta);
 
@@ -50,12 +54,12 @@ public class VistaGeneral {
     public void publicSwitch()throws Exception{
         int opcion = 0;
         do {
-            Utilidades.imprimir("\t\tGestor de Usuarios" +
-                    "----------------------------------------" +
-                    "Inserte 1: Darse de Alta" +
-                    "Inserte 2: Iniciar Sesión" +
-                    "Inserte 3: Exit");
-            opcion = Utilidades.leerNumeroIntervalo("Introduzca el numero de la opcion deseada: ", 1, 4);
+            imprimir("\t\tGestor de Usuarios\n" +
+                    "----------------------------------------\n" +
+                    "Inserte 1: Darse de Alta\n" +
+                    "Inserte 2: Iniciar Sesión\n" +
+                    "Inserte 3: Exit\n");
+            opcion = leerNumeroIntervalo("Introduzca el numero de la opcion deseada: ", 1, 3);
             switch (opcion) {
                 case 1: //alta
                     vistaJugadores.solicitudDatosAlta();
@@ -67,7 +71,7 @@ public class VistaGeneral {
                     }
                     break;
                 default:
-                    Utilidades.imprimir("Seleccione una opción válida");
+                    imprimir("Seleccione una opción válida");
                     break;
             }
         }while (opcion !=3);
@@ -77,13 +81,13 @@ public class VistaGeneral {
         if (vistaJugadores.getJugadorLogueado() != null){ // no hace falta
             int opcion = 0;
             do {
-                Utilidades.imprimir("\t\tGestor de partidas" +
+                imprimir("\t\tGestor de partidas" +
                         "----------------------------------------" +
                         "Inserte 1: Iniciar Partida\n" +
                         "Inserte 2: Generar Puntuaciones\n" +
                         "Inserte 3: Darse de baja\n" +
                         "Inserte 4: Cerrar Sesión\n" );
-                opcion = Utilidades.leerNumeroIntervalo("Introduzca el numero de la opcion deseada: ", 1, 3);
+                opcion = leerNumeroIntervalo("Introduzca el numero de la opcion deseada: ", 1, 3);
                 switch (opcion) {
                     case 1: //iniciarPartida
                         IJugable first_player = vistaJugadores.getJugadorLogueado();
@@ -101,18 +105,18 @@ public class VistaGeneral {
                         vistaJugadores.darBaja();
                         break;
                     case 4 : // Cerrar sesión
-                        Utilidades.imprimir("Cerrando sesión");
+                        imprimir("Cerrando sesión");
                         vistaJugadores.setJugadorLogueado(null);
                         break;
                     default:
-                        Utilidades.imprimir("Seleccione una opción válida");
+                        imprimir("Seleccione una opción válida");
                         break;
                 }
             }while (opcion !=4);
         }
     }
 
-    private void precargaAdmins() throws ModelException {
+    private void precargaAdmins() throws Exception {
         try {
             controladorJugadores.darAlta("admin1@alumnos.upm.es","Admin1","Admin1*",true);
             controladorJugadores.darAlta("admin2@alumnos.upm.es","Admin2","Admin2*",true);
@@ -120,5 +124,29 @@ public class VistaGeneral {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public static int leerNumeroIntervalo(String mensaje,int min, int max) {
+        boolean correcto = false;
+        int numero = 0;
+        while (!correcto) {
+            System.out.print(mensaje);
+            try {
+                numero = teclado.nextInt();
+                if (numero >= min && numero <= max) {
+                    correcto = true;
+                } else {
+                    System.out.println("Introduzca una opcion valida...");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Por favor, introduzca un número.");
+                teclado.next(); // limpia el valor incorrecto del buffer
+            }
+        }
+        return numero;
+    }
+
+    public void imprimir(String msg){
+        System.out.println(msg);
     }
 }

@@ -2,8 +2,7 @@ package org.example.Dato.Barcos;
 
 import org.example.Dato.Casilla;
 import org.example.Dato.Partida.Tablero;
-import org.example.Utilidades;
-import org.example.Vistas.IVistaAtacable;
+import org.example.Logica.ControladorPartida;
 
 import java.util.List;
 
@@ -17,12 +16,12 @@ public class Portaviones extends Barco {
 
 
 	@Override
-	public void habilidad(Tablero tableroEnemigo, IVistaAtacable vistaPartida) {
-		List<Integer> coordenadas = vistaPartida.pedirCasilla();
+	public void habilidad(Tablero tableroEnemigo) {
+		List<Integer> coordenadas = ControladorPartida.getInstancia().getVistaAtacable().pedirCasilla();
 		Barco atacado = tableroEnemigo.recibirCoordenadas(coordenadas);
 		if (atacado == null){
-			Utilidades.imprimir("El ataque ha fallado");
-		}else Utilidades.imprimir("El ataque ha acertado");
+			ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha fallado");
+		}else ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha acertado");
 	}
 
 	@Override

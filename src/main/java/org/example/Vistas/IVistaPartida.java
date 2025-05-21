@@ -16,4 +16,6 @@ public interface IVistaPartida {
     public void imprimirPuntuacion(String id1,int puntuacion1,String id2,int puntuacion2);
 
     public void imprimirGanador(String id);
+
+    public void imprimir(String msg);
 }

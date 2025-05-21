@@ -6,8 +6,12 @@ public class App
 {
     public static void main( String[] args )
     {
-        VistaGeneral vistaGeneral = VistaGeneral.getInstancia();
-        vistaGeneral.programa();
+        try {
+            VistaGeneral vistaGeneral = VistaGeneral.getInstancia();
+            vistaGeneral.programa();
+        }catch (Exception e){
+            System.out.println("Error de carga Admins");
+        }
     }
 
 

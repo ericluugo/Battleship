@@ -2,8 +2,7 @@ package org.example.Dato.Barcos;
 
 import org.example.Dato.Casilla;
 import org.example.Dato.Partida.Tablero;
-import org.example.Utilidades;
-import org.example.Vistas.IVistaAtacable;
+import org.example.Logica.ControladorPartida;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,8 +18,8 @@ public class Acorazado extends Barco {
 	}
 
 	@Override
-	public void habilidad(Tablero tableroEnemigo, IVistaAtacable vistaPartida) {
-		List<Integer> coordenadas = vistaPartida.pedirCasilla();
+	public void habilidad(Tablero tableroEnemigo) {
+		List<Integer> coordenadas = ControladorPartida.getInstancia().getVistaAtacable().pedirCasilla();
 		int fila = coordenadas.get(0);
 		int columna = coordenadas.get(1);
 		List<Integer> coordenadaSuperior = Arrays.asList(fila, columna + 1);
@@ -38,10 +37,10 @@ public class Acorazado extends Barco {
 			List<Integer> coordenadaActual = coordenadasVecinas.get(index);
 			if ((coordenadaActual.get(0)>= 0 && coordenadaActual.get(0)<=9) && (coordenadaActual.get(1)>= 0 && coordenadaActual.get(1)<=9)){
 				Barco atacado = tableroEnemigo.recibirCoordenadas(coordenadaActual);
-				Utilidades.imprimir("Se ha atacado la casilla : ["+coordenadaActual.get(0)+"]["+coordenadaActual.get(1)+"]");
+				ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha atacado la casilla : ["+coordenadaActual.get(0)+"]["+coordenadaActual.get(1)+"]");
 				if (atacado == null){
-					Utilidades.imprimir("El ataque ha fallado");
-				}else Utilidades.imprimir("El ataque ha acertado");
+					ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha fallado");
+				}else ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha acertado");
 			}
 		}
 	}

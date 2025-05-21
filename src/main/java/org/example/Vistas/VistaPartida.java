@@ -1,19 +1,18 @@
 package org.example.Vistas;
 
 import org.example.Dato.Jugadores.IJugable;
-import org.example.Dato.Jugadores.Jugador;
 import org.example.Logica.IControladorPartida;
-import org.example.Utilidades;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 public class VistaPartida implements IVistaAtacable, IVistaPartida {
 
 	private IControladorPartida controladorPartida;
+	private static final Scanner teclado = new Scanner(System.in);
+
 
 	public VistaPartida() {}
 
@@ -30,26 +29,72 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
 	@Override
 	public List<Integer> pedirCasilla () {
 		List<Integer> coordenadas = new ArrayList<>();
-		Integer coorX = Utilidades.lecturaCoordenada("Introduzca las coordenadas de la casilla deseada: " +'\n' + "Coordenada x : ");
-		Integer coorY = Utilidades.lecturaCoordenada("Coordenada y : ");
+		Integer coorX = lecturaCoordenada("Introduzca las coordenadas de la casilla deseada: " +'\n' + "Coordenada x : ");
+		Integer coorY = lecturaCoordenada("Coordenada y : ");
 		coordenadas.add(coorX);
 		coordenadas.add(coorY);
 		return coordenadas;
 	}
 
+	public static int lecturaCoordenada(String mensaje) {
+		boolean correcto = false;
+		int coordenada = -1;
+
+		while (!correcto) {
+			System.out.println(mensaje);
+			try {
+				coordenada = teclado.nextInt();
+				if (coordenada >= 0 && coordenada <= 9) {
+					correcto = true;
+				} else {
+					System.out.println("Introduzca una coordenada entre 0 y 9.");
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Entrada inválida. Por favor, introduzca un número.");
+				teclado.next(); // limpia el valor incorrecto del buffer
+			}
+		}
+		return coordenada;
+	}
+
 	@Override
 	public boolean pedirDecision() {
 		boolean decision = false;
-		String respuesta = Utilidades.lecturaDecision("Si desea contraatacar escriba 'Si', en caso contrario 'No'." + '\n' + "Respuesta: ");
+		String respuesta = lecturaDecision("Si desea contraatacar escriba 'Si', en caso contrario 'No'." + '\n' + "Respuesta: ");
 		if (respuesta.equalsIgnoreCase("Si") || respuesta.equalsIgnoreCase("Sí")){
 			decision = true;
 		}
 		return decision;
 	}
 
+	public static String lecturaDecision(String mensaje) {
+		boolean correcto = false;
+		String respuesta = "";
+
+		while (!correcto) {
+			System.out.println(mensaje);
+			try {
+				respuesta = teclado.nextLine().trim();
+
+				if (respuesta.equalsIgnoreCase("Si") ||
+						respuesta.equalsIgnoreCase("Sí") ||
+						respuesta.equalsIgnoreCase("No")) {
+					correcto = true;
+				} else {
+					System.out.println("Escriba una respuesta válida (Si o No).");
+				}
+
+			} catch (NoSuchElementException | IllegalStateException e) {
+				System.out.println("Error al leer la entrada");
+			}
+		}
+
+		return respuesta;
+	}
+
 	@Override
 	public int pedirFila() {
-		int fila = Utilidades.lecturaCoordenada("Introduzca la fila que quiere revelar: ");
+		int fila = lecturaCoordenada("Introduzca la fila que quiere revelar: ");
 		return fila;
 	}
 
@@ -128,5 +173,10 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
 
 	public void setControladorPartida(IControladorPartida controladorPartida) {
 		this.controladorPartida = controladorPartida;
+	}
+
+	@Override
+	public void imprimir(String msg) {
+		System.out.println(msg);
 	}
 }

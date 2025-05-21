@@ -2,8 +2,7 @@ package org.example.Dato.Barcos;
 
 import org.example.Dato.Casilla;
 import org.example.Dato.Partida.Tablero;
-import org.example.Utilidades;
-import org.example.Vistas.IVistaAtacable;
+import org.example.Logica.ControladorPartida;
 
 import java.util.List;
 
@@ -18,12 +17,12 @@ public class Patrullero extends Barco {
 	}
 
 	@Override
-	public void habilidad(Tablero tableroEnemigo, IVistaAtacable vistaPartida) {
-		int fila = vistaPartida.pedirFila();
+	public void habilidad(Tablero tableroEnemigo) {
+		int fila = ControladorPartida.getInstancia().getVistaAtacable().pedirFila();
 		for (int j = 0; j<tableroEnemigo.getNumColumnas();j++){
 			tableroEnemigo.getTablero()[fila][j].setEstadoVisibilidad(true);
 		}
-		Utilidades.imprimir("Se ha revelado la fila " + fila);
+		ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha revelado la fila " + fila);
 	}
 
 	@Override

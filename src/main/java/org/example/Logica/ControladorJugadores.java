@@ -68,7 +68,7 @@ public class ControladorJugadores implements IControladorJugadores{
         return correcto;
     }
 
-    public Maquina crearMaquina(){
+    public Maquina crearMaquina() throws ModelException{
         Random random = new Random(System.currentTimeMillis());
         String nombre = "Maquina_FACIL" + random;
         Maquina maquina = new Maquina(nombre);
