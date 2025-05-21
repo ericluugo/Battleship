@@ -3,6 +3,7 @@ package org.example.Logica;
 import org.example.Dato.Jugadores.Jugador;
 import org.example.Dato.Jugadores.JugadorHumano;
 import org.example.Dato.Jugadores.Maquina;
+import org.example.ModelException;
 import org.example.Vistas.IVistaJugadores;
 import servidor.ObtencionDeRol;
 
@@ -21,7 +22,7 @@ public class ControladorJugadores implements IControladorJugadores{
 
 
     @Override
-    public JugadorHumano darAlta(String email, String nombre, String contrasenia) {
+    public JugadorHumano darAlta (String email, String nombre, String contrasenia) throws ModelException {
         boolean esAdmin= !ObtencionDeRol.get_UPM_AccountRol(email).equals("ALUMNO");
         JugadorHumano jugador = new JugadorHumano(nombre, email, contrasenia, esAdmin);
         listaJugadores.add(jugador);
@@ -65,13 +66,16 @@ public class ControladorJugadores implements IControladorJugadores{
         return correcto;
     }
 
-    public void crearMaquina(){
-        StringBuilder st = new StringBuilder("Maquina_FACIL");
+    public Maquina crearMaquina(){
         Random random = new Random(System.currentTimeMillis());
-        st.append(random);
-        Maquina maquina = new Maquina(st.toString());
+        String nombre = "Maquina_FACIL" + random;
+        Maquina maquina = new Maquina(nombre);
         listaJugadores.add(maquina);
+        return maquina;
     }
+
+
+
 
     public List<Jugador> getListaJugadores() {
         return listaJugadores;

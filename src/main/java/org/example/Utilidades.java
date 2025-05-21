@@ -59,7 +59,7 @@ public final class Utilidades {
         do {
            System.out.println(s);
             string = keyboard.nextLine();
-        } while (string==null);
+        } while (string.isEmpty());
 
 
         return string;
@@ -83,5 +83,8 @@ public final class Utilidades {
             }
         }
         return numero;
+    }
+    public static void imprimir(String string){
+        System.out.println(string);
     }
 }

@@ -8,15 +8,14 @@ import java.util.List;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
 
-public class VistaPartida implements IVistaPartida {
+public class VistaPartida implements IVistaAtacable, IVistaPartida {
 
 	private IControladorPartida controladorPartida;
 
 	public VistaPartida() {}
 
-	public void mostarPuntuaciones(IControladorPartida controladorPartida){
+	public void mostarPuntuaciones(){
 
 	}
 

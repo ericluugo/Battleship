@@ -23,18 +23,18 @@ public class VistaJugadores implements IVistaJugadores{
        String email = Utilidades.leerCadena("Introduzca su email ");
 
        if (iControladorJugadores.comprobarEmail(email)){
-           System.out.println("Ya esta registrado con este email, inicie Sesion");
+           Utilidades.imprimir("Ya esta registrado con este email, inicie Sesion");
            nuevoJugador = false;
 
            //Comprobar que se usuario de la UPM
        } else if(!Autenticacion.existeCuentaUPMStatic(email)){
-           System.out.println("Este email no pertenece a la UPM, no se puede registrar");
+           Utilidades.imprimir("Este email no pertenece a la UPM, no se puede registrar");
            nuevoJugador = false;
        } else{
            //Si esta todo correcto
             String contrasenia = Utilidades.leerCadena("Introduzca su contraseña: ");
             JugadorHumano jugador = iControladorJugadores.darAlta(email, nombre, contrasenia);
-            System.out.println("Ha iniciado sesion correctamente. ");
+            Utilidades.imprimir("Ha iniciado sesion correctamente. ");
             this.jugadorLogueado = jugador;
        }
        return nuevoJugador;
@@ -49,36 +49,36 @@ public class VistaJugadores implements IVistaJugadores{
 
         //Comprobar si hay un jugador que ya exista que tenga este email
         if (!controladorJugadores.comprobarEmail(email)){
-            System.out.println("No hay un jugador registrado con este email, debe darse de alta primero");
+            Utilidades.imprimir("No hay un jugador registrado con este email, debe darse de alta primero");
         }else {
             //Comprobar contraseña
             String contrasenia = Utilidades.leerCadena("Introduce la contraseña: ");
             if (!controladorJugadores.comprobarContrasenia(email, contrasenia)){
-                System.out.println("Contraseña incorrecta. ");
+                Utilidades.imprimir("Contraseña incorrecta. ");
             } else {
                 this.jugadorLogueado =controladorJugadores.iniciarSesion(email, contrasenia);
-                if (this.jugadorLogueado==null) System.out.println("Ha ocurrido un error al iniciar sesion. ");
+                if (this.jugadorLogueado==null) Utilidades.imprimir("Ha ocurrido un error al iniciar sesion. ");
                 else {
                     sesionIniciada=true;
-                    System.out.println("Ha iniciado sesion correctamente. ");
+                    Utilidades.imprimir("Ha iniciado sesion correctamente. ");
                 }
             }
         }
         return sesionIniciada;
     }
 
-    public boolean darBaja(IControladorJugadores iControladorJugadores){
+    public boolean darBaja(){
         boolean darBaja= false;
         if (jugadorLogueado != null) {
-            darBaja = iControladorJugadores.darBaja(jugadorLogueado);
+            darBaja = controladorJugadores.darBaja(jugadorLogueado);
             if (darBaja) {
                 this.jugadorLogueado = null;
-                System.out.println("Se ha dado de baja correctamente.");
+                Utilidades.imprimir("Se ha dado de baja correctamente.");
             } else {
-                System.out.println("Error al dar de baja.");
+                Utilidades.imprimir("Error al dar de baja.");
             }
         } else {
-            System.out.println("No hay ningún jugador logueado.");
+          Utilidades.imprimir("No hay ningún jugador logueado.");
         }
         return darBaja;
     }

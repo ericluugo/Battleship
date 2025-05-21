@@ -2,7 +2,7 @@ package org.example.Dato.Barcos;
 
 import org.example.Dato.Casilla;
 import org.example.Dato.Partida.Tablero;
-import org.example.Vistas.IVistaPartida;
+import org.example.Vistas.IVistaAtacable;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public abstract class Barco{
 		this.vivo = true;
 	}
 
-	public abstract void habilidad(Tablero tableroEnemigo, IVistaPartida vistaPartida);
+	public abstract void habilidad(Tablero tableroEnemigo, IVistaAtacable vistaPartida);
 
 	public abstract boolean habilidadDisponible();
 

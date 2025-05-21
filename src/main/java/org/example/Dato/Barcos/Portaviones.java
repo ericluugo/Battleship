@@ -2,7 +2,7 @@ package org.example.Dato.Barcos;
 
 import org.example.Dato.Casilla;
 import org.example.Dato.Partida.Tablero;
-import org.example.Vistas.IVistaPartida;
+import org.example.Vistas.IVistaAtacable;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class Portaviones extends Barco {
 
 
 	@Override
-	public void habilidad(Tablero tableroEnemigo, IVistaPartida vistaPartida) {
+	public void habilidad(Tablero tableroEnemigo, IVistaAtacable vistaPartida) {
 		List<Integer> coordenadas = vistaPartida.pedirCasilla();
 		Barco atacado = tableroEnemigo.recibirCoordenadas(coordenadas);
 		vistaPartida.imprimirResultadoContraataque(atacado);

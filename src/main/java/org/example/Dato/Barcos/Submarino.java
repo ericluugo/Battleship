@@ -2,7 +2,7 @@ package org.example.Dato.Barcos;
 
 import org.example.Dato.Casilla;
 import org.example.Dato.Partida.Tablero;
-import org.example.Vistas.IVistaPartida;
+import org.example.Vistas.IVistaAtacable;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class Submarino extends Barco {
 	}
 
 	@Override
-	public void habilidad(Tablero tableroEnemigo, IVistaPartida vistaPartida) {
+	public void habilidad(Tablero tableroEnemigo, IVistaAtacable vistaPartida) {
 		for (Casilla casilla : getCasillas()){
 			casilla.setEstadoImpactado(false);
 			casilla.setEstadoVisibilidad(false);

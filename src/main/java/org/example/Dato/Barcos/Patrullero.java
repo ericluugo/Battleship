@@ -2,7 +2,7 @@ package org.example.Dato.Barcos;
 
 import org.example.Dato.Casilla;
 import org.example.Dato.Partida.Tablero;
-import org.example.Vistas.IVistaPartida;
+import org.example.Vistas.IVistaAtacable;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class Patrullero extends Barco {
 	}
 
 	@Override
-	public void habilidad(Tablero tableroEnemigo, IVistaPartida vistaPartida) {
+	public void habilidad(Tablero tableroEnemigo, IVistaAtacable vistaPartida) {
 		int fila = vistaPartida.pedirFila();
 		for (int j = 0; j<tableroEnemigo.getNumColumnas();j++){
 			getSuTablero().getTablero()[fila][j].setEstadoVisibilidad(true);

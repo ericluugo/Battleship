@@ -2,7 +2,7 @@ package org.example.Dato.Barcos;
 
 import org.example.Dato.Casilla;
 import org.example.Dato.Partida.Tablero;
-import org.example.Vistas.IVistaPartida;
+import org.example.Vistas.IVistaAtacable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +18,7 @@ public class Acorazado extends Barco {
 	}
 
 	@Override
-	public void habilidad(Tablero tableroEnemigo, IVistaPartida vistaPartida) {
+	public void habilidad(Tablero tableroEnemigo, IVistaAtacable vistaPartida) {
 		List<Integer> coordenadas = vistaPartida.pedirCasilla();
 		int fila = coordenadas.get(0);
 		int columna = coordenadas.get(1);

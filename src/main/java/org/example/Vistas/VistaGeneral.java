@@ -3,7 +3,6 @@ package org.example.Vistas;
 import org.example.Dato.Jugadores.IJugable;
 import org.example.Logica.ControladorJugadores;
 import org.example.Logica.ControladorPartida;
-import org.example.Logica.IControladorPartida;
 import org.example.Utilidades;
 
 public class VistaGeneral {
@@ -19,6 +18,7 @@ public class VistaGeneral {
         controladorJugadores = new ControladorJugadores();
         controladorPartida = new ControladorPartida();
         vistaPartida.setControladorPartida(controladorPartida);
+        controladorPartida.setVistaAtacable(vistaPartida);
         controladorPartida.setVistaPartida(vistaPartida);
         vistaJugadores.setControladorJugadores(controladorJugadores);
         controladorJugadores.setVistaJugadores(vistaJugadores);
@@ -32,19 +32,27 @@ public class VistaGeneral {
         return instancia;
     }
     public void programa(){
-        System.out.println("Bienvenido al sistema de juego Battleship");
-        publicSwitch();
+        boolean ejecucionCorrecta = false;
+       Utilidades.imprimir("Bienvenido al sistema de juego Battleship");
+       do {
+           try {
+               publicSwitch();
+               ejecucionCorrecta = true;
+           } catch (Exception e) {
+               Utilidades.imprimir("Ha ocurrido un error...");
+           }
+       }while(!ejecucionCorrecta);
+
     }
 
-    public void publicSwitch(){
+    public void publicSwitch()throws Exception{
         int opcion = 0;
         do {
-            System.out.println("\t\tGestor de Usuarios" +
+            Utilidades.imprimir("\t\tGestor de Usuarios" +
                     "----------------------------------------" +
                     "Inserte 1: Darse de Alta" +
                     "Inserte 2: Iniciar Sesión" +
-                    "Inserte 3: Darse de baja" +
-                    "Inserte 4: Exit");
+                    "Inserte 3: Exit");
             opcion = Utilidades.leerNumeroIntervalo("Introduzca el numero de la opcion deseada: ", 1, 4);
             switch (opcion) {
                 case 1: //alta
@@ -56,39 +64,38 @@ public class VistaGeneral {
                         switchPlayer();
                     }
                     break;
-                case 3: // dar de baja jugador
-                    vistaJugadores.darBaja(controladorJugadores);
-                    break;
-                case 4:
-                    System.out.println("Saliendo del sistema");
+                default:
                     break;
             }
-        }while (opcion !=4);
+        }while (opcion !=3);
     }
 
-    private void switchPlayer(){
-        if (vistaJugadores.getJugadorLogueado() != null){
+    private void switchPlayer() throws Exception{
+        if (vistaJugadores.getJugadorLogueado() != null){ // no hace falta
             int opcion = 0;
             do {
-                System.out.println("\t\tGestor de partidas" +
+                Utilidades.imprimir("\t\tGestor de partidas" +
                         "----------------------------------------" +
-                        "Inserte 1: Iniciar Partida" +
-                        "Inserte 2: Generar Puntuaciones" +
-                        "Inserte 3: Cerrar Sesión");
+                        "Inserte 1: Iniciar Partida\n" +
+                        "Inserte 2: Generar Puntuaciones\n" +
+                        "Inserte 3: Cerrar Sesión\n" +
+                        "Inserte 4: Darse de baja\n" );
                 opcion = Utilidades.leerNumeroIntervalo("Introduzca el numero de la opcion deseada: ", 1, 3);
                 switch (opcion) {
                     case 1: //iniciarPartida
                         IJugable first_player = vistaJugadores.getJugadorLogueado();
-                        IJugable second_player = vistaJugadores.getMaquina();// TODO: Esto hay que mejorarlo
+                        IJugable second_player = controladorJugadores.crearMaquina();// TODO: Esto hay que mejorarlo
                         controladorPartida.iniciarPartida(first_player, second_player);
                         break;
                     case 2: // generarPuntuaciones
-                        vistaPartida.mostarPuntuaciones(controladorPartida);
+                        vistaPartida.mostarPuntuaciones();
                         break;
                     case 3:// Cerrar sesión
-                        System.out.println("Cerrando sesión");
+                       Utilidades.imprimir("Cerrando sesión");
                         vistaJugadores.setJugadorLogueado(null);
                         break;
+                    case 4 : //darse de baja
+                        vistaJugadores.darBaja();
                 }
             }while (opcion !=3);
         }

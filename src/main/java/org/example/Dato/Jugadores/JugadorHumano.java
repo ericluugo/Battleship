@@ -1,6 +1,8 @@
 package org.example.Dato.Jugadores;
 
-import org.example.Vistas.IVistaPartida;
+import org.example.ModelException;
+import org.example.Validaciones;
+import org.example.Vistas.IVistaAtacable;
 
 import java.util.List;
 
@@ -10,14 +12,15 @@ public class JugadorHumano extends Jugador {
 	private String email;
 	private String contrasenia;
 	private boolean esAdmin;
-	public JugadorHumano(String nombre, String email, String contrasenia, boolean esAdmin) {
+	public JugadorHumano(String nombre, String email, String contrasenia, boolean esAdmin) throws ModelException {
 		super(nombre);
 		this.email = email;
+		setContrasenia(contrasenia);
 		this.contrasenia = contrasenia;
 		this.esAdmin = esAdmin;
 	}
 	@Override
-	public List<Integer> seleccionarCasilla(IVistaPartida vistaPartida) {
+	public List<Integer> seleccionarCasilla(IVistaAtacable vistaPartida) {
 		return vistaPartida.pedirCasilla();
 	}
 	@Override
@@ -26,7 +29,7 @@ public class JugadorHumano extends Jugador {
 	}
 
 	@Override
-	public boolean decisionHabilidad(IVistaPartida vistaPartida) {
+	public boolean decisionHabilidad(IVistaAtacable vistaPartida) {
 		return vistaPartida.pedirDecision();
 	}
 
@@ -39,7 +42,8 @@ public class JugadorHumano extends Jugador {
 	public String getContrasenia() {
 		return contrasenia;
 	}
-	public void setContrasenia(String contrasenia) {
+	public void setContrasenia(String contrasenia)throws ModelException {
+		Validaciones.checkStringInRange(6, 12, contrasenia, "nombre");
 		this.contrasenia = contrasenia;
 	}
 	public boolean isEsAdmin() {

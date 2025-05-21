@@ -1,6 +1,6 @@
 package org.example.Dato.Jugadores;
 
-import org.example.Vistas.IVistaPartida;
+import org.example.Vistas.IVistaAtacable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class Maquina extends Jugador {
 	}
 
 	@Override
-	public List<Integer> seleccionarCasilla(IVistaPartida vistaPartida) {
+	public List<Integer> seleccionarCasilla(IVistaAtacable vistaPartida) {
 		List<Integer> coordenadas = new ArrayList<>();
 		Random rand = new Random();
 		Integer coorX = rand.nextInt(10);
@@ -30,7 +30,7 @@ public class Maquina extends Jugador {
 	}
 
 	@Override
-	public boolean decisionHabilidad(IVistaPartida vistaPartida) {
+	public boolean decisionHabilidad(IVistaAtacable vistaPartida) {
 		return true;
 	}
 }
