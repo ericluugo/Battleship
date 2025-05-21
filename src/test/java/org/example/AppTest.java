@@ -21,7 +21,7 @@ public class AppTest
         super( testName );
     }
 
-    public void testCorrecto() throws ModelException
+    public void testCorrecto() throws Exception
     {
         //CP1, nombre 3 caracteres y contrasenia de 6
         JugadorHumano jugadorHumano = controladorJugadores.darAlta("cristian@alumnos.upm.es", "Nom", "123456", false);
@@ -30,7 +30,7 @@ public class AppTest
         assertEquals("123456", jugadorHumano.getContrasenia());
 
     }
-    public void testCorrecto2() throws ModelException
+    public void testCorrecto2() throws Exception
     {
         //CP2 nombre de 10 caracteres y contrasenia de 12 
         JugadorHumano jugadorHumano = controladorJugadores.darAlta("cristian@alumnos.upm.es", "Cristian10", "123456789123", false);
@@ -39,7 +39,7 @@ public class AppTest
         assertEquals("123456789123", jugadorHumano.getContrasenia());
     }
 
-    public void testEmail() throws ModelException {
+    public void testEmail() throws Exception {
     //CP3 el email es errornero
         String emailInvalido = "cristian@gmail.com" ;
         JugadorHumano jugadorHumano = controladorJugadores.darAlta(emailInvalido, "Nom", "123456", false);
@@ -47,28 +47,28 @@ public class AppTest
         assertEquals("Nombrede10", jugadorHumano.getNombre());
         assertEquals("123456", jugadorHumano.getContrasenia());
     }
-    public void testNombre1() throws ModelException {
+    public void testNombre1() throws Exception {
         //CP4 el nombre tiene 2 caracteres
         JugadorHumano jugadorHumano = controladorJugadores.darAlta("cristian@alumnos.upm.es", "yo", "123456", false);
         assertEquals("cristian@alumnos.upm.es", jugadorHumano.getEmail());
         assertEquals("Yo", jugadorHumano.getNombre());
         assertEquals("123456", jugadorHumano.getContrasenia());
     }
-    public void testNombre2() throws ModelException {
+    public void testNombre2() throws Exception {
        //CP5 el nombre tiene 11 caracteres
         JugadorHumano jugadorHumano = controladorJugadores.darAlta("cristian@alumnos.upm.es", "Cristian11c", "123456", false);
         assertEquals("cristian@alumnos.upm.es", jugadorHumano.getEmail());
         assertEquals("Cristian11c", jugadorHumano.getNombre());
         assertEquals("123456", jugadorHumano.getContrasenia());
     }
-    public void testContrasenia1() throws ModelException {
+    public void testContrasenia1() throws Exception {
         //CP6 Contrasenia con 5 ca
        JugadorHumano jugadorHumano = controladorJugadores.darAlta("cristian@alumnos.upm.es", "Nom", "12345", false);
         assertEquals("cristian@alumnos.upm.es", jugadorHumano.getEmail());
         assertEquals("Yo", jugadorHumano.getNombre());
         assertEquals("123456", jugadorHumano.getContrasenia());
     }
-    public void testContrasenia2() throws ModelException {
+    public void testContrasenia2() throws Exception {
         //CP7 Contrasenia con 13 caracteres
         JugadorHumano jugadorHumano = controladorJugadores.darAlta("cristian@alumnos.upm.es", "Cristian", "1234567891234", false);
         assertEquals("cristian@alumnos.upm.es", jugadorHumano.getEmail());

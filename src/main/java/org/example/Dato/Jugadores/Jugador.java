@@ -1,6 +1,4 @@
 package org.example.Dato.Jugadores;
-
-import org.example.ModelException;
 import org.example.Validaciones;
 import org.example.Vistas.IVistaAtacable;
 
@@ -10,7 +8,7 @@ public abstract class Jugador implements IJugable {
 	
 	private String nombre;
 
-	public Jugador(String nombre) throws ModelException{
+	public Jugador(String nombre) throws Exception{
 		setNombre(nombre);
 	}
 
@@ -27,8 +25,8 @@ public abstract class Jugador implements IJugable {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) throws ModelException {
-		Validaciones.checkString(nombre, "nombre");
+	public void setNombre(String nombre) throws Exception {
+		Validaciones.checkStringInRange(3, 10, nombre, "nombre");
 		this.nombre = nombre;
 	}
 

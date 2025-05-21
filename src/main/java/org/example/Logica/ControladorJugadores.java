@@ -3,8 +3,8 @@ package org.example.Logica;
 import org.example.Dato.Jugadores.Jugador;
 import org.example.Dato.Jugadores.JugadorHumano;
 import org.example.Dato.Jugadores.Maquina;
-import org.example.ModelException;
 import org.example.Vistas.IVistaJugadores;
+import servidor.Autenticacion;
 import servidor.ObtencionDeRol;
 
 import java.util.ArrayList;
@@ -22,10 +22,19 @@ public class ControladorJugadores implements IControladorJugadores{
 
 
     @Override
-    public JugadorHumano darAlta (String email, String nombre, String contrasenia, boolean esAdmin) throws ModelException {
-        JugadorHumano jugador = new JugadorHumano(nombre, email, contrasenia, esAdmin);
+    public JugadorHumano darAlta (String email, String nombre, String contrasenia, boolean esAdmin) throws Exception {
+        JugadorHumano jugador=null;
+        //Comprobar que no hay alguien ya registrado con este email
+        if (comprobarEmail(email)){
+            vistaJugadores.imprimir("Ya esta registrado con este email, inicie Sesion");
+            //Comprobar que se usuario de la UPM
+        } else if(!Autenticacion.existeCuentaUPMStatic(email)){
+            vistaJugadores.imprimir("Este email no pertenece a la UPM, no se puede registrar");
+        } else{
+        jugador = new JugadorHumano(nombre, email, contrasenia, esAdmin);
+        vistaJugadores.imprimir("Ha iniciado sesion correctamente. ");
         listaJugadores.add(jugador);
-        return jugador;
+        } return jugador;
     }
 
 
@@ -68,7 +77,7 @@ public class ControladorJugadores implements IControladorJugadores{
         return correcto;
     }
 
-    public Maquina crearMaquina() throws ModelException{
+    public Maquina crearMaquina() {
         Random random = new Random(System.currentTimeMillis());
         String nombre = "Maquina_FACIL" + random;
         Maquina maquina = new Maquina(nombre);
