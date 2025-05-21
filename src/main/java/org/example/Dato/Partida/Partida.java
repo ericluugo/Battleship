@@ -16,7 +16,7 @@ public class Partida {
 	private int puntosJugador1;
 	private int puntosJugador2;
 	private IJugable ganador;
-	private boolean turno;
+	private boolean turnoJugador1;
 	private final int MAX_FILAS = 10;
 	private final int MAX_COLUMNAS = 10;
 
@@ -26,13 +26,13 @@ public class Partida {
 		this.jugador2 = jugador2;
 		this.tablero1 = new Tablero(MAX_FILAS,MAX_COLUMNAS);
 		this.tablero2 = new Tablero(MAX_FILAS,MAX_COLUMNAS);
-		this.turno = true;
+		this.turnoJugador1 = true;
 	}
 
 	public boolean verificarFinPartida(){
 		boolean finPartida = false;
 		if (tablero1.todosBarcosMuertos()&&tablero2.todosBarcosMuertos()){
-			if (turno){
+			if (turnoJugador1){
 				setGanador(jugador1);
 			}else setGanador(jugador2);
 			finPartida = true;
@@ -50,14 +50,14 @@ public class Partida {
 	}
 
 	public void inicializarPartida(){
-		FactoriaBarcos.crearBarco("Portaviones",tablero1,tablero1.colocacionBarcos(4));
-		FactoriaBarcos.crearBarco("Portaviones",tablero2,tablero1.colocacionBarcos(4));
-		FactoriaBarcos.crearBarco("Acorazado",tablero1,tablero1.colocacionBarcos(3));
-		FactoriaBarcos.crearBarco("Acorazado",tablero2,tablero1.colocacionBarcos(3));
-		FactoriaBarcos.crearBarco("Submarino",tablero1,tablero1.colocacionBarcos(3));
-		FactoriaBarcos.crearBarco("Submarino",tablero2,tablero1.colocacionBarcos(3));
-		FactoriaBarcos.crearBarco("Patrullero",tablero1,tablero1.colocacionBarcos(2));
-		FactoriaBarcos.crearBarco("Patrullero",tablero2,tablero2.colocacionBarcos(2));
+		FactoriaBarcos.crearBarco("Portaviones",tablero1.colocacionBarcos(4));
+		FactoriaBarcos.crearBarco("Portaviones",tablero2.colocacionBarcos(4));
+		FactoriaBarcos.crearBarco("Acorazado",tablero1.colocacionBarcos(3));
+		FactoriaBarcos.crearBarco("Acorazado",tablero2.colocacionBarcos(3));
+		FactoriaBarcos.crearBarco("Submarino",tablero1.colocacionBarcos(3));
+		FactoriaBarcos.crearBarco("Submarino",tablero2.colocacionBarcos(3));
+		FactoriaBarcos.crearBarco("Patrullero",tablero1.colocacionBarcos(2));
+		FactoriaBarcos.crearBarco("Patrullero",tablero2.colocacionBarcos(2));
 	}
 
 	public void cambiarTurno(){
@@ -136,11 +136,28 @@ public class Partida {
 		this.ganador = ganador;
 	}
 
+	public int getPuntosGanador(){
+		int res = 0;
+		IJugable jugador = getGanador();
+		if (jugador1 == jugador){
+			res = puntosJugador1;
+		}else{
+			res = puntosJugador2;
+		}
+		return res;
+	}
+
 	public boolean isTurno() {
-		return turno;
+		return turnoJugador1;
 	}
 
 	public void setTurno(boolean turno) {
-		this.turno = turno;
+		this.turnoJugador1 = turno;
+	}
+
+	public String toString(){
+		String line;
+		line = "Partida "+jugador1+" vs "+jugador2+" ("+fechaInicio+" to "+fechaFin+")";
+		return line;
 	}
 }

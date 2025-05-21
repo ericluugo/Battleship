@@ -61,6 +61,7 @@ public class Tablero {
 			while(index<barco.getCasillas().size() && barcoImpactado == null){
 				if (barco.getCasillas().get(index).getFila() == coordenadas.get(0) && barco.getCasillas().get(index).getColumna() == coordenadas.get(1)) {
 					barcoImpactado = barco;
+					barco.isBarcoMuerto();
 				}
 				index++;
 			}
@@ -70,7 +71,7 @@ public class Tablero {
 
 	public boolean todosBarcosMuertos() {
 		for (Barco barco : barcos) {
-			if (barco.isVivo()) {
+			if (barco.isVivo()){
 				return false;
 			}
 		}

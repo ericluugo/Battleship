@@ -22,8 +22,7 @@ public class ControladorJugadores implements IControladorJugadores{
 
 
     @Override
-    public JugadorHumano darAlta (String email, String nombre, String contrasenia) throws ModelException {
-        boolean esAdmin= !ObtencionDeRol.get_UPM_AccountRol(email).equals("ALUMNO");
+    public JugadorHumano darAlta (String email, String nombre, String contrasenia, boolean esAdmin) throws ModelException {
         JugadorHumano jugador = new JugadorHumano(nombre, email, contrasenia, esAdmin);
         listaJugadores.add(jugador);
         return jugador;
@@ -31,7 +30,10 @@ public class ControladorJugadores implements IControladorJugadores{
 
 
     public boolean darBaja(JugadorHumano jugadorHumano) {
-        return listaJugadores.remove(jugadorHumano);
+        if (!jugadorHumano.isEsAdmin()) {
+            return listaJugadores.remove(jugadorHumano);
+        }
+        return false;
     }
 
     @Override

@@ -10,4 +10,7 @@ public interface IControladorPartida {
 
     public void iniciarPartida(IJugable jugador1,IJugable jugador2);
 
+    public String getPuntuacionesGlobal();
+
+    public String getPuntuacionesJugador(IJugable jugador);
 }

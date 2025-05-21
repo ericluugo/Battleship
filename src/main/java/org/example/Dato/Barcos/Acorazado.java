@@ -2,6 +2,7 @@ package org.example.Dato.Barcos;
 
 import org.example.Dato.Casilla;
 import org.example.Dato.Partida.Tablero;
+import org.example.Utilidades;
 import org.example.Vistas.IVistaAtacable;
 
 import java.util.Arrays;
@@ -12,8 +13,8 @@ public class Acorazado extends Barco {
 	private int numAtaquesDisponibles;
 	private final int NUM_ATAQUE_MAX = 2;
 
-	public Acorazado(String nombre, int numCasillas, Tablero suTablero, List<Casilla> casillas) {
-		super(nombre, numCasillas, suTablero, casillas);
+	public Acorazado(String nombre, int numCasillas, List<Casilla> casillas) {
+		super(nombre, numCasillas, casillas);
 		this.numAtaquesDisponibles = NUM_ATAQUE_MAX;
 	}
 
@@ -37,8 +38,10 @@ public class Acorazado extends Barco {
 			List<Integer> coordenadaActual = coordenadasVecinas.get(index);
 			if ((coordenadaActual.get(0)>= 0 && coordenadaActual.get(0)<=9) && (coordenadaActual.get(1)>= 0 && coordenadaActual.get(1)<=9)){
 				Barco atacado = tableroEnemigo.recibirCoordenadas(coordenadaActual);
-				vistaPartida.imprimirCasillaAtacada(coordenadaActual);
-				vistaPartida.imprimirResultadoContraataque(atacado);
+				Utilidades.imprimir("Se ha atacado la casilla : ["+coordenadaActual.get(0)+"]["+coordenadaActual.get(1)+"]");
+				if (atacado == null){
+					Utilidades.imprimir("El ataque ha fallado");
+				}else Utilidades.imprimir("El ataque ha acertado");
 			}
 		}
 	}

@@ -2,8 +2,10 @@ package org.example.Vistas;
 
 import org.example.Dato.Jugadores.JugadorHumano;
 import org.example.Logica.IControladorJugadores;
+import org.example.ModelException;
 import org.example.Utilidades;
 import servidor.Autenticacion;
+import servidor.ObtencionDeRol;
 
 import java.util.Scanner;
 
@@ -17,23 +19,22 @@ public class VistaJugadores implements IVistaJugadores{
 
     }
 
-    public boolean solicitudDatosAlta(IControladorJugadores iControladorJugadores){
+    public boolean solicitudDatosAlta() throws ModelException {
         boolean nuevoJugador = true;
         String nombre = Utilidades.leerCadena("Introduzca su nombre: ");
        String email = Utilidades.leerCadena("Introduzca su email ");
 
-       if (iControladorJugadores.comprobarEmail(email)){
+       if (controladorJugadores.comprobarEmail(email)){
            Utilidades.imprimir("Ya esta registrado con este email, inicie Sesion");
            nuevoJugador = false;
-
            //Comprobar que se usuario de la UPM
        } else if(!Autenticacion.existeCuentaUPMStatic(email)){
            Utilidades.imprimir("Este email no pertenece a la UPM, no se puede registrar");
            nuevoJugador = false;
        } else{
-           //Si esta todo correcto
+           //Si esta todo correcto compruebo el rol
             String contrasenia = Utilidades.leerCadena("Introduzca su contraseña: ");
-            JugadorHumano jugador = iControladorJugadores.darAlta(email, nombre, contrasenia);
+            JugadorHumano jugador = controladorJugadores.darAlta(email, nombre, contrasenia, false);
             Utilidades.imprimir("Ha iniciado sesion correctamente. ");
             this.jugadorLogueado = jugador;
        }
@@ -43,6 +44,7 @@ public class VistaJugadores implements IVistaJugadores{
     public JugadorHumano getJugadorLogueado() {
         return jugadorLogueado;
     }
+
     public boolean iniciarSesion(){
         boolean sesionIniciada= false;
         String email = Utilidades.leerCadena("Introduce su email: ");

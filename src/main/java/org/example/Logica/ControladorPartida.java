@@ -7,18 +7,25 @@ import org.example.Dato.Partida.Partida;
 import org.example.Dato.Partida.Tablero;
 import org.example.Vistas.IVistaAtacable;
 import org.example.Vistas.IVistaPartida;
+import org.example.Vistas.VistaGeneral;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ControladorPartida implements IControladorPartida {
-
+    private static ControladorPartida instancia;
     private List<Partida> partidas;
     private IVistaAtacable vistaAtacable;
     private IVistaPartida vistaPartida;
 
-    public ControladorPartida() {
+    private ControladorPartida() {
         this.partidas = new ArrayList<>();
+    }
+
+    public static ControladorPartida getInstancia() {
+        if (instancia == null) {
+            instancia = new ControladorPartida();
+        }
+        return instancia;
     }
 
     public Partida crearPartida(IJugable jugador1, IJugable jugador2) {
@@ -29,6 +36,31 @@ public class ControladorPartida implements IControladorPartida {
     @Override
     public String generarPuntuaciones(Partida partida) {
         return null;
+    }
+
+    public String getPuntuacionesGlobal(){
+        String line = "";
+        List<Partida> sortedPartidas = new LinkedList<>(partidas);
+        sortedPartidas.sort(Comparator.comparingDouble(Partida::getPuntosGanador));
+        for (int i = 0; i<10; i++){
+            line += partidas.get(i).toString()+"\n";
+        }
+        return line;
+    }
+
+    public String getPuntuacionesJugador(IJugable jugador){
+        String line = "";
+        List<Partida> listaPartidasJugador = new LinkedList<>();
+        for(Partida partida:partidas){
+            if (partida.getJugador1()==jugador || partida.getJugador2()==jugador){
+                listaPartidasJugador.add(partida);
+            }
+        }
+        listaPartidasJugador.sort(Comparator.comparingDouble(Partida::getPuntosGanador));
+        for (Partida partida:listaPartidasJugador){
+            line += partida.toString()+"\n";
+        }
+        return line;
     }
 
     @Override
@@ -90,51 +122,51 @@ public class ControladorPartida implements IControladorPartida {
     public void jugarPartida(Partida partida) {
         Partida partidaEnJuego = partida;
         //Bienvenida
-        vistaAtacable.imprimirBienvenida();
+        vistaPartida.imprimirBienvenida();
         // Partida iniciada : IJugable vs IJugable
-        vistaAtacable.imprimirRivalidad(partidaEnJuego.getJugador1().getId(),partidaEnJuego.getJugador2().getId());
+        vistaPartida.imprimirRivalidad(partidaEnJuego.getJugador1().getId(),partidaEnJuego.getJugador2().getId());
         while (!partidaEnJuego.verificarFinPartida()){
             if (partidaEnJuego.isTurno()){
                 // turno jugador1
-                vistaAtacable.imprimirTurno(partidaEnJuego.getJugador1().getId());
+                vistaPartida.imprimirTurno(partidaEnJuego.getJugador1().getId());
                 // imprimir tableros
                 generarTableros(partidaEnJuego);
                 List<Integer> coordenadasAtacar = partida.getJugador1().seleccionarCasilla(vistaAtacable);
                 Barco atacado = atacar(partidaEnJuego.getTablero2(),partidaEnJuego.getJugador1(),coordenadasAtacar);
-                vistaAtacable.imprimirCasillaAtacada(coordenadasAtacar);
+                vistaPartida.imprimirCasillaAtacada(coordenadasAtacar);
                 // imprimir por pantalla FALLO o Acierto y casilla atacada
                 if (atacado != null && atacado.habilidadDisponible()){
-                    vistaAtacable.imprimirObjetoImpacto(atacado.getNombre());
+                    vistaPartida.imprimirObjetoImpacto(atacado.getNombre());
                     if (partidaEnJuego.getJugador1().decisionHabilidad(vistaAtacable)){
                         atacado.habilidad(partidaEnJuego.getTablero2(), vistaAtacable);
                     }
                 }
-                vistaAtacable.imprimirObjetoImpacto("");
+                vistaPartida.imprimirObjetoImpacto("");
             }else {
                 // turno jugador2
-                vistaAtacable.imprimirTurno(partidaEnJuego.getJugador2().getId());
+                vistaPartida.imprimirTurno(partidaEnJuego.getJugador2().getId());
                 //imprimir tableros
                 generarTableros(partidaEnJuego);
                 List<Integer> coordenadasAtacar = partida.getJugador2().seleccionarCasilla(vistaAtacable);
                 Barco atacado = atacar(partidaEnJuego.getTablero1(),partidaEnJuego.getJugador2(),coordenadasAtacar);
                 // imprimir por pantalla FALLO o Acierto y casilla atacada
-                vistaAtacable.imprimirCasillaAtacada(coordenadasAtacar);
+                vistaPartida.imprimirCasillaAtacada(coordenadasAtacar);
                 if (atacado != null && atacado.habilidadDisponible()){
                         // imprimir por pantalla Tipo barco pegado
-                    vistaAtacable.imprimirObjetoImpacto(atacado.getNombre());
+                    vistaPartida.imprimirObjetoImpacto(atacado.getNombre());
                     if (partidaEnJuego.getJugador2().decisionHabilidad(vistaAtacable)){
                             atacado.habilidad(partidaEnJuego.getTablero1(), vistaAtacable);
                     }
                 }
-                vistaAtacable.imprimirObjetoImpacto("");
+                vistaPartida.imprimirObjetoImpacto("");
             }
             partidaEnJuego.cambiarTurno();
         }
         finalizarPartida(partidaEnJuego);
         //imprimir puntuaciones
-        vistaAtacable.imprimirPuntuacion(partidaEnJuego.getJugador1().getId(),partidaEnJuego.getPuntosJugador1(),partidaEnJuego.getJugador2().getId(),partidaEnJuego.getPuntosJugador2());
+        vistaPartida.imprimirPuntuacion(partidaEnJuego.getJugador1().getId(),partidaEnJuego.getPuntosJugador1(),partidaEnJuego.getJugador2().getId(),partidaEnJuego.getPuntosJugador2());
         //imprimir ganador
-        vistaAtacable.imprimirGanador(partidaEnJuego.getGanador().getId());
+        vistaPartida.imprimirGanador(partidaEnJuego.getGanador().getId());
         partidas.add(partidaEnJuego);
     }
 

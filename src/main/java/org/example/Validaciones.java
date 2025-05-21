@@ -12,13 +12,6 @@ public class Validaciones {
             throw new ModelException("El parámetro '" + parameterName + "' debe tener entre " + min + " y " + max + " caracteres.");
         }
 
-        if (!value.matches(".*[a-z].*")) {
-            throw new ModelException("El parámetro '" + parameterName + "' debe contener al menos una letra minúscula.");
-        }
-
-        if (!value.matches(".*[A-Z].*")) {
-            throw new ModelException("El parámetro '" + parameterName + "' debe contener al menos una letra mayúscula.");
-        }
     }
 
 

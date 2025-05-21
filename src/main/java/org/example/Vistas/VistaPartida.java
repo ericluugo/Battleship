@@ -1,5 +1,7 @@
 package org.example.Vistas;
 
+import org.example.Dato.Jugadores.IJugable;
+import org.example.Dato.Jugadores.Jugador;
 import org.example.Logica.IControladorPartida;
 import org.example.Utilidades;
 
@@ -15,8 +17,14 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
 
 	public VistaPartida() {}
 
-	public void mostarPuntuaciones(){
+	public void mostrarPuntuacionesGlobal(){
+		String line = controladorPartida.getPuntuacionesGlobal();
+		System.out.println(line);
+	}
 
+	public void mostrarPuntuacionesJugador(IJugable jugador){
+		String line = controladorPartida.getPuntuacionesJugador(jugador);
+		System.out.println(line);
 	}
 
 	@Override
@@ -83,23 +91,6 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
 		if (nombreBarco.equals("")){
 			System.out.println("El ataque ha fallado");
 		}else System.out.println("El ataque ha impactdo a un "+ nombreBarco);
-	}
-
-	@Override
-	public void imprimirResultadoContraataque(Object object) {
-		if (object == null){
-			System.out.println("El ataque ha acertado");
-		}else System.out.println("El ataque ha fallado");
-	}
-
-	@Override
-	public void imprimirFilaRevelo(int fila) {
-		System.out.println("Se ha revelado la fila " + fila);
-	}
-
-	@Override
-	public void imprimirReparacion() {
-		System.out.println("Se ha reparado el Submarino");
 	}
 
 	@Override

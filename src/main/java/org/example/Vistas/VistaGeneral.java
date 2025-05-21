@@ -3,6 +3,7 @@ package org.example.Vistas;
 import org.example.Dato.Jugadores.IJugable;
 import org.example.Logica.ControladorJugadores;
 import org.example.Logica.ControladorPartida;
+import org.example.ModelException;
 import org.example.Utilidades;
 
 public class VistaGeneral {
@@ -16,12 +17,13 @@ public class VistaGeneral {
         vistaPartida = new VistaPartida();
         vistaJugadores = new VistaJugadores();
         controladorJugadores = new ControladorJugadores();
-        controladorPartida = new ControladorPartida();
+        controladorPartida = ControladorPartida.getInstancia();
         vistaPartida.setControladorPartida(controladorPartida);
         controladorPartida.setVistaAtacable(vistaPartida);
         controladorPartida.setVistaPartida(vistaPartida);
         vistaJugadores.setControladorJugadores(controladorJugadores);
         controladorJugadores.setVistaJugadores(vistaJugadores);
+        this.precargaAdmins();
     }
 
     // 3. Método público para obtener la instancia única
@@ -56,7 +58,7 @@ public class VistaGeneral {
             opcion = Utilidades.leerNumeroIntervalo("Introduzca el numero de la opcion deseada: ", 1, 4);
             switch (opcion) {
                 case 1: //alta
-                    vistaJugadores.solicitudDatosAlta(controladorJugadores);
+                    vistaJugadores.solicitudDatosAlta();
                     break;
                 case 2: // iniciar sesión
                     vistaJugadores.iniciarSesion();
@@ -65,6 +67,7 @@ public class VistaGeneral {
                     }
                     break;
                 default:
+                    Utilidades.imprimir("Seleccione una opción válida");
                     break;
             }
         }while (opcion !=3);
@@ -78,8 +81,8 @@ public class VistaGeneral {
                         "----------------------------------------" +
                         "Inserte 1: Iniciar Partida\n" +
                         "Inserte 2: Generar Puntuaciones\n" +
-                        "Inserte 3: Cerrar Sesión\n" +
-                        "Inserte 4: Darse de baja\n" );
+                        "Inserte 3: Darse de baja\n" +
+                        "Inserte 4: Cerrar Sesión\n" );
                 opcion = Utilidades.leerNumeroIntervalo("Introduzca el numero de la opcion deseada: ", 1, 3);
                 switch (opcion) {
                     case 1: //iniciarPartida
@@ -88,16 +91,34 @@ public class VistaGeneral {
                         controladorPartida.iniciarPartida(first_player, second_player);
                         break;
                     case 2: // generarPuntuaciones
-                        vistaPartida.mostarPuntuaciones();
+                        if (vistaJugadores.getJugadorLogueado().isEsAdmin()) {
+                            vistaPartida.mostrarPuntuacionesGlobal();
+                        }else{
+                            vistaPartida.mostrarPuntuacionesJugador(vistaJugadores.getJugadorLogueado());
+                        }
                         break;
-                    case 3:// Cerrar sesión
-                       Utilidades.imprimir("Cerrando sesión");
+                    case 3:// darse de baja
+                        vistaJugadores.darBaja();
+                        break;
+                    case 4 : // Cerrar sesión
+                        Utilidades.imprimir("Cerrando sesión");
                         vistaJugadores.setJugadorLogueado(null);
                         break;
-                    case 4 : //darse de baja
-                        vistaJugadores.darBaja();
+                    default:
+                        Utilidades.imprimir("Seleccione una opción válida");
+                        break;
                 }
-            }while (opcion !=3);
+            }while (opcion !=4);
         }
+    }
+
+    private void precargaAdmins() throws ModelException {
+        try {
+            controladorJugadores.darAlta("admin1@alumnos.upm.es","Admin1","Admin1*",true);
+            controladorJugadores.darAlta("admin2@alumnos.upm.es","Admin2","Admin2*",true);
+        } catch (ModelException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

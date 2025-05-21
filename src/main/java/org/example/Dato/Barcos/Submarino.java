@@ -2,6 +2,7 @@ package org.example.Dato.Barcos;
 
 import org.example.Dato.Casilla;
 import org.example.Dato.Partida.Tablero;
+import org.example.Utilidades;
 import org.example.Vistas.IVistaAtacable;
 
 import java.util.List;
@@ -11,8 +12,8 @@ public class Submarino extends Barco {
 	private int numReparacionesDisponibles;
 	private final int NUM_REPARACIONES_DISPONIBLES = 1;
 	
-	public Submarino(String nombre, int numCasillas, Tablero suTablero, List<Casilla> casillas) {
-		super(nombre, numCasillas, suTablero,casillas);
+	public Submarino(String nombre, int numCasillas, List<Casilla> casillas) {
+		super(nombre, numCasillas,casillas);
 		this.numReparacionesDisponibles = NUM_REPARACIONES_DISPONIBLES;
 	}
 
@@ -22,7 +23,8 @@ public class Submarino extends Barco {
 			casilla.setEstadoImpactado(false);
 			casilla.setEstadoVisibilidad(false);
 		}
-		vistaPartida.imprimirReparacion();
+		setVivo(true);
+		Utilidades.imprimir("Se ha reparado el Submarino");
 	}
 
 	@Override
