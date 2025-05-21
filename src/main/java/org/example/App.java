@@ -1,10 +1,13 @@
 package org.example;
 
-public class App 
+import org.example.Vistas.VistaGeneral;
+
+public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        VistaGeneral vistaGeneral = VistaGeneral.getInstancia();
+        vistaGeneral.programa();
     }
 
 
