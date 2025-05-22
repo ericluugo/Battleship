@@ -32,6 +32,7 @@ public abstract class Barco{
 			if (casillas.get(indexCasilla).isEstadoImpactado()){
 				casillasImpactadas++;
 			}
+			indexCasilla++;
 		}
 		if (casillasImpactadas == numCasillas){
 			setVivo(false);

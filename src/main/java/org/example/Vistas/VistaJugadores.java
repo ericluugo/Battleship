@@ -19,9 +19,10 @@ public class VistaJugadores implements IVistaJugadores{
 
     public void solicitudDatosAlta() throws Exception {
         String nombre = leerCadena("Introduzca su nombre: ");
-       String email = leerCadena("Introduzca su email ");
+       String email = leerCadena("Introduzca su email: ");
        String contrasenia = leerCadena("Introduzca su contraseña: ");
        controladorJugadores.darAlta(email, nombre, contrasenia, false);
+       imprimir("Se ha creado el usuario correctamente");
     }
 
     public JugadorHumano getJugadorLogueado() {
@@ -32,7 +33,7 @@ public class VistaJugadores implements IVistaJugadores{
         boolean sesionIniciada= false;
         String email = leerCadena("Introduce su email: ");
         String contrasenia = leerCadena("Introduce la contraseña: ");
-        this.jugadorLogueado = controladorJugadores.iniciarSesion(email, contrasenia);
+        setJugadorLogueado(controladorJugadores.iniciarSesion(email, contrasenia));
         if (this.jugadorLogueado==null) imprimir("Ha ocurrido un error al iniciar sesion. ");
         else {
             sesionIniciada=true;

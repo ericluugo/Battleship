@@ -3,9 +3,8 @@ package org.example.Dato.Jugadores;
 import org.example.Logica.ControladorPartida;
 import org.example.Validaciones;
 import servidor.Autenticacion;
-import servidor.ObtencionDeRol;
+import utilidades.Cifrado;
 
-import java.net.Authenticator;
 import java.util.List;
 
 
@@ -19,7 +18,6 @@ public class JugadorHumano extends Jugador {
 	public JugadorHumano(String nombre, String email, String contrasenia, boolean esAdmin) throws Exception {
 		setNombre(nombre);
 		setEmail(email);
-		setContrasenia(contrasenia);
 		setContrasenia(contrasenia);
 	}
 
@@ -50,7 +48,7 @@ public class JugadorHumano extends Jugador {
 	}
 	public void setContrasenia(String contrasenia) throws Exception{
 		Validaciones.checkContrasenia(contrasenia);
-		this.contrasenia = contrasenia;
+		this.contrasenia = Cifrado.cifrar(contrasenia);
 	}
 
 
@@ -78,5 +76,15 @@ public class JugadorHumano extends Jugador {
 	public void setNombre(String nombre) throws Exception {
 		Validaciones.checkNombre("nombre");
 		this.nombre = nombre;
+	}
+
+	public void setNombreTest(String nombre)throws Exception{
+		Validaciones.checkStringInRange(3,10,nombre,"Nombre");
+		this.nombre = nombre;
+	}
+
+	public void setContraseniaTest(String contrasenia)throws Exception{
+		Validaciones.checkStringInRange(6,12,contrasenia,"Contrsenia");
+		this.contrasenia = contrasenia;
 	}
 }

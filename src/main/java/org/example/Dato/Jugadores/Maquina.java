@@ -16,9 +16,9 @@ public class Maquina extends Jugador {
 		List<Integer> coordenadas = new ArrayList<>();
 		Random rand = new Random();
 		Integer coorX = rand.nextInt(10);
-		Integer coordY = rand.nextInt(10);
+		Integer coorY = rand.nextInt(10);
+		coordenadas.add(coorY);
 		coordenadas.add(coorX);
-		coordenadas.add(coordY);
 		return coordenadas;
 	}
 

@@ -32,8 +32,8 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
 		List<Integer> coordenadas = new ArrayList<>();
 		Integer coorX = lecturaCoordenada("Introduzca las coordenadas de la casilla deseada: " +'\n' + "Coordenada x : ");
 		Integer coorY = lecturaCoordenada("Coordenada y : ");
-		coordenadas.add(coorX);
 		coordenadas.add(coorY);
+		coordenadas.add(coorX);
 		return coordenadas;
 	}
 
@@ -129,7 +129,7 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
 
 	@Override
 	public void imprimirCasillaAtacada(List<Integer> casillaAtacada) {
-		System.out.println("Se ha atacado la casilla : ["+casillaAtacada.get(0)+"]["+casillaAtacada.get(1)+"]");
+		System.out.println("Se ha atacado la casilla : ["+casillaAtacada.get(1)+"]["+casillaAtacada.get(0)+"]");
 	}
 
 	@Override

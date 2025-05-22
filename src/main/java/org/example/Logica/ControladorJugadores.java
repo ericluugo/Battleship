@@ -46,19 +46,11 @@ public class ControladorJugadores implements IControladorJugadores{
             vistaJugadores.imprimir("La contraseña no es correcta");
         }else {
         */}else {
-            JugadorHumano jugador = new JugadorHumano(nombre, email, Cifrado.cifrar(contrasenia), esAdmin);
+            JugadorHumano jugador = new JugadorHumano(nombre, email, contrasenia, esAdmin);
             listaJugadores.add(jugador);
         }
     }
 
-    private boolean nombreValido(String nombre){
-        return listaNegra.contains(nombre) || nombre.length() < 3 || nombre.length() >10 || nombre.matches("^[a-zA-Z0-9]$");
-    }
-
-    private  boolean contraseniaValida(String contrasenia){
-        return contrasenia.length() < 6 || contrasenia.length() > 12 || !contrasenia.matches(".*[a-z].*")
-                || !contrasenia.matches(".*[A-Z].*") || !contrasenia.matches(".*[0-9].*") ||!contrasenia.matches(".*[^a-zA-Z0-9].*");
-    }
     public boolean darBaja(JugadorHumano jugadorHumano) {
         if (!jugadorHumano.isEsAdmin()) {
             return listaJugadores.remove(jugadorHumano);

@@ -55,14 +55,14 @@ public class Partida {
 
 
 	public void inicializarPartida(){
-		FactoriaBarcos.crearBarco("Portaviones",tablero1.colocacionBarcos(4));
-		FactoriaBarcos.crearBarco("Portaviones",tablero2.colocacionBarcos(4));
-		FactoriaBarcos.crearBarco("Acorazado",tablero1.colocacionBarcos(3));
-		FactoriaBarcos.crearBarco("Acorazado",tablero2.colocacionBarcos(3));
-		FactoriaBarcos.crearBarco("Submarino",tablero1.colocacionBarcos(3));
-		FactoriaBarcos.crearBarco("Submarino",tablero2.colocacionBarcos(3));
-		FactoriaBarcos.crearBarco("Patrullero",tablero1.colocacionBarcos(2));
-		FactoriaBarcos.crearBarco("Patrullero",tablero2.colocacionBarcos(2));
+		tablero1.getBarcos().add(FactoriaBarcos.crearBarco("Portaviones",tablero1.colocacionBarcos(4)));
+		tablero2.getBarcos().add(FactoriaBarcos.crearBarco("Portaviones",tablero2.colocacionBarcos(4)));
+		tablero1.getBarcos().add(FactoriaBarcos.crearBarco("Acorazado",tablero1.colocacionBarcos(3)));
+		tablero2.getBarcos().add(FactoriaBarcos.crearBarco("Acorazado",tablero2.colocacionBarcos(3)));
+		tablero1.getBarcos().add(FactoriaBarcos.crearBarco("Submarino",tablero1.colocacionBarcos(3)));
+		tablero2.getBarcos().add(FactoriaBarcos.crearBarco("Submarino",tablero2.colocacionBarcos(3)));
+		tablero1.getBarcos().add(FactoriaBarcos.crearBarco("Patrullero",tablero1.colocacionBarcos(2)));
+		tablero2.getBarcos().add(FactoriaBarcos.crearBarco("Patrullero",tablero2.colocacionBarcos(2)));
 	}
 
 	public void cambiarTurno(){

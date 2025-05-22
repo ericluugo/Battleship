@@ -19,6 +19,7 @@ public class Portaviones extends Barco {
 	public void habilidad(Tablero tableroEnemigo) {
 		List<Integer> coordenadas = ControladorPartida.getInstancia().getVistaAtacable().pedirCasilla();
 		Barco atacado = tableroEnemigo.recibirCoordenadas(coordenadas);
+		ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha atacado la casilla : ["+coordenadas.get(1)+"]["+coordenadas.get(0)+"]");
 		if (atacado == null){
 			ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha fallado");
 		}else ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha acertado");
