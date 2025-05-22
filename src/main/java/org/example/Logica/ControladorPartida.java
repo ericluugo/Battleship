@@ -137,7 +137,7 @@ public class ControladorPartida implements IControladorPartida {
                 // imprimir por pantalla FALLO o Acierto y casilla atacada
                 if (atacado != null){
                     vistaPartida.imprimirObjetoImpacto(atacado.getNombre());
-                    if (atacado.habilidadDisponible() && partida.getJugador2().decisionHabilidad()){
+                    if (partida.getJugador2().decisionHabilidad() && atacado.habilidadDisponible()){
                         atacado.habilidad(partida.getTablero1());
                     }
                 }else {
@@ -156,7 +156,7 @@ public class ControladorPartida implements IControladorPartida {
                     // imprimir por pantalla Tipo barco pegado
                     vistaPartida.imprimirObjetoImpacto(atacado.getNombre());
                     atacado.isBarcoMuerto();
-                    if (atacado.habilidadDisponible() && partida.getJugador1().decisionHabilidad()){
+                    if (partida.getJugador1().decisionHabilidad() && atacado.habilidadDisponible()){
                             atacado.habilidad(partida.getTablero2());
                     }
                 }else {
