@@ -17,16 +17,11 @@ public class VistaJugadores implements IVistaJugadores{
         this.jugadorLogueado =null;
     }
 
-    public boolean solicitudDatosAlta() throws Exception {
-        boolean nuevoJugador = true;
+    public void solicitudDatosAlta() throws Exception {
         String nombre = leerCadena("Introduzca su nombre: ");
        String email = leerCadena("Introduzca su email ");
        String contrasenia = leerCadena("Introduzca su contraseña: ");
-       JugadorHumano jugador = controladorJugadores.darAlta(email, nombre, contrasenia, false);
-       if (jugador==null){
-           nuevoJugador=false;
-       } else this.jugadorLogueado = jugador;
-       return nuevoJugador;
+       controladorJugadores.darAlta(email, nombre, contrasenia, false);
     }
 
     public JugadorHumano getJugadorLogueado() {

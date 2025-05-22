@@ -18,7 +18,7 @@ public class VistaGeneral {
     private VistaGeneral() throws Exception{
         vistaPartida = new VistaPartida();
         vistaJugadores = new VistaJugadores();
-        controladorJugadores = new ControladorJugadores();
+        controladorJugadores = ControladorJugadores.getInstancia();
         controladorPartida = ControladorPartida.getInstancia();
         vistaPartida.setControladorPartida(controladorPartida);
         controladorPartida.setVistaAtacable(vistaPartida);

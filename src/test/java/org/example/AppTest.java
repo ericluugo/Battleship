@@ -20,26 +20,30 @@ public class AppTest
 
     @Before
     public void setUp() throws Exception {
-        controladorJugadores = new ControladorJugadores();
+        controladorJugadores = ControladorJugadores.getInstancia();
         jugadorPrueba = new JugadorHumano("Alicia","alicia.garciab@alumnos.upm.es","1234567",false);
     }
 
     public void testCorrecto() throws Exception
     {
         //CP1, nombre 3 caracteres y contrasenia de 6
-        JugadorHumano jugadorHumano = controladorJugadores.darAlta("cristian@alumnos.upm.es", "Nom", "123456", false);
-        assertEquals("cristian@alumnos.upm.es", jugadorHumano.getEmail());
-        assertEquals("Nom", jugadorHumano.getNombre());
-        assertEquals("123456", jugadorHumano.getContrasenia());
+        jugadorPrueba.setEmail("cristian@alumnos.upm.es");
+        jugadorPrueba.setNombre("Nom");
+        jugadorPrueba.setContrasenia("123456");
+        assertEquals("cristian@alumnos.upm.es", jugadorPrueba.getEmail());
+        assertEquals("Nom", jugadorPrueba.getNombre());
+        assertEquals("123456", jugadorPrueba.getContrasenia());
 
     }
     public void testCorrecto2() throws Exception
     {
         //CP2 nombre de 10 caracteres y contrasenia de 12 
-        JugadorHumano jugadorHumano = controladorJugadores.darAlta("cristian@alumnos.upm.es", "Cristian10", "123456789123", false);
-        assertEquals("cristian@alumnos.upm.es", jugadorHumano.getEmail());
-        assertEquals("Cristian10", jugadorHumano.getNombre());
-        assertEquals("123456789123", jugadorHumano.getContrasenia());
+        jugadorPrueba.setNombre("Cristian10");
+        jugadorPrueba.setEmail("cristian@alumnos.upm.es");
+        jugadorPrueba.setContrasenia("123456789123");
+        assertEquals("cristian@alumnos.upm.es", jugadorPrueba.getEmail());
+        assertEquals("Cristian10", jugadorPrueba.getNombre());
+        assertEquals("123456789123", jugadorPrueba.getContrasenia());
     }
 
     public void testEmail() throws Exception {

@@ -17,32 +17,38 @@ public class ControladorJugadores implements IControladorJugadores{
     private List<Jugador> listaJugadores;
     private final List<String> listaNegra;
     private final String RUTA_LISTA_NEGRA = "src/main/resources/lista_negra.txt";
-
+    private static ControladorJugadores instancia;
     private IVistaJugadores vistaJugadores;
 
-    public ControladorJugadores() {
+    private ControladorJugadores() {
         this.listaJugadores = new ArrayList<>();
         this.listaNegra = new ArrayList<>();
         inicializarListaNegra();
     }
 
+    public static ControladorJugadores getInstancia() {
+        if (instancia == null) {
+            instancia = new ControladorJugadores();
+        }
+        return instancia;
+    }
 
 
     @Override
-    public JugadorHumano darAlta (String email, String nombre, String contrasenia, boolean esAdmin) throws Exception {
-        JugadorHumano jugador=null;
+    public void darAlta (String email, String nombre, String contrasenia, boolean esAdmin) throws Exception {
         //Comprobar que no hay alguien ya registrado con este email
-        if (comprobarEmail(email)){
+        if (comprobarEmail(email)) {
             vistaJugadores.imprimir("Ya esta registrado con este email, inicie Sesion");
             //Comprobar que se usuario de la UPM
-        } else if(nombreValido(nombre)) {
+        /*else if(nombreValido(nombre)) {
             vistaJugadores.imprimir("Este nombre no está autorizado o no es correcto");
         }else if (contraseniaValida(contrasenia)){
             vistaJugadores.imprimir("La contraseña no es correcta");
         }else {
-            jugador = new JugadorHumano(nombre, email, Cifrado.cifrar(contrasenia), esAdmin);
-        listaJugadores.add(jugador);
-        } return jugador;
+        */}else {
+            JugadorHumano jugador = new JugadorHumano(nombre, email, Cifrado.cifrar(contrasenia), esAdmin);
+            listaJugadores.add(jugador);
+        }
     }
 
     private boolean nombreValido(String nombre){
@@ -118,5 +124,17 @@ public class ControladorJugadores implements IControladorJugadores{
 
     public void setVistaJugadores(IVistaJugadores vistaJugadores) {
         this.vistaJugadores = vistaJugadores;
+    }
+
+    public List<String> getListaNegra() {
+        return listaNegra;
+    }
+
+    public String getRUTA_LISTA_NEGRA() {
+        return RUTA_LISTA_NEGRA;
+    }
+
+    public static void setInstancia(ControladorJugadores instancia) {
+        ControladorJugadores.instancia = instancia;
     }
 }
