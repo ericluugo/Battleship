@@ -48,8 +48,7 @@ public class JugadorHumano extends Jugador {
 	public String getContrasenia() {
 		return contrasenia;
 	}
-	public void setContrasenia(String contrasenia)throws Exception {
-		Validaciones.checkStringInRange(6, 12, contrasenia, "contrasenia");
+	public void setContrasenia(String contrasenia){
 		this.contrasenia = contrasenia;
 	}
 

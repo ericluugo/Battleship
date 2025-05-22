@@ -86,11 +86,11 @@ public class VistaGeneral {
                         "Inserte 2: Generar Puntuaciones\n" +
                         "Inserte 3: Darse de baja\n" +
                         "Inserte 4: Cerrar Sesión\n" );
-                opcion = leerNumeroIntervalo("Introduzca el numero de la opcion deseada: ", 1, 3);
+                opcion = leerNumeroIntervalo("Introduzca el numero de la opcion deseada: ", 1, 4);
                 switch (opcion) {
                     case 1: //iniciarPartida
                         IJugable first_player = vistaJugadores.getJugadorLogueado();
-                         IJugable second_player = controladorJugadores.crearMaquina();// TODO: Esto hay que mejorarlo
+                        IJugable second_player = controladorJugadores.crearMaquina();// TODO: Esto hay que mejorarlo
                         controladorPartida.iniciarPartida(first_player, second_player);
                         break;
                     case 2: // generarPuntuaciones
@@ -101,11 +101,13 @@ public class VistaGeneral {
                         }
                         break;
                     case 3:// darse de baja
-                        vistaJugadores.darBaja();
+                        if (vistaJugadores.darBaja())
+                            publicSwitch();
                         break;
                     case 4 : // Cerrar sesión
                         imprimir("Cerrando sesión");
                         vistaJugadores.setJugadorLogueado(null);
+                        publicSwitch();
                         break;
                     default:
                         imprimir("Seleccione una opción válida");

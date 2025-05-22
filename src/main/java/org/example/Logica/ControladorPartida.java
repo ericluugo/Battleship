@@ -29,8 +29,7 @@ public class ControladorPartida implements IControladorPartida {
     }
 
     public Partida crearPartida(IJugable jugador1, IJugable jugador2) {
-        Partida nuevaPartida = new Partida(jugador1,jugador2);
-        return nuevaPartida;
+        return new Partida(jugador1,jugador2);
     }
 
     @Override
@@ -71,8 +70,7 @@ public class ControladorPartida implements IControladorPartida {
     }
 
     public String generarTableros(Partida partida){
-        String vistaTableros = "Tablero 1 : " +partida.getJugador1().getId()+ "\n" + partida.getTablero1().mostrarTablero() + "\n" + "Tablero 2 : "+ partida.getJugador2().getId()+ "\n" + partida.getTablero2().mostrarTablero();
-        return vistaTableros;
+        return "Tablero 1 : " +partida.getJugador1().getId()+ "\n" + partida.getTablero1().mostrarTablero() + "\n" + "Tablero 2 : "+ partida.getJugador2().getId()+ "\n" + partida.getTablero2().mostrarTablero();
     }
 
     public void finalizarPartida(Partida partida) {

@@ -19,6 +19,11 @@ public class Tablero {
 		this.numFilas = numFilas;
 		this.numColumnas = numColumnas;
 		this.barcos = new ArrayList<>();
+		for (int i = 0; i<numFilas;i++) {
+			for (int j = 0; j < numFilas; j++) {
+				this.tablero[i][j] = new Casilla(i,j);
+			}
+		}
 	}
 
 	public String mostrarTablero() {

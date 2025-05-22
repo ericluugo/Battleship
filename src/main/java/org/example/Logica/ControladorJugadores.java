@@ -6,6 +6,7 @@ import org.example.Dato.Jugadores.Maquina;
 import org.example.Vistas.IVistaJugadores;
 import servidor.Autenticacion;
 import servidor.ObtencionDeRol;
+import utilidades.Cifrado;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -39,13 +40,13 @@ public class ControladorJugadores implements IControladorJugadores{
         }else if (contraseniaValida(contrasenia)){
             vistaJugadores.imprimir("La contraseña no es correcta");
         }else {
-            jugador = new JugadorHumano(nombre, email, contrasenia, esAdmin);
+            jugador = new JugadorHumano(nombre, email, Cifrado.cifrar(contrasenia), esAdmin);
         listaJugadores.add(jugador);
         } return jugador;
     }
 
     private boolean nombreValido(String nombre){
-        return listaNegra.contains(nombre) || nombre.length() < 3 || nombre.length() >10 || !nombre.matches("^[A-Za-z0-9]$");
+        return listaNegra.contains(nombre) || nombre.length() < 3 || nombre.length() >10 || nombre.matches("^[a-zA-Z0-9]$");
     }
 
     private  boolean contraseniaValida(String contrasenia){
@@ -64,7 +65,7 @@ public class ControladorJugadores implements IControladorJugadores{
         Jugador jugador=null;
         int index =0;
         while (index < listaJugadores.size() && jugador==null){
-            if (listaJugadores.get(index).comprobarEmailContrasenia(email, contrasenia)){
+            if (listaJugadores.get(index).comprobarEmailContrasenia(email, Cifrado.cifrar(contrasenia))){
                 jugador = listaJugadores.get(index);
             } else index++;
         }

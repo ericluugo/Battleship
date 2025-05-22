@@ -37,7 +37,7 @@ public class VistaJugadores implements IVistaJugadores{
         boolean sesionIniciada= false;
         String email = leerCadena("Introduce su email: ");
         String contrasenia = leerCadena("Introduce la contraseña: ");
-        this.jugadorLogueado =controladorJugadores.iniciarSesion(email, contrasenia);
+        this.jugadorLogueado = controladorJugadores.iniciarSesion(email, contrasenia);
         if (this.jugadorLogueado==null) imprimir("Ha ocurrido un error al iniciar sesion. ");
         else {
             sesionIniciada=true;
@@ -62,10 +62,10 @@ public class VistaJugadores implements IVistaJugadores{
         return darBaja;
     }
 
-    public static String leerCadena(String s){
+    public static String leerCadena(String mensaje){
         String string = "";
         do {
-            System.out.println(s);
+            System.out.print(mensaje);
             string = teclado.nextLine();
         } while (string.isEmpty());
         return string;

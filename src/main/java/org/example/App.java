@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.Vistas.VistaGeneral;
+import utilidades.Cifrado;
 
 public class App
 {
@@ -10,7 +11,7 @@ public class App
             VistaGeneral vistaGeneral = VistaGeneral.getInstancia();
             vistaGeneral.programa();
         }catch (Exception e){
-            System.out.println("Error de carga Admins");
+            System.out.println("Error "+e.getMessage());
         }
     }
 
