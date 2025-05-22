@@ -15,7 +15,6 @@ public class VistaJugadores implements IVistaJugadores{
 
     public VistaJugadores() {
         this.jugadorLogueado =null;
-
     }
 
     public boolean solicitudDatosAlta() throws Exception {

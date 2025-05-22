@@ -1,7 +1,6 @@
 package org.example.Dato;
 
 import org.example.Dato.Barcos.*;
-import org.example.Dato.Partida.Tablero;
 
 import java.util.List;
 

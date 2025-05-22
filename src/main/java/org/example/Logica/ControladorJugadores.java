@@ -7,16 +7,22 @@ import org.example.Vistas.IVistaJugadores;
 import servidor.Autenticacion;
 import servidor.ObtencionDeRol;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class ControladorJugadores implements IControladorJugadores{
     private List<Jugador> listaJugadores;
-    IVistaJugadores vistaJugadores;
+    private final List<String> listaNegra;
+    private final String RUTA_LISTA_NEGRA = "src/main/resources/lista_negra.txt";
+
+    private IVistaJugadores vistaJugadores;
 
     public ControladorJugadores() {
         this.listaJugadores = new ArrayList<>();
+        this.listaNegra = new ArrayList<>();
+        inicializarListaNegra();
     }
 
 
@@ -28,16 +34,24 @@ public class ControladorJugadores implements IControladorJugadores{
         if (comprobarEmail(email)){
             vistaJugadores.imprimir("Ya esta registrado con este email, inicie Sesion");
             //Comprobar que se usuario de la UPM
-        } else if(!Autenticacion.existeCuentaUPMStatic(email)){
-            vistaJugadores.imprimir("Este email no pertenece a la UPM, no se puede registrar");
-        } else{
-        jugador = new JugadorHumano(nombre, email, contrasenia, esAdmin);
-        vistaJugadores.imprimir("Ha iniciado sesion correctamente. ");
+        } else if(nombreValido(nombre)) {
+            vistaJugadores.imprimir("Este nombre no está autorizado o no es correcto");
+        }else if (contraseniaValida(contrasenia)){
+            vistaJugadores.imprimir("La contraseña no es correcta");
+        }else {
+            jugador = new JugadorHumano(nombre, email, contrasenia, esAdmin);
         listaJugadores.add(jugador);
         } return jugador;
     }
 
+    private boolean nombreValido(String nombre){
+        return listaNegra.contains(nombre) || nombre.length() < 3 || nombre.length() >10 || !nombre.matches("^[A-Za-z0-9]$");
+    }
 
+    private  boolean contraseniaValida(String contrasenia){
+        return contrasenia.length() < 6 || contrasenia.length() > 12 || !contrasenia.matches(".*[a-z].*")
+                || !contrasenia.matches(".*[A-Z].*") || !contrasenia.matches(".*[0-9].*") ||!contrasenia.matches(".*[^a-zA-Z0-9].*");
+    }
     public boolean darBaja(JugadorHumano jugadorHumano) {
         if (!jugadorHumano.isEsAdmin()) {
             return listaJugadores.remove(jugadorHumano);
@@ -49,7 +63,7 @@ public class ControladorJugadores implements IControladorJugadores{
     public JugadorHumano iniciarSesion(String email, String contrasenia) {
         Jugador jugador=null;
         int index =0;
-        while (index< listaJugadores.size() && jugador==null){
+        while (index < listaJugadores.size() && jugador==null){
             if (listaJugadores.get(index).comprobarEmailContrasenia(email, contrasenia)){
                 jugador = listaJugadores.get(index);
             } else index++;
@@ -66,18 +80,8 @@ public class ControladorJugadores implements IControladorJugadores{
         }
         return existe;
     }
-    @Override
-    public boolean comprobarContrasenia(String email, String contrasenia){
-        boolean correcto =false;
-        int index =0;
-        while (index<listaJugadores.size() && !correcto){
-            if (listaJugadores.get(index).comprobarEmailContrasenia(email, contrasenia)) correcto=true;
-            else index++;
-        }
-        return correcto;
-    }
 
-    public Maquina crearMaquina() {
+    public Maquina crearMaquina() throws Exception {
         Random random = new Random(System.currentTimeMillis());
         String nombre = "Maquina_FACIL" + random;
         Maquina maquina = new Maquina(nombre);
@@ -85,8 +89,19 @@ public class ControladorJugadores implements IControladorJugadores{
         return maquina;
     }
 
-
-
+    private void inicializarListaNegra(){
+        BufferedReader reader;
+        String nombre;
+        try {
+            reader = new BufferedReader(new FileReader(RUTA_LISTA_NEGRA));
+            do {
+                nombre = reader.readLine();
+                listaNegra.add(nombre);
+            }while (nombre!=null);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public List<Jugador> getListaJugadores() {
         return listaJugadores;

@@ -1,6 +1,4 @@
 package org.example.Dato.Jugadores;
-import org.example.Validaciones;
-import org.example.Vistas.IVistaAtacable;
 
 import java.util.List;
 
@@ -8,8 +6,7 @@ public abstract class Jugador implements IJugable {
 	
 	private String nombre;
 
-	public Jugador(String nombre) throws Exception{
-		setNombre(nombre);
+	public Jugador() throws Exception{
 	}
 
 	@Override
@@ -25,10 +22,7 @@ public abstract class Jugador implements IJugable {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) throws Exception {
-		Validaciones.checkStringInRange(3, 10, nombre, "nombre");
-		this.nombre = nombre;
-	}
+
 
 	//Comprobar si esto se puede hacer????? aqui no, en el controlador si :)
 	public boolean existeEmail(String email){

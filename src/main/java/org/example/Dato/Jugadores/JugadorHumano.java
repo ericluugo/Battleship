@@ -2,23 +2,25 @@ package org.example.Dato.Jugadores;
 
 import org.example.Logica.ControladorPartida;
 import org.example.Validaciones;
-import org.example.Vistas.IVistaAtacable;
-import org.example.Vistas.VistaGeneral;
+import servidor.Autenticacion;
+import servidor.ObtencionDeRol;
 
+import java.net.Authenticator;
 import java.util.List;
 
 
 public class JugadorHumano extends Jugador {
 	
 	private String email;
+	private String nombre;
 	private String contrasenia;
 	private boolean esAdmin;
+
 	public JugadorHumano(String nombre, String email, String contrasenia, boolean esAdmin) throws Exception {
-		super(nombre);
-		this.email = email;
+		setNombre(nombre);
+		setEmail(email);
 		setContrasenia(contrasenia);
-		this.contrasenia = contrasenia;
-		this.esAdmin = esAdmin;
+		setContrasenia(contrasenia);
 	}
 
 	@Override
@@ -39,16 +41,19 @@ public class JugadorHumano extends Jugador {
 	public String getEmail() {
 		return email;
 	}
-	public void setEmail(String email) {
+	public void setEmail(String email) throws Exception {
+		if (!Autenticacion.existeCuentaUPMStatic(email)) throw new Exception("Este email no pertenece a la UPM, no se puede registrar");
 		this.email = email;
 	}
 	public String getContrasenia() {
 		return contrasenia;
 	}
 	public void setContrasenia(String contrasenia)throws Exception {
-		Validaciones.checkStringInRange(6, 12, contrasenia, "nombre");
+		Validaciones.checkStringInRange(6, 12, contrasenia, "contrasenia");
 		this.contrasenia = contrasenia;
 	}
+
+
 	public boolean isEsAdmin() {
 		return esAdmin;
 	}
@@ -65,4 +70,13 @@ public class JugadorHumano extends Jugador {
         return this.email.equals(email) && this.contrasenia.equals(contrasenia);
 	}
 
+	@Override
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) throws Exception {
+		Validaciones.checkStringInRange(3, 10, nombre, "nombre");
+		this.nombre = nombre;
+	}
 }

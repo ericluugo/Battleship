@@ -5,6 +5,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.example.Dato.Jugadores.JugadorHumano;
 import org.example.Logica.ControladorJugadores;
+import org.junit.Before;
 
 import javax.management.modelmbean.ModelMBean;
 
@@ -15,10 +16,12 @@ public class AppTest
     extends TestCase
 {
     ControladorJugadores controladorJugadores;
+    JugadorHumano jugadorPrueba;
 
-    public AppTest( String testName )
-    {
-        super( testName );
+    @Before
+    public void setUp() throws Exception {
+        controladorJugadores = new ControladorJugadores();
+        jugadorPrueba = new JugadorHumano("Alicia","alicia.garciab@alumnos.upm.es","1234567",false);
     }
 
     public void testCorrecto() throws Exception
@@ -40,40 +43,29 @@ public class AppTest
     }
 
     public void testEmail() throws Exception {
-    //CP3 el email es errornero
+    //CP3 el email es errorneo
         String emailInvalido = "cristian@gmail.com" ;
-        JugadorHumano jugadorHumano = controladorJugadores.darAlta(emailInvalido, "Nom", "123456", false);
-        assertEquals(emailInvalido, jugadorHumano.getEmail());
-        assertEquals("Nombrede10", jugadorHumano.getNombre());
-        assertEquals("123456", jugadorHumano.getContrasenia());
+        jugadorPrueba.setEmail(emailInvalido); //se tira exception si se comprueba correctamente
     }
     public void testNombre1() throws Exception {
         //CP4 el nombre tiene 2 caracteres
-        JugadorHumano jugadorHumano = controladorJugadores.darAlta("cristian@alumnos.upm.es", "yo", "123456", false);
-        assertEquals("cristian@alumnos.upm.es", jugadorHumano.getEmail());
-        assertEquals("Yo", jugadorHumano.getNombre());
-        assertEquals("123456", jugadorHumano.getContrasenia());
+        String nombreInvalido = "yo";
+        jugadorPrueba.setNombre(nombreInvalido);
     }
     public void testNombre2() throws Exception {
        //CP5 el nombre tiene 11 caracteres
-        JugadorHumano jugadorHumano = controladorJugadores.darAlta("cristian@alumnos.upm.es", "Cristian11c", "123456", false);
-        assertEquals("cristian@alumnos.upm.es", jugadorHumano.getEmail());
-        assertEquals("Cristian11c", jugadorHumano.getNombre());
-        assertEquals("123456", jugadorHumano.getContrasenia());
+        String nombreInvalido = "Cristian11C";
+        jugadorPrueba.setNombre(nombreInvalido);
     }
     public void testContrasenia1() throws Exception {
         //CP6 Contrasenia con 5 ca
-       JugadorHumano jugadorHumano = controladorJugadores.darAlta("cristian@alumnos.upm.es", "Nom", "12345", false);
-        assertEquals("cristian@alumnos.upm.es", jugadorHumano.getEmail());
-        assertEquals("Yo", jugadorHumano.getNombre());
-        assertEquals("123456", jugadorHumano.getContrasenia());
+       String contraseñaInvalida = "12345";
+       jugadorPrueba.setContrasenia(contraseñaInvalida); // TODO: puede cambiar
     }
     public void testContrasenia2() throws Exception {
         //CP7 Contrasenia con 13 caracteres
-        JugadorHumano jugadorHumano = controladorJugadores.darAlta("cristian@alumnos.upm.es", "Cristian", "1234567891234", false);
-        assertEquals("cristian@alumnos.upm.es", jugadorHumano.getEmail());
-        assertEquals("Yo", jugadorHumano.getNombre());
-        assertEquals("1234567891234", jugadorHumano.getContrasenia());
+        String contraseñaInvalida = "1234567890123";
+        jugadorPrueba.setContrasenia(contraseñaInvalida);
     }
 }
 

@@ -1,17 +1,14 @@
 package org.example.Dato.Jugadores;
 
-import org.example.ModelException;
-import org.example.Vistas.IVistaAtacable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 
 public class Maquina extends Jugador {
-
-	public Maquina(String nombre) throws ModelException {
-		super(nombre);
+	private String nombreMaquina;
+	public Maquina(String nombre) throws Exception {
+		this.nombreMaquina = nombre;
 	}
 
 	@Override
@@ -27,11 +24,19 @@ public class Maquina extends Jugador {
 
 	@Override
 	public String getId() {
-		return super.getNombre();
+		return nombreMaquina;
 	}
 
 	@Override
 	public boolean decisionHabilidad() {
 		return true;
+	}
+
+	public String getNombreMaquina() {
+		return nombreMaquina;
+	}
+
+	public void setNombreMaquina(String nombreMaquina) {
+		this.nombreMaquina = nombreMaquina;
 	}
 }

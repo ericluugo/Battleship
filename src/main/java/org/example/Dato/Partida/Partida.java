@@ -48,6 +48,11 @@ public class Partida {
 		}
 		return finPartida;
 	}
+	public void generarPuntuacion(){
+		puntosJugador1 = tablero2.calcularPuntuacion();
+		puntosJugador2 = tablero1.calcularPuntuacion();
+	}
+
 
 	public void inicializarPartida(){
 		FactoriaBarcos.crearBarco("Portaviones",tablero1.colocacionBarcos(4));

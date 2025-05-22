@@ -3,8 +3,6 @@ package org.example.Vistas;
 import org.example.Dato.Jugadores.IJugable;
 import org.example.Logica.ControladorJugadores;
 import org.example.Logica.ControladorPartida;
-import org.example.ModelException;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -46,6 +44,7 @@ public class VistaGeneral {
                ejecucionCorrecta = true;
            } catch (Exception e) {
                imprimir("Ha ocurrido un error...");
+               imprimir(e.getMessage());
            }
        }while(!ejecucionCorrecta);
 
@@ -81,8 +80,8 @@ public class VistaGeneral {
         if (vistaJugadores.getJugadorLogueado() != null){ // no hace falta
             int opcion = 0;
             do {
-                imprimir("\t\tGestor de partidas" +
-                        "----------------------------------------" +
+                imprimir("\t\tGestor de partidas\n" +
+                        "----------------------------------------\n" +
                         "Inserte 1: Iniciar Partida\n" +
                         "Inserte 2: Generar Puntuaciones\n" +
                         "Inserte 3: Darse de baja\n" +
@@ -91,7 +90,7 @@ public class VistaGeneral {
                 switch (opcion) {
                     case 1: //iniciarPartida
                         IJugable first_player = vistaJugadores.getJugadorLogueado();
-                        IJugable second_player = controladorJugadores.crearMaquina();// TODO: Esto hay que mejorarlo
+                         IJugable second_player = controladorJugadores.crearMaquina();// TODO: Esto hay que mejorarlo
                         controladorPartida.iniciarPartida(first_player, second_player);
                         break;
                     case 2: // generarPuntuaciones
@@ -120,7 +119,7 @@ public class VistaGeneral {
         try {
             controladorJugadores.darAlta("admin1@alumnos.upm.es","Admin1","Admin1*",true);
             controladorJugadores.darAlta("admin2@alumnos.upm.es","Admin2","Admin2*",true);
-        } catch (ModelException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 

@@ -1,6 +1,7 @@
 package org.example.Vistas;
 
 import org.example.Dato.Jugadores.IJugable;
+import org.example.Dato.Jugadores.JugadorHumano;
 import org.example.Logica.IControladorPartida;
 
 import javax.swing.*;
@@ -21,7 +22,7 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
 		System.out.println(line);
 	}
 
-	public void mostrarPuntuacionesJugador(IJugable jugador){
+	public void mostrarPuntuacionesJugador(JugadorHumano jugador){
 		String line = controladorPartida.getPuntuacionesJugador(jugador);
 		System.out.println(line);
 	}

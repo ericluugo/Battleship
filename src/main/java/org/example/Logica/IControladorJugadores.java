@@ -4,12 +4,11 @@ import org.example.Dato.Jugadores.JugadorHumano;
 import org.example.Dato.Jugadores.Maquina;
 
 public interface IControladorJugadores {
-    public JugadorHumano darAlta(String email, String nombre, String contraseña, boolean esAdmin) throws Exception;
-    public boolean darBaja(JugadorHumano jugadorHumano);
-    public JugadorHumano iniciarSesion(String email, String contraseña);
-    public boolean comprobarEmail(String email);
-    public boolean comprobarContrasenia(String email, String contraseña);
-    public Maquina crearMaquina() throws Exception;
+     JugadorHumano darAlta(String email, String nombre, String contrasenia, boolean esAdmin) throws Exception;
+    boolean darBaja(JugadorHumano jugadorHumano);
+     JugadorHumano iniciarSesion(String email, String contrasenia);
+     boolean comprobarEmail(String email);
+     Maquina crearMaquina() throws Exception;
 
 
 }

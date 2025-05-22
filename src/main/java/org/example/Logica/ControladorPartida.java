@@ -3,11 +3,11 @@ package org.example.Logica;
 import org.example.Dato.*;
 import org.example.Dato.Barcos.Barco;
 import org.example.Dato.Jugadores.IJugable;
+import org.example.Dato.Jugadores.JugadorHumano;
 import org.example.Dato.Partida.Partida;
 import org.example.Dato.Partida.Tablero;
 import org.example.Vistas.IVistaAtacable;
 import org.example.Vistas.IVistaPartida;
-import org.example.Vistas.VistaGeneral;
 
 import java.util.*;
 
@@ -48,7 +48,7 @@ public class ControladorPartida implements IControladorPartida {
         return line;
     }
 
-    public String getPuntuacionesJugador(IJugable jugador){
+    public String getPuntuacionesJugador(JugadorHumano jugador){
         String line = "";
         List<Partida> listaPartidasJugador = new LinkedList<>();
         for(Partida partida:partidas){
@@ -56,7 +56,7 @@ public class ControladorPartida implements IControladorPartida {
                 listaPartidasJugador.add(partida);
             }
         }
-        listaPartidasJugador.sort(Comparator.comparingDouble(Partida::getPuntosGanador));
+        listaPartidasJugador.sort(Comparator.comparingDouble(Partida::getPuntosJugador1)); // El jugador 1 siempre va a ser el humano
         for (Partida partida:listaPartidasJugador){
             line += partida.toString()+"\n";
         }
