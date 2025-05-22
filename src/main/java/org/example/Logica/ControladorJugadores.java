@@ -82,7 +82,7 @@ public class ControladorJugadores implements IControladorJugadores{
 
     public Maquina crearMaquina() throws Exception {
         Random random = new Random(System.currentTimeMillis());
-        String nombre = "Maquina_FACIL" + random;
+        String nombre = "Maquina_FACIL_" + random.nextInt();
         Maquina maquina = new Maquina(nombre);
         listaJugadores.add(maquina);
         return maquina;

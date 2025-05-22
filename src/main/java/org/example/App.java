@@ -1,7 +1,6 @@
 package org.example;
 
 import org.example.Vistas.VistaGeneral;
-import utilidades.Cifrado;
 
 public class App
 {

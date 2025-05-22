@@ -36,6 +36,11 @@ public class JugadorHumano extends Jugador {
 		return ControladorPartida.getInstancia().getVistaAtacable().pedirDecision();
 	}
 
+	@Override
+	public int pedirFila() {
+		return ControladorPartida.getInstancia().getVistaAtacable().pedirFila();
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -68,7 +73,6 @@ public class JugadorHumano extends Jugador {
         return this.email.equals(email) && this.contrasenia.equals(contrasenia);
 	}
 
-	@Override
 	public String getNombre() {
 		return nombre;
 	}

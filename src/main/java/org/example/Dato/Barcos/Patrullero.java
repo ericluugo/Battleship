@@ -18,7 +18,10 @@ public class Patrullero extends Barco {
 
 	@Override
 	public void habilidad(Tablero tableroEnemigo) {
-		int fila = ControladorPartida.getInstancia().getVistaAtacable().pedirFila();
+		int fila = 0;
+		if(ControladorPartida.getInstancia().getPartidaJugable().isTurno()){
+			fila = ControladorPartida.getInstancia().getPartidaJugable().getJugador2().pedirFila();
+		}else fila = ControladorPartida.getInstancia().getPartidaJugable().getJugador1().pedirFila();
 		for (int j = 0; j<tableroEnemigo.getNumColumnas();j++){
 			tableroEnemigo.getTablero()[fila][j].setEstadoVisibilidad(true);
 		}

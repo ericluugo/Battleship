@@ -4,9 +4,7 @@ import java.util.List;
 
 public interface IVistaAtacable {
 	
-	public List<Integer> pedirCasilla();
-
-	public boolean pedirDecision();
-
-	public int pedirFila();
+	List<Integer> pedirCasilla();
+	boolean pedirDecision();
+	int pedirFila();
 }

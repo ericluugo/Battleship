@@ -7,8 +7,7 @@ public class Casilla {
 	private boolean estadoImpactado;
 	private boolean estadoVisibilidad;
 	private boolean ocupada;
-	public Casilla(int fila, int columna) {
-		super();
+	public Casilla(int columna, int fila) {
 		this.fila = fila;
 		this.columna = columna;
 		this.estadoImpactado = false;

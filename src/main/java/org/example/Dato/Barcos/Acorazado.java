@@ -1,6 +1,8 @@
 package org.example.Dato.Barcos;
 
 import org.example.Dato.Casilla;
+import org.example.Dato.Jugadores.IJugable;
+import org.example.Dato.Partida.Partida;
 import org.example.Dato.Partida.Tablero;
 import org.example.Logica.ControladorPartida;
 
@@ -19,9 +21,12 @@ public class Acorazado extends Barco {
 
 	@Override
 	public void habilidad(Tablero tableroEnemigo) {
-		List<Integer> coordenadas = ControladorPartida.getInstancia().getVistaAtacable().pedirCasilla();
-		int fila = coordenadas.get(0);
-		int columna = coordenadas.get(1);
+		List<Integer> coordenadas;
+		if (ControladorPartida.getInstancia().getPartidaJugable().isTurno()){
+			coordenadas = ControladorPartida.getInstancia().getPartidaJugable().getJugador2().seleccionarCasilla();
+		}else coordenadas = ControladorPartida.getInstancia().getPartidaJugable().getJugador1().seleccionarCasilla();
+		int fila = coordenadas.get(1);
+		int columna = coordenadas.get(0);
 		List<Integer> coordenadaSuperior = Arrays.asList(fila, columna + 1);
 		List<Integer> coordenadaInferior = Arrays.asList(fila, columna - 1);
 		List<Integer> coordenadaIzquierda = Arrays.asList(fila - 1, columna);
@@ -40,7 +45,10 @@ public class Acorazado extends Barco {
 				ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha atacado la casilla : ["+coordenadaActual.get(1)+"]["+coordenadaActual.get(0)+"]");
 				if (atacado == null){
 					ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha fallado");
-				}else ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha acertado");
+				}else{
+					ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha acertado");
+					atacado.isBarcoMuerto();
+				}
 			}
 		}
 	}

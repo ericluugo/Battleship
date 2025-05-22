@@ -5,10 +5,13 @@ import org.example.Vistas.IVistaAtacable;
 
 public interface IJugable {
 
-	public List<Integer> seleccionarCasilla();
+	List<Integer> seleccionarCasilla();
 	
-	public String getId();
+	String getId();
 
-	public boolean decisionHabilidad();
+	boolean decisionHabilidad();
+
+	int pedirFila();
+
 	
 }

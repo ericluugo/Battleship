@@ -7,10 +7,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class VistaGeneral {
-    private VistaPartida vistaPartida;
-    private VistaJugadores vistaJugadores;
-    private ControladorPartida controladorPartida;
-    private ControladorJugadores controladorJugadores;
+    private final VistaPartida vistaPartida;
+    private final VistaJugadores vistaJugadores;
+    private final ControladorPartida controladorPartida;
+    private final ControladorJugadores controladorJugadores;
     private static VistaGeneral instancia;
     private static final Scanner teclado = new Scanner(System.in);
 

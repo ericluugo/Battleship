@@ -6,11 +6,11 @@ import org.example.Dato.Partida.Partida;
 
 public interface IControladorPartida {
 
-    public String generarPuntuaciones(Partida partida);
+    String generarPuntuaciones(Partida partida);
 
-    public void iniciarPartida(IJugable jugador1,IJugable jugador2);
+    void iniciarPartida(IJugable jugador1,IJugable jugador2) throws Exception;
 
-    public String getPuntuacionesGlobal();
+    String getPuntuacionesGlobal();
 
-    public String getPuntuacionesJugador(JugadorHumano jugador);
+    String getPuntuacionesJugador(JugadorHumano jugador);
 }

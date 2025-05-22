@@ -19,8 +19,8 @@ public class Tablero {
 		this.numFilas = numFilas;
 		this.numColumnas = numColumnas;
 		this.barcos = new ArrayList<>();
-		for (int i = 0; i<numFilas;i++) {
-			for (int j = 0; j < numFilas; j++) {
+		for (int i = 0; i < numFilas;i++) {
+			for (int j = 0; j < numColumnas; j++) {
 				this.tablero[i][j] = new Casilla(i,j);
 			}
 		}
@@ -54,6 +54,7 @@ public class Tablero {
 			}
 			sb.append("\n");
 		}
+		sb.append("' ' agua, 'X' impacto, 'O' agua impactada, '.' agua sin impactar, '…' barco sin impactar.\n");
 		return sb.toString();
 	}
 
@@ -63,10 +64,9 @@ public class Tablero {
 		tablero[coordenadas.get(0)][coordenadas.get(1)].setEstadoImpactado(true);
 		for (Barco barco: barcos){
 			int index = 0;
-			while(index<barco.getCasillas().size() && barcoImpactado == null){
-				if (barco.getCasillas().get(index).getFila() == coordenadas.get(0) && barco.getCasillas().get(index).getColumna() == coordenadas.get(1)) {
+			while(index<barco.getCasillas().size() && barcoImpactado == null){//(Y,X)
+				if (barco.getCasillas().get(index).getFila() == coordenadas.get(1) && barco.getCasillas().get(index).getColumna() == coordenadas.get(0)) {
 					barcoImpactado = barco;
-					barco.isBarcoMuerto();
 				}
 				index++;
 			}

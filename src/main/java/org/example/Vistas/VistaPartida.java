@@ -30,8 +30,8 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
 	@Override
 	public List<Integer> pedirCasilla () {
 		List<Integer> coordenadas = new ArrayList<>();
-		Integer coorX = lecturaCoordenada("Introduzca las coordenadas de la casilla deseada: " +'\n' + "Coordenada x : ");
-		Integer coorY = lecturaCoordenada("Coordenada y : ");
+		Integer coorY = lecturaCoordenada("Introduzca las coordenadas de la casilla deseada: " +'\n' + "Coordenada y : ");
+		Integer coorX = lecturaCoordenada("Coordenada x : ");
 		coordenadas.add(coorY);
 		coordenadas.add(coorX);
 		return coordenadas;
@@ -42,7 +42,7 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
 		int coordenada = -1;
 
 		while (!correcto) {
-			System.out.println(mensaje);
+			System.out.print(mensaje);
 			try {
 				coordenada = teclado.nextInt();
 				if (coordenada >= 0 && coordenada <= 9) {
@@ -73,9 +73,9 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
 		String respuesta = "";
 
 		while (!correcto) {
-			System.out.println(mensaje);
+			System.out.print(mensaje);
 			try {
-				respuesta = teclado.nextLine().trim();
+				respuesta = teclado.nextLine();
 
 				if (respuesta.equalsIgnoreCase("Si") ||
 						respuesta.equalsIgnoreCase("Sí") ||

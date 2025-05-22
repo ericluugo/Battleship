@@ -15,8 +15,8 @@ public class Maquina extends Jugador {
 	public List<Integer> seleccionarCasilla() {
 		List<Integer> coordenadas = new ArrayList<>();
 		Random rand = new Random();
-		Integer coorX = rand.nextInt(10);
 		Integer coorY = rand.nextInt(10);
+		Integer coorX = rand.nextInt(10);
 		coordenadas.add(coorY);
 		coordenadas.add(coorX);
 		return coordenadas;
@@ -30,6 +30,13 @@ public class Maquina extends Jugador {
 	@Override
 	public boolean decisionHabilidad() {
 		return true;
+	}
+
+	@Override
+	public int pedirFila() {
+		Random rand = new Random();
+		int fila = rand.nextInt(10);
+		return fila;
 	}
 
 	public String getNombreMaquina() {
