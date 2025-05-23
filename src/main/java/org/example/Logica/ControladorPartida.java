@@ -32,10 +32,6 @@ public class ControladorPartida implements IControladorPartida {
         return instancia;
     }
 
-    public static void setInstancia(ControladorPartida instancia) {
-        ControladorPartida.instancia = instancia;
-    }
-
     public Partida crearPartida(IJugable jugador1, IJugable jugador2) {
         return new Partida(jugador1, jugador2);
     }
@@ -49,7 +45,8 @@ public class ControladorPartida implements IControladorPartida {
         StringBuilder line = new StringBuilder();
         List<Partida> sortedPartidas = new LinkedList<>(partidas);
         sortedPartidas.sort(Comparator.comparingDouble(Partida::getPuntosGanador));
-        for (int i = 0; i < 10; i++) {
+        int nPartidas = Math.min(partidas.size(), 10);
+        for (int i = 0; i < nPartidas; i++) {
             line.append(partidas.get(i).toString()).append("\n");
         }
         return line.toString();
@@ -130,7 +127,6 @@ public class ControladorPartida implements IControladorPartida {
         setPartidaJugable(partida);
         //Bienvenida
         vistaPartida.imprimirBienvenida();
-        //vistaPartida.imprimirBienvenida();
         // Partida iniciada : IJugable vs IJugable
         vistaPartida.imprimirRivalidad(partida.getJugador1().getId(), partida.getJugador2().getId());
         while (!partida.verificarFinPartida()) {
