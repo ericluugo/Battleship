@@ -23,7 +23,7 @@ public class JugadorHumano extends Jugador {
 
 	@Override
 	public List<Integer> seleccionarCasilla() {
-		return ControladorPartida.getInstancia().getVistaAtacable().pedirCasilla();
+		return ControladorPartida.getInstancia().pedirCasilla();
 	}
 
 	@Override
@@ -33,12 +33,12 @@ public class JugadorHumano extends Jugador {
 
 	@Override
 	public boolean decisionHabilidad() {
-		return ControladorPartida.getInstancia().getVistaAtacable().pedirDecision();
+		return ControladorPartida.getInstancia().pedirDecision();
 	}
 
 	@Override
 	public int pedirFila() {
-		return ControladorPartida.getInstancia().getVistaAtacable().pedirFila();
+		return ControladorPartida.getInstancia().pedirFila();
 	}
 
 	public String getEmail() {
@@ -80,15 +80,5 @@ public class JugadorHumano extends Jugador {
 	public void setNombre(String nombre) throws Exception {
 		Validaciones.checkNombre("nombre");
 		this.nombre = nombre;
-	}
-
-	public void setNombreTest(String nombre)throws Exception{
-		Validaciones.checkStringInRange(3,10,nombre,"Nombre");
-		this.nombre = nombre;
-	}
-
-	public void setContraseniaTest(String contrasenia)throws Exception{
-		Validaciones.checkStringInRange(6,12,contrasenia,"Contrsenia");
-		this.contrasenia = contrasenia;
 	}
 }

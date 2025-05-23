@@ -178,6 +178,15 @@ public class ControladorPartida implements IControladorPartida {
         Barco afectado = tableroEnemigo.recibirCoordenadas(coordenadas);
         return afectado;
     }
+    public List<Integer> pedirCasilla(){
+        return vistaAtacable.pedirCasilla();
+    }
+    public int pedirFila(){
+        return vistaAtacable.pedirFila();
+    }
+    public boolean pedirDecision(){
+        return vistaAtacable.pedirDecision();
+    }
 
     public List<Partida> getPartidas() {
         return partidas;
