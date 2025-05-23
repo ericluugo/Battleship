@@ -163,7 +163,7 @@ public class Partida {
 
     public String toString() {
         String line;
-        line = "Partida " + jugador1 + " vs " + jugador2 + " (" + fechaInicio + " to " + fechaFin + ")";
+        line = "Partida " + jugador1.getId() + " vs " + jugador2.getId() +", "+puntosJugador1+"-"+puntosJugador2+ " (" + fechaInicio + " to " + fechaFin + ")";
         return line;
     }
 }
