@@ -88,11 +88,11 @@ public class ControladorPartida implements IControladorPartida {
                     else puntuacionJugador1 += 5;
                 }
             }
-            for (int indexI = 0; indexI < partida.getTablero2().getTablero().length; indexI++) {
-                for (int indexJ = 0; indexJ < partida.getTablero2().getTablero()[indexI].length; indexJ++) {
-                    if (partida.getTablero2().getTablero()[indexI][indexJ].isEstadoVisibilidad() && partida.getTablero2().getTablero()[indexI][indexJ].isEstadoImpactado() && !partida.getTablero2().getTablero()[indexI][indexJ].isOcupada()) {
-                        puntuacionJugador1--;
-                    }
+        }
+        for (int indexI = 0; indexI < partida.getTablero2().getTablero().length; indexI++) {
+            for (int indexJ = 0; indexJ < partida.getTablero2().getTablero()[indexI].length; indexJ++) {
+                if (partida.getTablero2().getTablero()[indexI][indexJ].isEstadoVisibilidad() && partida.getTablero2().getTablero()[indexI][indexJ].isEstadoImpactado() && !partida.getTablero2().getTablero()[indexI][indexJ].isOcupada()) {
+                    puntuacionJugador1--;
                 }
             }
         }
@@ -103,11 +103,11 @@ public class ControladorPartida implements IControladorPartida {
                     else puntuacionJugador2 += 5;
                 }
             }
-            for (int indexI = 0; indexI < partida.getTablero1().getTablero().length; indexI++) {
-                for (int indexJ = 0; indexJ < partida.getTablero1().getTablero()[indexI].length; indexJ++) {
-                    if (partida.getTablero1().getTablero()[indexI][indexJ].isEstadoVisibilidad() && partida.getTablero1().getTablero()[indexI][indexJ].isEstadoImpactado() && !partida.getTablero1().getTablero()[indexI][indexJ].isOcupada()) {
-                        puntuacionJugador2--;
-                    }
+        }
+        for (int indexI = 0; indexI < partida.getTablero1().getTablero().length; indexI++) {
+            for (int indexJ = 0; indexJ < partida.getTablero1().getTablero()[indexI].length; indexJ++) {
+                if (partida.getTablero1().getTablero()[indexI][indexJ].isEstadoVisibilidad() && partida.getTablero1().getTablero()[indexI][indexJ].isEstadoImpactado() && !partida.getTablero1().getTablero()[indexI][indexJ].isOcupada()) {
+                    puntuacionJugador2--;
                 }
             }
         }
