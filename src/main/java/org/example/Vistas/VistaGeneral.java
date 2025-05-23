@@ -13,6 +13,7 @@ public class VistaGeneral {
     private final ControladorJugadores controladorJugadores;
     private static VistaGeneral instancia;
     private static final Scanner teclado = new Scanner(System.in);
+    private boolean finPrograma;
 
 
     private VistaGeneral() throws Exception{
@@ -25,6 +26,7 @@ public class VistaGeneral {
         controladorPartida.setVistaPartida(vistaPartida);
         vistaJugadores.setControladorJugadores(controladorJugadores);
         controladorJugadores.setVistaJugadores(vistaJugadores);
+        this.finPrograma = false;
         this.precargaAdmins();
     }
 
@@ -71,11 +73,13 @@ public class VistaGeneral {
                     break;
                 case 3:
                     imprimir("Fin del sistema de juego Battleship");
+                    finPrograma = true;
+                    break;
                 default:
                     imprimir("Seleccione una opción válida");
                     break;
             }
-        }while (opcion !=3);
+        }while (opcion !=3&&!finPrograma);
     }
 
     private void switchPlayer() throws Exception{
@@ -115,7 +119,7 @@ public class VistaGeneral {
                         imprimir("Seleccione una opción válida");
                         break;
                 }
-            }while (opcion !=4);
+            }while (opcion !=4&&!finPrograma);
         }
     }
 
