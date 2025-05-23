@@ -19,6 +19,7 @@ public class JugadorHumano extends Jugador {
 		setNombre(nombre);
 		setEmail(email);
 		setContrasenia(contrasenia);
+		setEsAdmin(esAdmin);
 	}
 
 	@Override
@@ -78,7 +79,7 @@ public class JugadorHumano extends Jugador {
 	}
 
 	public void setNombre(String nombre) throws Exception {
-		Validaciones.checkNombre("nombre");
+		Validaciones.checkNombre(nombre);
 		this.nombre = nombre;
 	}
 }

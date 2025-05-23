@@ -101,19 +101,7 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
 
 	@Override
 	public void imprimirBienvenida() {
-		JFrame frame = new JFrame("Battleship UPM");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(600, 200);
-		frame.setLocationRelativeTo(null); // Centrar ventana
-
-		// Crear un label con el texto del título
-		JLabel titleLabel = new JLabel("BATTLESHIP UPM", SwingConstants.CENTER);
-		titleLabel.setFont(new Font("Arial", Font.BOLD, 100)); // Fuente grande y negrita
-		titleLabel.setForeground(Color.BLUE); // Puedes cambiar el color
-		// Agregar el label al frame
-		frame.add(titleLabel);
-		// Hacer visible la ventana
-		frame.setVisible(true);
+		System.out.println("Battleship UPM");
 		System.out.println("Se ha empezado una partida....");
 	}
 
@@ -129,7 +117,7 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
 
 	@Override
 	public void imprimirCasillaAtacada(List<Integer> casillaAtacada) {
-		System.out.println("Se ha atacado la casilla : ["+casillaAtacada.get(1)+"]["+casillaAtacada.get(0)+"]");
+		System.out.println("Se ha atacado la casilla : ["+casillaAtacada.get(0)+"]["+casillaAtacada.get(1)+"]");
 	}
 
 	@Override
@@ -149,22 +137,6 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
 
 	@Override
 	public void imprimirGanador(String id) {
-
-		JFrame frameGanador = new JFrame("Resultado Final");
-		frameGanador.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frameGanador.setSize(600, 200);
-		frameGanador.setLocationRelativeTo(null);
-		JLabel titleLabel = new JLabel("GANADOR: " + id, SwingConstants.CENTER);
-		titleLabel.setFont(new Font("Arial", Font.BOLD, 100)); // Tamaño grande
-		titleLabel.setForeground(Color.GREEN.darker()); // Color verde oscuro
-
-		// Agregar el label al frame
-		frameGanador.add(titleLabel);
-
-		// Mostrar la ventana
-		frameGanador.setVisible(true);
-
-		// Mensaje en consola
 		System.out.println("¡GANADOR: " + id + "!");
 	}
 

@@ -69,6 +69,8 @@ public class VistaGeneral {
                         switchPlayer();
                     }
                     break;
+                case 3:
+                    imprimir("Fin del sistema de juego Battleship");
                 default:
                     imprimir("Seleccione una opción válida");
                     break;

@@ -83,6 +83,13 @@ public class Tablero {
 		return true;
 	}
 
+	public boolean isCasillaImpactada(List<Integer> ataque){
+		if (tablero[ataque.get(0)][ataque.get(1)].isEstadoImpactado() && tablero[ataque.get(0)][ataque.get(1)].isEstadoVisibilidad()){
+			return true;
+		}
+		return false;
+	}
+
 	public List<Casilla>colocacionBarcos(int tamanio) {
 		Random rand = new Random();
 		List<Casilla> seleccionadas = new ArrayList<>();

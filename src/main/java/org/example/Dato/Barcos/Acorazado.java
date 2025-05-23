@@ -42,7 +42,7 @@ public class Acorazado extends Barco {
 			List<Integer> coordenadaActual = coordenadasVecinas.get(index);
 			if ((coordenadaActual.get(0)>= 0 && coordenadaActual.get(0)<=9) && (coordenadaActual.get(1)>= 0 && coordenadaActual.get(1)<=9)){
 				Barco atacado = tableroEnemigo.recibirCoordenadas(coordenadaActual);
-				ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha atacado la casilla : ["+coordenadaActual.get(1)+"]["+coordenadaActual.get(0)+"]");
+				ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha atacado la casilla : ["+coordenadaActual.get(1)+"]["+coordenadaActual.get(0)+"] con El Acorazado");
 				if (atacado == null){
 					ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha fallado");
 				}else{
@@ -51,12 +51,12 @@ public class Acorazado extends Barco {
 				}
 			}
 		}
+		numAtaquesDisponibles--;
 	}
 
 	@Override
 	public boolean habilidadDisponible() {
 		if (numAtaquesDisponibles > 0){
-			numAtaquesDisponibles--;
 			return true;
 		}else return false;
 	}

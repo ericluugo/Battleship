@@ -2,7 +2,6 @@ package org.example.Vistas;
 
 import org.example.Dato.Jugadores.JugadorHumano;
 import org.example.Logica.IControladorJugadores;
-import servidor.Autenticacion;
 
 import java.util.Scanner;
 
@@ -18,8 +17,11 @@ public class VistaJugadores implements IVistaJugadores{
     }
 
     public void solicitudDatosAlta() throws Exception {
+        System.out.println("Un nombre de usuario, palabra corta de entre 3 y 10 caracteres de solo caracteres y números que no esté en la lista negra...");
         String nombre = leerCadena("Introduzca su nombre: ");
+        System.out.println("Correo perteneciente a la UPM...");
        String email = leerCadena("Introduzca su email: ");
+        System.out.println("Una contraseña, obligatorio mayúsculas, minúsculas, números y símbolos con tamaño mínimo de 6 caracteres y 12 de máximo");
        String contrasenia = leerCadena("Introduzca su contraseña: ");
        controladorJugadores.darAlta(email, nombre, contrasenia, false);
        imprimir("Se ha creado el usuario correctamente");

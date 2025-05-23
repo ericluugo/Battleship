@@ -22,11 +22,13 @@ public class Portaviones extends Barco {
 			coordenadas = ControladorPartida.getInstancia().getPartidaJugable().getJugador2().seleccionarCasilla();
 		}else coordenadas = ControladorPartida.getInstancia().getPartidaJugable().getJugador1().seleccionarCasilla();
 		Barco atacado = tableroEnemigo.recibirCoordenadas(coordenadas);
-		ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha atacado la casilla : ["+coordenadas.get(1)+"]["+coordenadas.get(0)+"]");
-		atacado.isBarcoMuerto();
+		ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha atacado la casilla : ["+coordenadas.get(1)+"]["+coordenadas.get(0)+"] con El Portaviones");
 		if (atacado == null){
 			ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha fallado");
-		}else ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha acertado");
+		}else{
+			atacado.isBarcoMuerto();
+			ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha acertado");
+		}
 	}
 
 	@Override

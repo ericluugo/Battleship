@@ -3,6 +3,7 @@ package org.example.Vistas;
 import java.util.List;
 
 public interface IVistaPartida {
+
      void imprimirBienvenida();
 
      void imprimirRivalidad(String id1,String id2);

@@ -16,7 +16,7 @@ public class Validaciones {
     }
 
     public static void checkNombre(String nombre) throws Exception{
-        if (ControladorJugadores.getInstancia().getListaNegra().contains(nombre) || nombre.length() < 3 || nombre.length() >10 || nombre.matches("^[a-zA-Z0-9]$")){
+        if (ControladorJugadores.getInstancia().getListaNegra().contains(nombre) || nombre.length() < 3 || nombre.length() >10 || nombre.matches(".*[^a-zA-Z0-9\\s].*")){
             throw new Exception("Error de formato en nombre");
         }
     }

@@ -25,13 +25,13 @@ public class Patrullero extends Barco {
 		for (int j = 0; j<tableroEnemigo.getNumColumnas();j++){
 			tableroEnemigo.getTablero()[fila][j].setEstadoVisibilidad(true);
 		}
-		ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha revelado la fila " + fila);
+		ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha revelado la fila " + fila + " con El Patrullero");
+		numRevelacionesDisponibles--;
 	}
 
 	@Override
 	public boolean habilidadDisponible() {
 		if (numRevelacionesDisponibles > 0){
-			numRevelacionesDisponibles--;
 			return true;
 		}else return false;
 	}

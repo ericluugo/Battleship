@@ -77,7 +77,7 @@ public class ControladorPartida implements IControladorPartida {
     public void finalizarPartida(Partida partida) {
         int puntuacionJugador1 = 0;
         int puntuacionJugador2 = 0;
-        for(Barco barcoFinal : partida.getTablero1().getBarcos()){
+        for(Barco barcoFinal : partida.getTablero2().getBarcos()){
             for (Casilla casilla : barcoFinal.getCasillas()) {
                 if (casilla.isEstadoImpactado() && casilla.isOcupada()) {
                     if (barcoFinal.isVivo()) puntuacionJugador1 += 2;
@@ -92,7 +92,7 @@ public class ControladorPartida implements IControladorPartida {
                 }
             }
         }
-        for(Barco barcoFinal : partida.getTablero2().getBarcos()){
+        for(Barco barcoFinal : partida.getTablero1().getBarcos()){
             for (Casilla casilla : barcoFinal.getCasillas()) {
                 if (casilla.isEstadoImpactado() && casilla.isOcupada()) {
                     if (barcoFinal.isVivo()) puntuacionJugador2 += 2;
@@ -102,7 +102,7 @@ public class ControladorPartida implements IControladorPartida {
             for(int indexI =0; indexI<partida.getTablero1().getTablero().length;indexI++){
                 for (int indexJ=0; indexJ<partida.getTablero1().getTablero()[indexI].length;indexJ++){
                     if (partida.getTablero1().getTablero()[indexI][indexJ].isEstadoVisibilidad() && partida.getTablero1().getTablero()[indexI][indexJ].isEstadoImpactado() && !partida.getTablero1().getTablero()[indexI][indexJ].isOcupada()){
-                        puntuacionJugador1--;
+                        puntuacionJugador2--;
                     }
                 }
             }
@@ -122,6 +122,7 @@ public class ControladorPartida implements IControladorPartida {
     public void jugarPartida(Partida partida) throws Exception {
         setPartidaJugable(partida);
         //Bienvenida
+        vistaPartida.imprimirBienvenida();
         //vistaPartida.imprimirBienvenida();
         // Partida iniciada : IJugable vs IJugable
         vistaPartida.imprimirRivalidad(partida.getJugador1().getId(),partida.getJugador2().getId());
@@ -132,36 +133,45 @@ public class ControladorPartida implements IControladorPartida {
                 // imprimir tableros
                 vistaPartida.imprimir(generarTableros(partida));
                 List<Integer> coordenadasAtacar = partida.getJugador1().seleccionarCasilla();
-                Barco atacado = atacar(partida.getTablero2(),coordenadasAtacar);
-                vistaPartida.imprimirCasillaAtacada(coordenadasAtacar);
-                // imprimir por pantalla FALLO o Acierto y casilla atacada
-                if (atacado != null){
-                    vistaPartida.imprimirObjetoImpacto(atacado.getNombre());
-                    if (partida.getJugador2().decisionHabilidad() && atacado.habilidadDisponible()){
-                        atacado.habilidad(partida.getTablero1());
+                if (!partida.getTablero2().isCasillaImpactada(coordenadasAtacar)){
+                    Barco atacado = atacar(partida.getTablero2(), coordenadasAtacar);
+                    vistaPartida.imprimirCasillaAtacada(coordenadasAtacar);
+                    // imprimir por pantalla FALLO o Acierto y casilla atacada
+                    if (atacado != null) {
+                        vistaPartida.imprimirObjetoImpacto(atacado.getNombre());
+                        atacado.isBarcoMuerto();
+                        if (atacado.habilidadDisponible()) {
+                            if (partida.getJugador2().decisionHabilidad()) {
+                                atacado.habilidad(partida.getTablero1());
+                            }
+                        } else vistaPartida.imprimir("No tiene la habilidad disponible");
+                    } else {
+                        vistaPartida.imprimirObjetoImpacto("");
                     }
-                }else {
-                    vistaPartida.imprimirObjetoImpacto("");
-                }
+                }else vistaPartida.imprimir("Ha atacado a una casilla impactada anteriormente,por ello, ha perdido el turno");
             }else {
                 // turno jugador2
                 vistaPartida.imprimirTurno(partida.getJugador2().getId());
                 //imprimir tableros
                 vistaPartida.imprimir(generarTableros(partida));
                 List<Integer> coordenadasAtacar = partida.getJugador2().seleccionarCasilla();
-                Barco atacado = atacar(partida.getTablero1(),coordenadasAtacar);
-                // imprimir por pantalla FALLO o Acierto y casilla atacada
-                vistaPartida.imprimirCasillaAtacada(coordenadasAtacar);
-                if (atacado != null){
-                    // imprimir por pantalla Tipo barco pegado
-                    vistaPartida.imprimirObjetoImpacto(atacado.getNombre());
-                    atacado.isBarcoMuerto();
-                    if (partida.getJugador1().decisionHabilidad() && atacado.habilidadDisponible()){
-                            atacado.habilidad(partida.getTablero2());
+                if (!partida.getTablero1().isCasillaImpactada(coordenadasAtacar)) {
+                    Barco atacado = atacar(partida.getTablero1(), coordenadasAtacar);
+                    // imprimir por pantalla FALLO o Acierto y casilla atacada
+                    vistaPartida.imprimirCasillaAtacada(coordenadasAtacar);
+                    if (atacado != null) {
+                        // imprimir por pantalla Tipo barco pegado
+                        vistaPartida.imprimirObjetoImpacto(atacado.getNombre());
+                        atacado.isBarcoMuerto();
+                        if (atacado.habilidadDisponible()) {
+                            if (partida.getJugador1().decisionHabilidad()) {
+                                atacado.habilidad(partida.getTablero2());
+                            }
+                        } else vistaPartida.imprimir("No tiene la habilidad disponible");
+                    } else {
+                        vistaPartida.imprimirObjetoImpacto("");
                     }
-                }else {
-                    vistaPartida.imprimirObjetoImpacto("");
-                }
+                }else vistaPartida.imprimir("Ha atacado a una casilla impactada anteriormente,por ello, ha perdido el turno");
             }
             partida.cambiarTurno();
             Thread.sleep(1500);
@@ -169,7 +179,6 @@ public class ControladorPartida implements IControladorPartida {
         finalizarPartida(partida);
         //imprimir puntuaciones
         vistaPartida.imprimirPuntuacion(partida.getJugador1().getId(),partida.getPuntosJugador1(),partida.getJugador2().getId(),partida.getPuntosJugador2());
-        //imprimir ganador
         vistaPartida.imprimirGanador(partida.getGanador().getId());
         partidas.add(partida);
     }

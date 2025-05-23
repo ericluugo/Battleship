@@ -24,12 +24,12 @@ public class Submarino extends Barco {
 		}
 		setVivo(true);
 		ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha reparado el Submarino");
+		numReparacionesDisponibles--;
 	}
 
 	@Override
 	public boolean habilidadDisponible() {
 		if (numReparacionesDisponibles > 0){
-			numReparacionesDisponibles--;
 			return true;
 		}else return false;
 	}

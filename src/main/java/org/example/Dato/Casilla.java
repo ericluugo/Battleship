@@ -2,8 +2,8 @@ package org.example.Dato;
 
 public class Casilla {
 	
-	private int fila;
 	private int columna;
+	private int fila;
 	private boolean estadoImpactado;
 	private boolean estadoVisibilidad;
 	private boolean ocupada;
