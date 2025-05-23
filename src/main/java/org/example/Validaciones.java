@@ -15,15 +15,15 @@ public class Validaciones {
         }
     }
 
-    public static void checkNombre(String nombre) throws Exception{
-        if (ControladorJugadores.getInstancia().getListaNegra().contains(nombre) || nombre.length() < 3 || nombre.length() >10 || nombre.matches(".*[^a-zA-Z0-9\\s].*")){
+    public static void checkNombre(String nombre) throws Exception {
+        if (ControladorJugadores.getInstancia().getListaNegra().contains(nombre) || nombre.length() < 3 || nombre.length() > 10 || nombre.matches(".*[^a-zA-Z0-9\\s].*")) {
             throw new Exception("Error de formato en nombre");
         }
     }
 
-    public static void checkContrasenia(String contrasenia) throws Exception{
+    public static void checkContrasenia(String contrasenia) throws Exception {
         if (contrasenia.length() < 6 || contrasenia.length() > 12 || !contrasenia.matches(".*[a-z].*")
-                || !contrasenia.matches(".*[A-Z].*") || !contrasenia.matches(".*[0-9].*") ||!contrasenia.matches(".*[^a-zA-Z0-9].*")){
+                || !contrasenia.matches(".*[A-Z].*") || !contrasenia.matches(".*[0-9].*") || !contrasenia.matches(".*[^a-zA-Z0-9].*")) {
             throw new Exception("Error de formato en contrasenia");
         }
     }

@@ -4,5 +4,6 @@ import org.example.Dato.Jugadores.JugadorHumano;
 
 public interface IVistaJugadores {
     JugadorHumano getJugadorLogueado();
+
     void imprimir(String msg);
 }

@@ -4,20 +4,20 @@ import org.example.Dato.Jugadores.Jugador;
 import org.example.Dato.Jugadores.JugadorHumano;
 import org.example.Dato.Jugadores.Maquina;
 import org.example.Vistas.IVistaJugadores;
-import servidor.Autenticacion;
-import servidor.ObtencionDeRol;
 import utilidades.Cifrado;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ControladorJugadores implements IControladorJugadores{
-    private List<Jugador> listaJugadores;
-    private final List<String> listaNegra;
-    private final String RUTA_LISTA_NEGRA = "src/main/resources/lista_negra.txt";
+public class ControladorJugadores implements IControladorJugadores {
+    private static final String RUTA_LISTA_NEGRA = "src/main/resources/lista_negra.txt";
     private static ControladorJugadores instancia;
+    private final List<String> listaNegra;
+    private List<Jugador> listaJugadores;
     private IVistaJugadores vistaJugadores;
 
     private ControladorJugadores() {
@@ -33,19 +33,16 @@ public class ControladorJugadores implements IControladorJugadores{
         return instancia;
     }
 
+    public static void setInstancia(ControladorJugadores instancia) {
+        ControladorJugadores.instancia = instancia;
+    }
 
     @Override
-    public void darAlta (String email, String nombre, String contrasenia, boolean esAdmin) throws Exception {
+    public void darAlta(String email, String nombre, String contrasenia, boolean esAdmin) throws Exception {
         //Comprobar que no hay alguien ya registrado con este email
         if (comprobarEmail(email)) {
             vistaJugadores.imprimir("Ya esta registrado con este email, inicie Sesion");
-            //Comprobar que se usuario de la UPM
-        /*else if(nombreValido(nombre)) {
-            vistaJugadores.imprimir("Este nombre no está autorizado o no es correcto");
-        }else if (contraseniaValida(contrasenia)){
-            vistaJugadores.imprimir("La contraseña no es correcta");
-        }else {
-        */}else {
+        } else {
             JugadorHumano jugador = new JugadorHumano(nombre, email, contrasenia, esAdmin);
             listaJugadores.add(jugador);
         }
@@ -60,21 +57,22 @@ public class ControladorJugadores implements IControladorJugadores{
 
     @Override
     public JugadorHumano iniciarSesion(String email, String contrasenia) {
-        Jugador jugador=null;
-        int index =0;
-        while (index < listaJugadores.size() && jugador==null){
-            if (listaJugadores.get(index).comprobarEmailContrasenia(email, Cifrado.cifrar(contrasenia))){
+        Jugador jugador = null;
+        int index = 0;
+        while (index < listaJugadores.size() && jugador == null) {
+            if (listaJugadores.get(index).comprobarEmailContrasenia(email, Cifrado.cifrar(contrasenia))) {
                 jugador = listaJugadores.get(index);
             } else index++;
         }
         return (JugadorHumano) jugador;
     }
+
     @Override
-    public boolean comprobarEmail(String email){
+    public boolean comprobarEmail(String email) {
         boolean existe = false;
-        int index =0;
-        while (index<listaJugadores.size() && !existe){
-            if (listaJugadores.get(index).existeEmail(email)) existe=true;
+        int index = 0;
+        while (index < listaJugadores.size() && !existe) {
+            if (listaJugadores.get(index).existeEmail(email)) existe = true;
             else index++;
         }
         return existe;
@@ -88,15 +86,13 @@ public class ControladorJugadores implements IControladorJugadores{
         return maquina;
     }
 
-    private void inicializarListaNegra(){
-        BufferedReader reader;
+    private void inicializarListaNegra() {
         String nombre;
-        try {
-            reader = new BufferedReader(new FileReader(RUTA_LISTA_NEGRA));
+        try (BufferedReader reader = new BufferedReader(new FileReader(RUTA_LISTA_NEGRA))) {
             do {
                 nombre = reader.readLine();
                 listaNegra.add(nombre);
-            }while (nombre!=null);
+            } while (nombre != null);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -124,9 +120,5 @@ public class ControladorJugadores implements IControladorJugadores{
 
     public String getRUTA_LISTA_NEGRA() {
         return RUTA_LISTA_NEGRA;
-    }
-
-    public static void setInstancia(ControladorJugadores instancia) {
-        ControladorJugadores.instancia = instancia;
     }
 }
