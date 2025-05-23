@@ -3,7 +3,9 @@ package org.example;
 import junit.framework.TestCase;
 import org.example.Dato.Jugadores.JugadorHumano;
 import org.example.Logica.ControladorJugadores;
+import org.junit.Assert;
 import org.junit.Before;
+import utilidades.Cifrado;
 
 /**
  * Unit test for simple App.
@@ -17,8 +19,9 @@ public class AppTest
     @Before
     public void setUp() throws Exception {
         controladorJugadores = ControladorJugadores.getInstancia();
-        jugadorPrueba = new JugadorHumano("Alicia","alicia.garciab@alumnos.upm.es","1234567",false);
+        jugadorPrueba = new JugadorHumano("Alicia","alicia.garciab@alumnos.upm.es","Choco12!",false);
     }
+
 
     public void testCorrecto() throws Exception
     {
@@ -28,64 +31,63 @@ public class AppTest
         jugadorPrueba.setContrasenia("Choco12!");
         assertEquals("ruben@alumnos.upm.es", jugadorPrueba.getEmail());
         assertEquals("Ruben19", jugadorPrueba.getNombre());
-        assertEquals("Choco12!", jugadorPrueba.getContrasenia());
+        assertEquals(Cifrado.cifrar("Choco12!"), jugadorPrueba.getContrasenia());
     }
 
-    public void testEmail() throws Exception {
+    public void testEmail() {
     //CP2 el email es errorneo
         String emailInvalido = "cristian@gmail.com" ;
-        jugadorPrueba.setEmail(emailInvalido); //se tira exception si se comprueba correctamente
+        Assert.assertThrows(Exception.class ,()-> jugadorPrueba.setEmail(emailInvalido)); //se tira exception si se comprueba correctamente
     }
-    public void testNombre1() throws Exception {
+    public void testNombre1() {
         //CP3 el nombre tiene longitud < 3 caracteres
         String nombreInvalido = "yo";
-        jugadorPrueba.setNombre(nombreInvalido);
+        Assert.assertThrows(Exception.class ,()->jugadorPrueba.setNombre(nombreInvalido));
     }
-    public void testNombre2() throws Exception {
+    public void testNombre2() {
        //CP4 el nombre tiene longitud > 10 caracteres
         String nombreInvalido = "Cristian19C";
-        jugadorPrueba.setNombre(nombreInvalido);
+        Assert.assertThrows(Exception.class ,()->jugadorPrueba.setNombre(nombreInvalido));
     }
-    public void testNombre3() throws Exception {
+    public void testNombre3() {
         //CP5 el nombre esta en lista negra
         String nombreInvalido = "404";
-        jugadorPrueba.setNombre(nombreInvalido);
+        Assert.assertThrows(Exception.class ,()->jugadorPrueba.setNombre(nombreInvalido));
     }
-    public void testNombre4() throws Exception {
+    public void testNombre4() {
         //CP6 el nombre tiene un caracter especial
         String nombreInvalido = "Daniel#";
-        jugadorPrueba.setNombre(nombreInvalido);
+        Assert.assertThrows(Exception.class ,()->jugadorPrueba.setNombre(nombreInvalido));
     }
-
-    public void testContrasenia1() throws Exception {
+    public void testContrasenia1() {
         //CP7 Contrasenia con 5 caracteres
        String contraseniaInvalida = "Choco";
-       jugadorPrueba.setContrasenia(contraseniaInvalida);
+        Assert.assertThrows(Exception.class ,()->jugadorPrueba.setContrasenia(contraseniaInvalida));
     }
-    public void testContrasenia2() throws Exception {
+    public void testContrasenia2() {
         //CP8 Contrasenia con 13 caracteres
         String contraseniaInvalida = "Chocolate123!";
-        jugadorPrueba.setContrasenia(contraseniaInvalida);
+        Assert.assertThrows(Exception.class ,()->jugadorPrueba.setContrasenia(contraseniaInvalida));
     }
-    public void testContrasenia3() throws Exception {
+    public void testContrasenia3() {
         //CP9 Contrasenia no tiene al menos una minscula
         String contraseniaInvalida = "CHOCO12!";
-        jugadorPrueba.setContrasenia(contraseniaInvalida);
+        Assert.assertThrows(Exception.class ,()->jugadorPrueba.setContrasenia(contraseniaInvalida));
     }
-    public void testContrasenia4() throws Exception {
+    public void testContrasenia4() {
         //CP10 Contrasenia no tiene al menos una mayuscula
         String contraseniaInvalida = "choco12!";
-        jugadorPrueba.setContrasenia(contraseniaInvalida);
+        Assert.assertThrows(Exception.class ,()->jugadorPrueba.setContrasenia(contraseniaInvalida));
     }
-    public void testContrasenia5() throws Exception {
+    public void testContrasenia5() {
         //CP11 Contrasenia no tiene al menos un numero
         String contraseniaInvalida = "Choco!";
-        jugadorPrueba.setContrasenia(contraseniaInvalida);
+        Assert.assertThrows(Exception.class ,()->jugadorPrueba.setContrasenia(contraseniaInvalida));
     }
-    public void testContrasenia6() throws Exception {
+    public void testContrasenia6() {
         //CP12 Contrasenia no tiene al menos una caracter especial
         String contraseniaInvalida = "Choco12";
-        jugadorPrueba.setContrasenia(contraseniaInvalida);
+        Assert.assertThrows(Exception.class ,()->jugadorPrueba.setContrasenia(contraseniaInvalida));
     }
 }
 
