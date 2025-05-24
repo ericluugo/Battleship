@@ -72,7 +72,7 @@ public class ControladorJugadores implements IControladorJugadores {
         boolean existe = false;
         int index = 0;
         while (index < listaJugadores.size() && !existe) {
-            if (listaJugadores.get(index).existeEmail(email)) existe = true;
+            if (listaJugadores.get(index).getId().equalsIgnoreCase(email)) existe = true;
             else index++;
         }
         return existe;

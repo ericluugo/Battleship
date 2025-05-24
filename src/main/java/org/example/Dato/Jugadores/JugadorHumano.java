@@ -71,11 +71,6 @@ public class JugadorHumano extends Jugador {
     }
 
     @Override
-    public boolean existeEmail(String email) {
-        return this.email.equals(email);
-    }
-
-    @Override
     public boolean comprobarEmailContrasenia(String email, String contrasenia) {
         return this.email.equals(email) && this.contrasenia.equals(contrasenia);
     }

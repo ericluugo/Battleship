@@ -15,8 +15,8 @@ public abstract class Jugador implements IJugable {
 
 	public abstract int pedirFila();
 
-	public abstract boolean existeEmail(String email);
-
-	public abstract boolean comprobarEmailContrasenia(String email, String contraseña);
+	public boolean comprobarEmailContrasenia(String email, String contraseña){
+		return false;
+	};
 
 }

@@ -9,7 +9,7 @@ public class Maquina extends Jugador {
     private final Random rand = new Random();
     private String nombreMaquina;
 
-    public Maquina(String nombre) {
+    public Maquina(String nombre) throws Exception {
         this.nombreMaquina = nombre;
     }
 
