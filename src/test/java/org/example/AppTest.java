@@ -63,13 +63,13 @@ public class AppTest
     }
 
     public void testContrasenia1() {
-        //CP7 Contrasenia con 5 caracteres
-        String contraseniaInvalida = "Choco";
+        //CP7 Contrasenia con longitud < 6 caracteres
+        String contraseniaInvalida = "Ch";
         Assert.assertThrows(Exception.class, () -> jugadorPrueba.setContrasenia(contraseniaInvalida));
     }
 
     public void testContrasenia2() {
-        //CP8 Contrasenia con 13 caracteres
+        //CP8 Contrasenia con longitud < 12 caracteres
         String contraseniaInvalida = "Chocolate123!";
         Assert.assertThrows(Exception.class, () -> jugadorPrueba.setContrasenia(contraseniaInvalida));
     }

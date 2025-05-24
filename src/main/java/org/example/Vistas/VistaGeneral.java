@@ -11,7 +11,7 @@ public class VistaGeneral {
     private static final Scanner teclado = new Scanner(System.in);
     private static VistaGeneral instancia;
     private final VistaPartida vistaPartida;
-    private final VistaJugadores vistaJugadores;
+    private final VistaJugadore vistaJugadores;
     private final ControladorPartida controladorPartida;
     private final ControladorJugadores controladorJugadores;
     private boolean finPrograma;
@@ -19,7 +19,7 @@ public class VistaGeneral {
 
     private VistaGeneral() throws Exception {
         vistaPartida = new VistaPartida();
-        vistaJugadores = new VistaJugadores();
+        vistaJugadores = new VistaJugadore();
         controladorJugadores = ControladorJugadores.getInstancia();
         controladorPartida = ControladorPartida.getInstancia();
         vistaPartida.setControladorPartida(controladorPartida);
@@ -73,7 +73,7 @@ public class VistaGeneral {
 
     }
 
-    public void switchPublico() throws Exception {
+    private void switchPublico() throws Exception {
         int opcion = 0;
         do {
             imprimir("\t\tGestor de Usuarios\n" +

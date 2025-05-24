@@ -31,7 +31,7 @@ public class ControladorPartida implements IControladorPartida {
         return instancia;
     }
 
-    public Partida crearPartida(IJugable jugador1, IJugable jugador2) {
+    private Partida crearPartida(IJugable jugador1, IJugable jugador2) {
         return new Partida(jugador1, jugador2);
     }
 
@@ -68,11 +68,11 @@ public class ControladorPartida implements IControladorPartida {
         jugarPartida(nuevaPartida);
     }
 
-    public String generarTableros(Partida partida) {
+    private String generarTableros(Partida partida) {
         return "Tablero 1 : " + partida.getJugador1().getId() + "\n" + partida.getTablero1().mostrarTablero() + "\n" + "Tablero 2 : " + partida.getJugador2().getId() + "\n" + partida.getTablero2().mostrarTablero();
     }
 
-    public void finalizarPartida(Partida partida) {
+    private void finalizarPartida(Partida partida) {
         int puntuacionJugador1 = 0;
         int puntuacionJugador2 = 0;
         puntuacionJugador1 += puntosBarcos(partida.getTablero2());
@@ -116,7 +116,7 @@ public class ControladorPartida implements IControladorPartida {
         return puntosSumados;
     }
 
-    public void jugarPartida(Partida partida) throws Exception {
+    private void jugarPartida(Partida partida) throws Exception {
         setPartidaEnJuego(partida);
         //Bienvenida
         vistaPartida.imprimirBienvenida();
@@ -173,7 +173,8 @@ public class ControladorPartida implements IControladorPartida {
             vistaPartida.imprimirObjetoImpacto("");
         }
     }
-    public Barco atacar(Tablero tableroEnemigo, List<Integer> coordenadas) {
+
+    Barco atacar(Tablero tableroEnemigo, List<Integer> coordenadas) {
         return tableroEnemigo.recibirCoordenadas(coordenadas);
     }
 

@@ -5,13 +5,13 @@ import org.example.Logica.IControladorJugadores;
 
 import java.util.Scanner;
 
-public class VistaJugadores implements IVistaJugadores {
+public class VistaJugadore implements IVistaJugadores {
     private static final Scanner teclado = new Scanner(System.in);
     private JugadorHumano jugadorLogueado;
     private IControladorJugadores controladorJugadores;
 
 
-    public VistaJugadores() {
+    public VistaJugadore() {
         this.jugadorLogueado = null;
     }
 
@@ -33,14 +33,6 @@ public class VistaJugadores implements IVistaJugadores {
         String contrasenia = leerCadena("Introduzca su contraseña: ");
         controladorJugadores.darAlta(email, nombre, contrasenia, false);
         imprimir("Se ha creado el usuario correctamente");
-    }
-
-    public JugadorHumano getJugadorLogueado() {
-        return jugadorLogueado;
-    }
-
-    public void setJugadorLogueado(JugadorHumano jugadorLogueado) {
-        this.jugadorLogueado = jugadorLogueado;
     }
 
     public boolean iniciarSesion() {
@@ -79,6 +71,15 @@ public class VistaJugadores implements IVistaJugadores {
     public void setControladorJugadores(IControladorJugadores controladorJugadores) {
         this.controladorJugadores = controladorJugadores;
     }
+
+    public JugadorHumano getJugadorLogueado() {
+        return jugadorLogueado;
+    }
+
+    public void setJugadorLogueado(JugadorHumano jugadorLogueado) {
+        this.jugadorLogueado = jugadorLogueado;
+    }
+
 }
 
 

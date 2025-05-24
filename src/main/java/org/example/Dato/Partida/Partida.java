@@ -53,14 +53,14 @@ public class Partida {
     }
 
     public void inicializarPartida() {
-        tablero1.getBarcos().add(FactoriaBarcos.crearBarco("Portaviones", tablero1.colocacionBarcos(NUM_CASILLAS_PORTAVIONES),NUM_CASILLAS_PORTAVIONES));
-        tablero2.getBarcos().add(FactoriaBarcos.crearBarco("Portaviones", tablero2.colocacionBarcos(NUM_CASILLAS_PORTAVIONES),NUM_CASILLAS_PORTAVIONES));
-        tablero1.getBarcos().add(FactoriaBarcos.crearBarco("Acorazado", tablero1.colocacionBarcos(NUM_CASILLAS_ACORAZADO),NUM_CASILLAS_ACORAZADO));
-        tablero2.getBarcos().add(FactoriaBarcos.crearBarco("Acorazado", tablero2.colocacionBarcos(NUM_CASILLAS_ACORAZADO),NUM_CASILLAS_ACORAZADO));
-        tablero1.getBarcos().add(FactoriaBarcos.crearBarco("Submarino", tablero1.colocacionBarcos(NUM_CASILLAS_SUBMARINO),NUM_CASILLAS_SUBMARINO));
-        tablero2.getBarcos().add(FactoriaBarcos.crearBarco("Submarino", tablero2.colocacionBarcos(NUM_CASILLAS_SUBMARINO),NUM_CASILLAS_SUBMARINO));
-        tablero1.getBarcos().add(FactoriaBarcos.crearBarco("Patrullero", tablero1.colocacionBarcos(NUM_CASILLAS_PATRULLERO),NUM_CASILLAS_PATRULLERO));
-        tablero2.getBarcos().add(FactoriaBarcos.crearBarco("Patrullero", tablero2.colocacionBarcos(NUM_CASILLAS_PATRULLERO),NUM_CASILLAS_PATRULLERO));
+        tablero1.getBarcos().add(FactoriaBarcos.crearBarco("Portaviones", tablero1.colocacionBarcos(NUM_CASILLAS_PORTAVIONES)));
+        tablero2.getBarcos().add(FactoriaBarcos.crearBarco("Portaviones", tablero2.colocacionBarcos(NUM_CASILLAS_PORTAVIONES)));
+        tablero1.getBarcos().add(FactoriaBarcos.crearBarco("Acorazado", tablero1.colocacionBarcos(NUM_CASILLAS_ACORAZADO)));
+        tablero2.getBarcos().add(FactoriaBarcos.crearBarco("Acorazado", tablero2.colocacionBarcos(NUM_CASILLAS_ACORAZADO)));
+        tablero1.getBarcos().add(FactoriaBarcos.crearBarco("Submarino", tablero1.colocacionBarcos(NUM_CASILLAS_SUBMARINO)));
+        tablero2.getBarcos().add(FactoriaBarcos.crearBarco("Submarino", tablero2.colocacionBarcos(NUM_CASILLAS_SUBMARINO)));
+        tablero1.getBarcos().add(FactoriaBarcos.crearBarco("Patrullero", tablero1.colocacionBarcos(NUM_CASILLAS_PATRULLERO)));
+        tablero2.getBarcos().add(FactoriaBarcos.crearBarco("Patrullero", tablero2.colocacionBarcos(NUM_CASILLAS_PATRULLERO)));
     }
 
     @Override
