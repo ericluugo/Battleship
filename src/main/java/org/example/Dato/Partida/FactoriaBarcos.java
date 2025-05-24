@@ -6,21 +6,16 @@ import java.util.List;
 
 public class FactoriaBarcos {
 
-    private static final int NUM_CASILLAS_ACORAZADO = 3;
-    private static final int NUM_CASILLAS_SUBMARINO = 3;
-    private static final int NUM_CASILLAS_PATRULLERO = 2;
-    private static final int NUM_CASILLAS_PORTAVIONES = 4;
-
-    public static Barco crearBarco(String tipo, List<Casilla> casillas,int ) {
+    public static Barco crearBarco(String tipo, List<Casilla> casillas,int numCasillas ) {
         switch (tipo) {
             case "Acorazado":
-                return new Acorazado("Acorazado",NUM_CASILLAS_ACORAZADO, casillas);
+                return new Acorazado("Acorazado",numCasillas, casillas);
             case "Submarino":
-                return new Submarino("Submarino", NUM_CASILLAS_SUBMARINO, casillas);
+                return new Submarino("Submarino",numCasillas, casillas);
             case "Patrullero":
-                return new Patrullero("Patrullero", NUM_CASILLAS_PATRULLERO, casillas);
+                return new Patrullero("Patrullero", numCasillas, casillas);
             case "Portaviones":
-                return new Portaviones("Portaviones", NUM_CASILLAS_PORTAVIONES, casillas);
+                return new Portaviones("Portaviones", numCasillas, casillas);
             default:
                 throw new IllegalArgumentException("Tipo de barco no válido: " + tipo);
         }

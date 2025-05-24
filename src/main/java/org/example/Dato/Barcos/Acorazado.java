@@ -39,7 +39,7 @@ public class Acorazado extends Barco {
         for (int index = 0; index < coordenadasVecinas.size(); index++) {
             List<Integer> coordenadaActual = coordenadasVecinas.get(index);
             if ((coordenadaActual.get(0) >= 0 && coordenadaActual.get(0) <= 9) && (coordenadaActual.get(1) >= 0 && coordenadaActual.get(1) <= 9)) {
-                if (!tableroEnemigo.isCasillaImpactada(coordenadas)) {
+                if (!tableroEnemigo.isCasillaImpactada(coordenadaActual)) {
                     Barco atacado = tableroEnemigo.recibirCoordenadas(coordenadaActual);
                     ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha atacado la casilla : [" + coordenadaActual.get(1) + "][" + coordenadaActual.get(0) + "] con El Acorazado");
                     if (atacado == null) {
