@@ -17,7 +17,7 @@ public class ControladorJugadores implements IControladorJugadores {
     private static final String RUTA_LISTA_NEGRA = "src/main/resources/lista_negra.txt";
     private static ControladorJugadores instancia;
     private final List<String> listaNegra;
-    private List<Jugador> listaJugadores;
+    private final List<Jugador> listaJugadores;
     private IVistaJugadores vistaJugadores;
 
     private ControladorJugadores() {
@@ -31,10 +31,6 @@ public class ControladorJugadores implements IControladorJugadores {
             instancia = new ControladorJugadores();
         }
         return instancia;
-    }
-
-    public static void setInstancia(ControladorJugadores instancia) {
-        ControladorJugadores.instancia = instancia;
     }
 
     @Override
@@ -77,7 +73,7 @@ public class ControladorJugadores implements IControladorJugadores {
         return existe;
     }
 
-    public Maquina crearMaquina() throws Exception {
+    public Maquina crearMaquina() {
         Random random = new Random(System.currentTimeMillis());
         String nombre = "Maquina_FACIL_" + random.nextInt();
         Maquina maquina = new Maquina(nombre);
@@ -97,18 +93,6 @@ public class ControladorJugadores implements IControladorJugadores {
         }
     }
 
-    public List<Jugador> getListaJugadores() {
-        return listaJugadores;
-    }
-
-    public void setListaJugadores(List<Jugador> listaJugadores) {
-        this.listaJugadores = listaJugadores;
-    }
-
-    public IVistaJugadores getVistaJugadores() {
-        return vistaJugadores;
-    }
-
     public void setVistaJugadores(IVistaJugadores vistaJugadores) {
         this.vistaJugadores = vistaJugadores;
     }
@@ -117,7 +101,4 @@ public class ControladorJugadores implements IControladorJugadores {
         return listaNegra;
     }
 
-    public String getRUTA_LISTA_NEGRA() {
-        return RUTA_LISTA_NEGRA;
-    }
 }

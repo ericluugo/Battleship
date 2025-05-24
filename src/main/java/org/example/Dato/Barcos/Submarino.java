@@ -29,8 +29,6 @@ public class Submarino extends Barco {
 
     @Override
     public boolean habilidadDisponible() {
-        if (numReparacionesDisponibles > 0) {
-            return true;
-        } else return false;
+        return numReparacionesDisponibles > 0;
     }
 }

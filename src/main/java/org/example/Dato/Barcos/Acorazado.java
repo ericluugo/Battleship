@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Acorazado extends Barco {
 
-    private final int NUM_ATAQUE_MAX = 2;
+    private static final int NUM_ATAQUE_MAX = 2;
     private int numAtaquesDisponibles;
 
     public Acorazado(String nombre, int numCasillas, List<Casilla> casillas) {
@@ -39,14 +39,16 @@ public class Acorazado extends Barco {
         for (int index = 0; index < coordenadasVecinas.size(); index++) {
             List<Integer> coordenadaActual = coordenadasVecinas.get(index);
             if ((coordenadaActual.get(0) >= 0 && coordenadaActual.get(0) <= 9) && (coordenadaActual.get(1) >= 0 && coordenadaActual.get(1) <= 9)) {
-                Barco atacado = tableroEnemigo.recibirCoordenadas(coordenadaActual);
-                ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha atacado la casilla : [" + coordenadaActual.get(1) + "][" + coordenadaActual.get(0) + "] con El Acorazado");
-                if (atacado == null) {
-                    ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha fallado");
-                } else {
-                    ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha acertado");
-                    atacado.isBarcoMuerto();
-                }
+                if (!tableroEnemigo.isCasillaImpactada(coordenadas)) {
+                    Barco atacado = tableroEnemigo.recibirCoordenadas(coordenadaActual);
+                    ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha atacado la casilla : [" + coordenadaActual.get(1) + "][" + coordenadaActual.get(0) + "] con El Acorazado");
+                    if (atacado == null) {
+                        ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha fallado");
+                    } else {
+                        ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha acertado");
+                        atacado.isBarcoMuerto();
+                    }
+                }else ControladorPartida.getInstancia().getVistaPartida().imprimir("Ha atacado a una casilla impactada anteriormente");
             }
         }
         numAtaquesDisponibles--;
@@ -54,8 +56,6 @@ public class Acorazado extends Barco {
 
     @Override
     public boolean habilidadDisponible() {
-        if (numAtaquesDisponibles > 0) {
-            return true;
-        } else return false;
+        return numAtaquesDisponibles > 0;
     }
 }

@@ -76,10 +76,6 @@ public class VistaJugadores implements IVistaJugadores {
         System.out.println(msg);
     }
 
-    public IControladorJugadores getControladorJugadores() {
-        return controladorJugadores;
-    }
-
     public void setControladorJugadores(IControladorJugadores controladorJugadores) {
         this.controladorJugadores = controladorJugadores;
     }

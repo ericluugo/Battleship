@@ -42,7 +42,7 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
         while (!correcto) {
             System.out.print(mensaje);
             try {
-                respuesta = teclado.nextLine();
+                respuesta = teclado.next();
 
                 if (respuesta.equalsIgnoreCase("Si") ||
                         respuesta.equalsIgnoreCase("Sí") ||
@@ -65,8 +65,8 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
         System.out.println(line);
     }
 
-    public void mostrarPuntuacionesJugador(JugadorHumano jugador) {
-        String line = controladorPartida.getPuntuacionesJugador(jugador);
+    public void mostrarPuntuacionesJugador(String id) {
+        String line = controladorPartida.getPuntuacionesJugador(id);
         System.out.println(line);
     }
 
@@ -134,10 +134,6 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
     @Override
     public void imprimirGanador(String id) {
         System.out.println("¡GANADOR: " + id + "!");
-    }
-
-    public IControladorPartida getControladorPartida() {
-        return controladorPartida;
     }
 
     public void setControladorPartida(IControladorPartida controladorPartida) {

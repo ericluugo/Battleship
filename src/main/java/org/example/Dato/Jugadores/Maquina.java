@@ -9,7 +9,7 @@ public class Maquina extends Jugador {
     private final Random rand = new Random();
     private String nombreMaquina;
 
-    public Maquina(String nombre) throws Exception {
+    public Maquina(String nombre){
         this.nombreMaquina = nombre;
     }
 
@@ -36,9 +36,5 @@ public class Maquina extends Jugador {
     @Override
     public int seleccionarFila() {
         return rand.nextInt(10);
-    }
-
-    public void setNombreMaquina(String nombreMaquina) {
-        this.nombreMaquina = nombreMaquina;
     }
 }

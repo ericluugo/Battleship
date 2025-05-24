@@ -31,8 +31,6 @@ public class Patrullero extends Barco {
 
     @Override
     public boolean habilidadDisponible() {
-        if (numRevelacionesDisponibles > 0) {
-            return true;
-        } else return false;
+        return numRevelacionesDisponibles > 0;
     }
 }

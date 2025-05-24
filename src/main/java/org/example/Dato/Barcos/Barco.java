@@ -48,21 +48,8 @@ public abstract class Barco {
         this.nombre = nombre;
     }
 
-    public int getNumCasillas() {
-        return numCasillas;
-    }
-
-    public void setNumCasillas(int numCasillas) {
-        this.numCasillas = numCasillas;
-    }
-
-
     public List<Casilla> getCasillas() {
         return casillas;
-    }
-
-    public void setCasillas(List<Casilla> casillas) {
-        this.casillas = casillas;
     }
 
     public boolean isVivo() {

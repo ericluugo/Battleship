@@ -31,7 +31,6 @@ public class VistaGeneral {
         this.precargaAdmins();
     }
 
-    // 3. Método público para obtener la instancia única
     public static VistaGeneral getInstancia() throws Exception {
         if (instancia == null) {
             instancia = new VistaGeneral();
@@ -105,7 +104,7 @@ public class VistaGeneral {
     }
 
     private void switchJugador() throws Exception {
-        if (vistaJugadores.getJugadorLogueado() != null) { // no hace falta
+        if (vistaJugadores.getJugadorLogueado() != null) {
             int opcion = 0;
             do {
                 imprimir("\t\tGestor de partidas\n" +
@@ -118,14 +117,14 @@ public class VistaGeneral {
                 switch (opcion) {
                     case 1: //iniciarPartida
                         IJugable first_player = vistaJugadores.getJugadorLogueado();
-                        IJugable second_player = controladorJugadores.crearMaquina();// TODO: Esto hay que mejorarlo
+                        IJugable second_player = controladorJugadores.crearMaquina();
                         controladorPartida.iniciarPartida(first_player, second_player);
                         break;
                     case 2: // generarPuntuaciones
                         if (vistaJugadores.getJugadorLogueado().isEsAdmin()) {
                             vistaPartida.mostrarPuntuacionesGlobal();
                         } else {
-                            vistaPartida.mostrarPuntuacionesJugador(vistaJugadores.getJugadorLogueado());
+                            vistaPartida.mostrarPuntuacionesJugador(vistaJugadores.getJugadorLogueado().getId());
                         }
                         break;
                     case 3:// darse de baja
@@ -145,7 +144,7 @@ public class VistaGeneral {
         }
     }
 
-    private void precargaAdmins() throws Exception {
+    private void precargaAdmins() {
         try {
             controladorJugadores.darAlta("admin1@alumnos.upm.es", "Admin1", "Admin1*", true);
             controladorJugadores.darAlta("admin2@alumnos.upm.es", "Admin2", "Admin2*", true);

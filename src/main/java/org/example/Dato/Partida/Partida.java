@@ -59,56 +59,29 @@ public class Partida {
         tablero2.getBarcos().add(FactoriaBarcos.crearBarco("Patrullero", tablero2.colocacionBarcos(2)));
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
     public void cambiarTurno() {
         setTurno(!isTurno());
-    }
-
-    public LocalDate getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(LocalDate fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public LocalDate getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(LocalDate fechaFin) {
-        this.fechaFin = fechaFin;
     }
 
     public IJugable getJugador1() {
         return jugador1;
     }
 
-    public void setJugador1(IJugable jugador1) {
-        this.jugador1 = jugador1;
-    }
-
     public IJugable getJugador2() {
         return jugador2;
-    }
-
-    public void setJugador2(IJugable jugador2) {
-        this.jugador2 = jugador2;
     }
 
     public Tablero getTablero1() {
         return tablero1;
     }
 
-    public void setTablero1(Tablero tablero1) {
-        this.tablero1 = tablero1;
-    }
-
     public Tablero getTablero2() {
         return tablero2;
-    }
-
-    public void setTablero2(Tablero tablero2) {
-        this.tablero2 = tablero2;
     }
 
     public int getPuntosJugador1() {

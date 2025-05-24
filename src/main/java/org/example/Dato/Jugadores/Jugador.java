@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class Jugador implements IJugable {
 
-	public Jugador() throws Exception {}
+	public Jugador(){}
 
 	public abstract List<Integer> seleccionarCasilla();
 

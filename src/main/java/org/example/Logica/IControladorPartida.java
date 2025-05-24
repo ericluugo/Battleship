@@ -10,5 +10,5 @@ public interface IControladorPartida {
 
     String getPuntuacionesGlobal();
 
-    String getPuntuacionesJugador(JugadorHumano jugador);
+    String getPuntuacionesJugador(String id);
 }

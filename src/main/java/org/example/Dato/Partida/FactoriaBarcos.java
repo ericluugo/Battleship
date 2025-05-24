@@ -11,7 +11,7 @@ public class FactoriaBarcos {
     private static final int NUM_CASILLAS_PATRULLERO = 2;
     private static final int NUM_CASILLAS_PORTAVIONES = 4;
 
-    public static Barco crearBarco(String tipo, List<Casilla> casillas) {
+    public static Barco crearBarco(String tipo, List<Casilla> casillas,int ) {
         switch (tipo) {
             case "Acorazado":
                 return new Acorazado("Acorazado",NUM_CASILLAS_ACORAZADO, casillas);

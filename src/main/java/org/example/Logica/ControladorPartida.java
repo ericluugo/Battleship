@@ -3,7 +3,6 @@ package org.example.Logica;
 import org.example.Dato.Barcos.Barco;
 import org.example.Dato.Partida.Casilla;
 import org.example.Dato.Jugadores.IJugable;
-import org.example.Dato.Jugadores.JugadorHumano;
 import org.example.Dato.Partida.Partida;
 import org.example.Dato.Partida.Tablero;
 import org.example.Vistas.IVistaAtacable;
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class ControladorPartida implements IControladorPartida {
     private static ControladorPartida instancia;
-    private List<Partida> partidas;
+    private final List<Partida> partidas;
     private IVistaAtacable vistaAtacable;
     private IVistaPartida vistaPartida;
     private Partida partidaEnJuego;
@@ -47,11 +46,11 @@ public class ControladorPartida implements IControladorPartida {
         return line.toString();
     }
 
-    public String getPuntuacionesJugador(JugadorHumano jugador) {
+    public String getPuntuacionesJugador(String id) {
         StringBuilder line = new StringBuilder();
         List<Partida> listaPartidasJugador = new LinkedList<>();
         for (Partida partida : partidas) {
-            if (partida.getJugador1() == jugador || partida.getJugador2() == jugador) {
+            if (partida.getJugador1().getId().equals(id)) {
                 listaPartidasJugador.add(partida);
             }
         }
@@ -167,7 +166,6 @@ public class ControladorPartida implements IControladorPartida {
 
     private void realizarAtaque(List<Integer> coordenadasAtacar,IJugable jugadorEnemigo,Tablero tableroPropio,Tablero tableroEnemigo){
         Barco atacado = atacar(tableroEnemigo, coordenadasAtacar);
-        // imprimir por pantalla FALLO o Acierto y casilla atacada
         vistaPartida.imprimirCasillaAtacada(coordenadasAtacar);
         if (atacado != null) {
             contrataque(atacado, jugadorEnemigo, tableroPropio);
@@ -189,18 +187,6 @@ public class ControladorPartida implements IControladorPartida {
 
     public boolean pedirDecision() {
         return vistaAtacable.pedirDecision();
-    }
-
-    public List<Partida> getPartidas() {
-        return partidas;
-    }
-
-    public void setPartidas(List<Partida> partidas) {
-        this.partidas = partidas;
-    }
-
-    public IVistaAtacable getVistaAtacable() {
-        return vistaAtacable;
     }
 
     public void setVistaAtacable(IVistaAtacable vistaAtacable) {
