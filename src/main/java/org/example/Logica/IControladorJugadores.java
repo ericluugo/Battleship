@@ -10,8 +10,6 @@ public interface IControladorJugadores {
 
     JugadorHumano iniciarSesion(String email, String contrasenia);
 
-    boolean comprobarEmail(String email);
-
     Maquina crearMaquina() throws Exception;
 
 

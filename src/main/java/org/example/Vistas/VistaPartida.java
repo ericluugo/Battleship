@@ -14,7 +14,7 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
     public VistaPartida() {
     }
 
-    public static int lecturaCoordenada(String mensaje) {
+    public int lecturaCoordenada(String mensaje) {
         boolean correcto = false;
         int coordenada = -1;
 
@@ -35,7 +35,7 @@ public class VistaPartida implements IVistaAtacable, IVistaPartida {
         return coordenada;
     }
 
-    public static String lecturaDecision(String mensaje) {
+    public String lecturaDecision(String mensaje) {
         boolean correcto = false;
         String respuesta = "";
 

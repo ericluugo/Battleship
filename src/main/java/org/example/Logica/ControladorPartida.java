@@ -1,7 +1,7 @@
 package org.example.Logica;
 
 import org.example.Dato.Barcos.Barco;
-import org.example.Dato.Casilla;
+import org.example.Dato.Partida.Casilla;
 import org.example.Dato.Jugadores.IJugable;
 import org.example.Dato.Jugadores.JugadorHumano;
 import org.example.Dato.Partida.Partida;
@@ -19,7 +19,7 @@ public class ControladorPartida implements IControladorPartida {
     private List<Partida> partidas;
     private IVistaAtacable vistaAtacable;
     private IVistaPartida vistaPartida;
-    private Partida partidaJugable;
+    private Partida partidaEnJuego;
 
     private ControladorPartida() {
         this.partidas = new ArrayList<>();
@@ -34,11 +34,6 @@ public class ControladorPartida implements IControladorPartida {
 
     public Partida crearPartida(IJugable jugador1, IJugable jugador2) {
         return new Partida(jugador1, jugador2);
-    }
-
-    @Override
-    public String generarPuntuaciones(Partida partida) {
-        return null;
     }
 
     public String getPuntuacionesGlobal() {
@@ -120,11 +115,11 @@ public class ControladorPartida implements IControladorPartida {
         }
         partida.setPuntosJugador1(puntuacionJugador1);
         partida.setPuntosJugador2(puntuacionJugador2);
-        setPartidaJugable(null);
+        setPartidaEnJuego(null);
     }
 
     public void jugarPartida(Partida partida) throws Exception {
-        setPartidaJugable(partida);
+        setPartidaEnJuego(partida);
         //Bienvenida
         vistaPartida.imprimirBienvenida();
         // Partida iniciada : IJugable vs IJugable
@@ -228,11 +223,11 @@ public class ControladorPartida implements IControladorPartida {
         this.vistaPartida = vistaPartida;
     }
 
-    public Partida getPartidaJugable() {
-        return partidaJugable;
+    public Partida getPartidaEnJuego() {
+        return partidaEnJuego;
     }
 
-    public void setPartidaJugable(Partida partidaJugable) {
-        this.partidaJugable = partidaJugable;
+    public void setPartidaEnJuego(Partida partidaEnJuego) {
+        this.partidaEnJuego = partidaEnJuego;
     }
 }

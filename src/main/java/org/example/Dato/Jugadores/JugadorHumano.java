@@ -38,7 +38,7 @@ public class JugadorHumano extends Jugador {
     }
 
     @Override
-    public int pedirFila() {
+    public int seleccionarFila() {
         return ControladorPartida.getInstancia().pedirFila();
     }
 

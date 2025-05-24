@@ -6,8 +6,6 @@ import org.example.Dato.Partida.Partida;
 
 public interface IControladorPartida {
 
-    String generarPuntuaciones(Partida partida);
-
     void iniciarPartida(IJugable jugador1, IJugable jugador2) throws Exception;
 
     String getPuntuacionesGlobal();

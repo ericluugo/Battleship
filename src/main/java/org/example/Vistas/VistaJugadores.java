@@ -24,7 +24,7 @@ public class VistaJugadores implements IVistaJugadores {
         return string;
     }
 
-    public void solicitudDatosAlta() throws Exception {
+    public void solicitudAlta() throws Exception {
         System.out.println("Un nombre de usuario, palabra corta de entre 3 y 10 caracteres de solo caracteres y números que no esté en la lista negra...");
         String nombre = leerCadena("Introduzca su nombre: ");
         System.out.println("Correo perteneciente a la UPM...");

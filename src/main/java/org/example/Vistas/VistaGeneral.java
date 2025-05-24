@@ -64,7 +64,7 @@ public class VistaGeneral {
         imprimir("Bienvenido al sistema de juego Battleship");
         do {
             try {
-                publicSwitch();
+                switchPublico();
                 ejecucionCorrecta = true;
             } catch (Exception e) {
                 imprimir("Ha ocurrido un error...");
@@ -74,7 +74,7 @@ public class VistaGeneral {
 
     }
 
-    public void publicSwitch() throws Exception {
+    public void switchPublico() throws Exception {
         int opcion = 0;
         do {
             imprimir("\t\tGestor de Usuarios\n" +
@@ -85,12 +85,12 @@ public class VistaGeneral {
             opcion = leerNumeroIntervalo("Introduzca el numero de la opcion deseada: ", 1, 3);
             switch (opcion) {
                 case 1: //alta
-                    vistaJugadores.solicitudDatosAlta();
+                    vistaJugadores.solicitudAlta();
                     break;
                 case 2: // iniciar sesión
                     vistaJugadores.iniciarSesion();
                     if (vistaJugadores.getJugadorLogueado() != null) {
-                        switchPlayer();
+                        switchJugador();
                     }
                     break;
                 case 3:
@@ -104,7 +104,7 @@ public class VistaGeneral {
         } while (opcion != 3 && !finPrograma);
     }
 
-    private void switchPlayer() throws Exception {
+    private void switchJugador() throws Exception {
         if (vistaJugadores.getJugadorLogueado() != null) { // no hace falta
             int opcion = 0;
             do {
@@ -130,12 +130,12 @@ public class VistaGeneral {
                         break;
                     case 3:// darse de baja
                         if (vistaJugadores.darBaja())
-                            publicSwitch();
+                            switchPublico();
                         break;
                     case 4: // Cerrar sesión
                         imprimir("Cerrando sesión");
                         vistaJugadores.setJugadorLogueado(null);
-                        publicSwitch();
+                        switchPublico();
                         break;
                     default:
                         imprimir("Seleccione una opción válida");

@@ -13,7 +13,7 @@ public abstract class Jugador implements IJugable {
 
 	public abstract boolean decisionHabilidad();
 
-	public abstract int pedirFila();
+	public abstract int seleccionarFila();
 
 	public boolean comprobarEmailContrasenia(String email, String contraseña){
 		return false;

@@ -1,6 +1,6 @@
 package org.example.Dato.Barcos;
 
-import org.example.Dato.Casilla;
+import org.example.Dato.Partida.Casilla;
 import org.example.Dato.Partida.Tablero;
 import org.example.Logica.ControladorPartida;
 
@@ -20,9 +20,9 @@ public class Acorazado extends Barco {
     @Override
     public void habilidad(Tablero tableroEnemigo) {
         List<Integer> coordenadas;
-        if (ControladorPartida.getInstancia().getPartidaJugable().isTurno()) {
-            coordenadas = ControladorPartida.getInstancia().getPartidaJugable().getJugador2().seleccionarCasilla();
-        } else coordenadas = ControladorPartida.getInstancia().getPartidaJugable().getJugador1().seleccionarCasilla();
+        if (ControladorPartida.getInstancia().getPartidaEnJuego().isTurno()) {
+            coordenadas = ControladorPartida.getInstancia().getPartidaEnJuego().getJugador2().seleccionarCasilla();
+        } else coordenadas = ControladorPartida.getInstancia().getPartidaEnJuego().getJugador1().seleccionarCasilla();
         int fila = coordenadas.get(1);
         int columna = coordenadas.get(0);
         List<Integer> coordenadaSuperior = Arrays.asList(fila, columna + 1);

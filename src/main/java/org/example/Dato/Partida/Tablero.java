@@ -1,7 +1,6 @@
 package org.example.Dato.Partida;
 
 import org.example.Dato.Barcos.Barco;
-import org.example.Dato.Casilla;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,33 +120,6 @@ public class Tablero {
         }
         return seleccionadas;
     }
-
-    public int calcularPuntuacion() {
-        int puntuacion = 0;
-        for (int i = 0; i < numFilas; i++) {
-            for (int j = 0; j < numColumnas; j++) {
-                Casilla casilla = tablero[i][j];
-                if (casilla.isEstadoImpactado() && !casilla.isOcupada()) {
-                    puntuacion -= 1;
-                } else if (casilla.isOcupada()) {
-                    for (Barco barco : barcos) {
-                        List<Casilla> list = barco.getCasillas();
-                        for (Casilla casillaBarco : list) {
-                            if (casillaBarco.getFila() == i && casillaBarco.getColumna() == j) {
-                                if (!barco.isVivo()) {
-                                    puntuacion += 5;
-                                } else {
-                                    puntuacion += 2;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return puntuacion;
-    }
-
 
     public int getNumFilas() {
         return numFilas;

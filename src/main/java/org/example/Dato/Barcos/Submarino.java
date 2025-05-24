@@ -1,6 +1,6 @@
 package org.example.Dato.Barcos;
 
-import org.example.Dato.Casilla;
+import org.example.Dato.Partida.Casilla;
 import org.example.Dato.Partida.Tablero;
 import org.example.Logica.ControladorPartida;
 

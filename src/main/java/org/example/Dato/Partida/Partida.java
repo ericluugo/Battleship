@@ -1,6 +1,5 @@
 package org.example.Dato.Partida;
 
-import org.example.Dato.FactoriaBarcos;
 import org.example.Dato.Jugadores.IJugable;
 
 import java.time.LocalDate;
@@ -48,12 +47,6 @@ public class Partida {
         }
         return finPartida;
     }
-
-    public void generarPuntuacion() {
-        puntosJugador1 = tablero2.calcularPuntuacion();
-        puntosJugador2 = tablero1.calcularPuntuacion();
-    }
-
 
     public void inicializarPartida() {
         tablero1.getBarcos().add(FactoriaBarcos.crearBarco("Portaviones", tablero1.colocacionBarcos(4)));
@@ -159,11 +152,5 @@ public class Partida {
 
     public void setTurno(boolean turno) {
         this.turnoJugador1 = turno;
-    }
-
-    public String toString() {
-        String line;
-        line = "Partida " + jugador1.getId() + " vs " + jugador2.getId() +", "+puntosJugador1+" / "+puntosJugador2+ " (" + fechaInicio + " to " + fechaFin + ")";
-        return line;
     }
 }

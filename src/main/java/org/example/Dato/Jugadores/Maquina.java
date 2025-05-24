@@ -34,7 +34,7 @@ public class Maquina extends Jugador {
     }
 
     @Override
-    public int pedirFila() {
+    public int seleccionarFila() {
         return rand.nextInt(10);
     }
 

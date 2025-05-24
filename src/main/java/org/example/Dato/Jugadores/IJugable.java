@@ -10,7 +10,7 @@ public interface IJugable {
 
     boolean decisionHabilidad();
 
-    int pedirFila();
+    int seleccionarFila();
 
 
 }

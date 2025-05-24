@@ -67,7 +67,6 @@ public class ControladorJugadores implements IControladorJugadores {
         return (JugadorHumano) jugador;
     }
 
-    @Override
     public boolean comprobarEmail(String email) {
         boolean existe = false;
         int index = 0;

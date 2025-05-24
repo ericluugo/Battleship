@@ -1,6 +1,6 @@
 package org.example.Dato.Barcos;
 
-import org.example.Dato.Casilla;
+import org.example.Dato.Partida.Casilla;
 import org.example.Dato.Partida.Tablero;
 import org.example.Logica.ControladorPartida;
 
@@ -19,9 +19,9 @@ public class Patrullero extends Barco {
     @Override
     public void habilidad(Tablero tableroEnemigo) {
         int fila = 0;
-        if (ControladorPartida.getInstancia().getPartidaJugable().isTurno()) {
-            fila = ControladorPartida.getInstancia().getPartidaJugable().getJugador2().pedirFila();
-        } else fila = ControladorPartida.getInstancia().getPartidaJugable().getJugador1().pedirFila();
+        if (ControladorPartida.getInstancia().getPartidaEnJuego().isTurno()) {
+            fila = ControladorPartida.getInstancia().getPartidaEnJuego().getJugador2().seleccionarFila();
+        } else fila = ControladorPartida.getInstancia().getPartidaEnJuego().getJugador1().seleccionarFila();
         for (int j = 0; j < tableroEnemigo.getNumColumnas(); j++) {
             tableroEnemigo.getTablero()[fila][j].setEstadoVisibilidad(true);
         }
