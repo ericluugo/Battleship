@@ -1,17 +1,16 @@
 package org.example.Dato.Jugadores;
 
 import java.util.List;
-import org.example.Vistas.IVistaAtacable;
 
 public interface IJugable {
 
-	List<Integer> seleccionarCasilla();
-	
-	String getId();
+    List<Integer> seleccionarCasilla();
 
-	boolean decisionHabilidad();
+    String getId();
 
-	int pedirFila();
+    boolean decisionHabilidad();
 
-	
+    int pedirFila();
+
+
 }

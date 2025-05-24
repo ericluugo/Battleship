@@ -9,77 +9,83 @@ import java.util.List;
 
 
 public class JugadorHumano extends Jugador {
-	
-	private String email;
-	private String nombre;
-	private String contrasenia;
-	private boolean esAdmin;
 
-	public JugadorHumano(String nombre, String email, String contrasenia, boolean esAdmin) throws Exception {
-		setNombre(nombre);
-		setEmail(email);
-		setContrasenia(contrasenia);
-		setEsAdmin(esAdmin);
-	}
+    private String email;
+    private String nombre;
+    private String contrasenia;
+    private boolean esAdmin;
 
-	@Override
-	public List<Integer> seleccionarCasilla() {
-		return ControladorPartida.getInstancia().pedirCasilla();
-	}
+    public JugadorHumano(String nombre, String email, String contrasenia, boolean esAdmin) throws Exception {
+        setNombre(nombre);
+        setEmail(email);
+        setContrasenia(contrasenia);
+        setEsAdmin(esAdmin);
+    }
 
-	@Override
-	public String getId() {
-		return email;
-	}
+    @Override
+    public List<Integer> seleccionarCasilla() {
+        return ControladorPartida.getInstancia().pedirCasilla();
+    }
 
-	@Override
-	public boolean decisionHabilidad() {
-		return ControladorPartida.getInstancia().pedirDecision();
-	}
+    @Override
+    public String getId() {
+        return email;
+    }
 
-	@Override
-	public int pedirFila() {
-		return ControladorPartida.getInstancia().pedirFila();
-	}
+    @Override
+    public boolean decisionHabilidad() {
+        return ControladorPartida.getInstancia().pedirDecision();
+    }
 
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) throws Exception {
-		if (!Autenticacion.existeCuentaUPMStatic(email)) throw new Exception("Este email no pertenece a la UPM, no se puede registrar");
-		this.email = email;
-	}
-	public String getContrasenia() {
-		return contrasenia;
-	}
-	public void setContrasenia(String contrasenia) throws Exception{
-		Validaciones.checkContrasenia(contrasenia);
-		this.contrasenia = Cifrado.cifrar(contrasenia);
-	}
+    @Override
+    public int pedirFila() {
+        return ControladorPartida.getInstancia().pedirFila();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) throws Exception {
+        if (!Autenticacion.existeCuentaUPMStatic(email))
+            throw new Exception("Este email no pertenece a la UPM, no se puede registrar");
+        this.email = email;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) throws Exception {
+        Validaciones.checkContrasenia(contrasenia);
+        this.contrasenia = Cifrado.cifrar(contrasenia);
+    }
 
 
-	public boolean isEsAdmin() {
-		return esAdmin;
-	}
-	public void setEsAdmin(boolean esAdmin) {
-		this.esAdmin = esAdmin;
-	}
-	
-	@Override
-	public boolean existeEmail(String email){
-		return this.email.equals(email);
-	}
-	@Override
-	public boolean comprobarEmailContrasenia(String email, String contrasenia){
+    public boolean isEsAdmin() {
+        return esAdmin;
+    }
+
+    public void setEsAdmin(boolean esAdmin) {
+        this.esAdmin = esAdmin;
+    }
+
+    @Override
+    public boolean existeEmail(String email) {
+        return this.email.equals(email);
+    }
+
+    @Override
+    public boolean comprobarEmailContrasenia(String email, String contrasenia) {
         return this.email.equals(email) && this.contrasenia.equals(contrasenia);
-	}
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setNombre(String nombre) throws Exception {
-		Validaciones.checkNombre(nombre);
-		this.nombre = nombre;
-	}
+    public void setNombre(String nombre) throws Exception {
+        Validaciones.checkNombre(nombre);
+        this.nombre = nombre;
+    }
 }

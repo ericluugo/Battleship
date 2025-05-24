@@ -6,44 +6,39 @@ import java.util.Random;
 
 
 public class Maquina extends Jugador {
-	private String nombreMaquina;
-	public Maquina(String nombre) throws Exception {
-		this.nombreMaquina = nombre;
-	}
+    private final Random rand = new Random();
+    private String nombreMaquina;
 
-	@Override
-	public List<Integer> seleccionarCasilla() {
-		List<Integer> coordenadas = new ArrayList<>();
-		Random rand = new Random();
-		Integer coorY = rand.nextInt(10);
-		Integer coorX = rand.nextInt(10);
-		coordenadas.add(coorY);
-		coordenadas.add(coorX);
-		return coordenadas;
-	}
+    public Maquina(String nombre) {
+        this.nombreMaquina = nombre;
+    }
 
-	@Override
-	public String getId() {
-		return nombreMaquina;
-	}
+    @Override
+    public List<Integer> seleccionarCasilla() {
+        List<Integer> coordenadas = new ArrayList<>();
+        Integer coorY = rand.nextInt(10);
+        Integer coorX = rand.nextInt(10);
+        coordenadas.add(coorY);
+        coordenadas.add(coorX);
+        return coordenadas;
+    }
 
-	@Override
-	public boolean decisionHabilidad() {
-		return true;
-	}
+    @Override
+    public String getId() {
+        return nombreMaquina;
+    }
 
-	@Override
-	public int pedirFila() {
-		Random rand = new Random();
-		int fila = rand.nextInt(10);
-		return fila;
-	}
+    @Override
+    public boolean decisionHabilidad() {
+        return true;
+    }
 
-	public String getNombreMaquina() {
-		return nombreMaquina;
-	}
+    @Override
+    public int pedirFila() {
+        return rand.nextInt(10);
+    }
 
-	public void setNombreMaquina(String nombreMaquina) {
-		this.nombreMaquina = nombreMaquina;
-	}
+    public void setNombreMaquina(String nombreMaquina) {
+        this.nombreMaquina = nombreMaquina;
+    }
 }

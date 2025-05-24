@@ -7,32 +7,32 @@ import org.example.Logica.ControladorPartida;
 import java.util.List;
 
 public class Patrullero extends Barco {
-	
-	private int numRevelacionesDisponibles;
-	private final int NUM_REVELACIONES_DISPONIBLES = 1;
 
-	public Patrullero(String nombre, int numCasillas, List<Casilla> casillas) {
-		super(nombre, numCasillas,casillas);
-		this.numRevelacionesDisponibles = NUM_REVELACIONES_DISPONIBLES;
-	}
+    private final int NUM_REVELACIONES_DISPONIBLES = 1;
+    private int numRevelacionesDisponibles;
 
-	@Override
-	public void habilidad(Tablero tableroEnemigo) {
-		int fila = 0;
-		if(ControladorPartida.getInstancia().getPartidaJugable().isTurno()){
-			fila = ControladorPartida.getInstancia().getPartidaJugable().getJugador2().pedirFila();
-		}else fila = ControladorPartida.getInstancia().getPartidaJugable().getJugador1().pedirFila();
-		for (int j = 0; j<tableroEnemigo.getNumColumnas();j++){
-			tableroEnemigo.getTablero()[fila][j].setEstadoVisibilidad(true);
-		}
-		ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha revelado la fila " + fila + " con El Patrullero");
-		numRevelacionesDisponibles--;
-	}
+    public Patrullero(String nombre, int numCasillas, List<Casilla> casillas) {
+        super(nombre, numCasillas, casillas);
+        this.numRevelacionesDisponibles = NUM_REVELACIONES_DISPONIBLES;
+    }
 
-	@Override
-	public boolean habilidadDisponible() {
-		if (numRevelacionesDisponibles > 0){
-			return true;
-		}else return false;
-	}
+    @Override
+    public void habilidad(Tablero tableroEnemigo) {
+        int fila = 0;
+        if (ControladorPartida.getInstancia().getPartidaJugable().isTurno()) {
+            fila = ControladorPartida.getInstancia().getPartidaJugable().getJugador2().pedirFila();
+        } else fila = ControladorPartida.getInstancia().getPartidaJugable().getJugador1().pedirFila();
+        for (int j = 0; j < tableroEnemigo.getNumColumnas(); j++) {
+            tableroEnemigo.getTablero()[fila][j].setEstadoVisibilidad(true);
+        }
+        ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha revelado la fila " + fila + " con El Patrullero");
+        numRevelacionesDisponibles--;
+    }
+
+    @Override
+    public boolean habilidadDisponible() {
+        if (numRevelacionesDisponibles > 0) {
+            return true;
+        } else return false;
+    }
 }

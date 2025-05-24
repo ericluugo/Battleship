@@ -9,9 +9,9 @@ public class FactoriaBarcos {
     public static Barco crearBarco(String tipo, List<Casilla> casillas) {
         switch (tipo) {
             case "Acorazado":
-                return new Acorazado("Acorazado",3 , casillas);
+                return new Acorazado("Acorazado", 3, casillas);
             case "Submarino":
-                return new Submarino("Submarino",3, casillas);
+                return new Submarino("Submarino", 3, casillas);
             case "Patrullero":
                 return new Patrullero("Patrullero", 2, casillas);
             case "Portaviones":

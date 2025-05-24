@@ -8,31 +8,30 @@ import java.util.List;
 
 public class Portaviones extends Barco {
 
-	
-	public Portaviones(String nombre, int numCasillas, List<Casilla> casillas) {
-		super(nombre, numCasillas, casillas);
-	}
+
+    public Portaviones(String nombre, int numCasillas, List<Casilla> casillas) {
+        super(nombre, numCasillas, casillas);
+    }
 
 
+    @Override
+    public void habilidad(Tablero tableroEnemigo) {
+        List<Integer> coordenadas;
+        if (ControladorPartida.getInstancia().getPartidaJugable().isTurno()) {
+            coordenadas = ControladorPartida.getInstancia().getPartidaJugable().getJugador2().seleccionarCasilla();
+        } else coordenadas = ControladorPartida.getInstancia().getPartidaJugable().getJugador1().seleccionarCasilla();
+        Barco atacado = tableroEnemigo.recibirCoordenadas(coordenadas);
+        ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha atacado la casilla : [" + coordenadas.get(1) + "][" + coordenadas.get(0) + "] con El Portaviones");
+        if (atacado == null) {
+            ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha fallado");
+        } else {
+            atacado.isBarcoMuerto();
+            ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha acertado");
+        }
+    }
 
-	@Override
-	public void habilidad(Tablero tableroEnemigo) {
-		List<Integer> coordenadas;
-		if (ControladorPartida.getInstancia().getPartidaJugable().isTurno()) {
-			coordenadas = ControladorPartida.getInstancia().getPartidaJugable().getJugador2().seleccionarCasilla();
-		}else coordenadas = ControladorPartida.getInstancia().getPartidaJugable().getJugador1().seleccionarCasilla();
-		Barco atacado = tableroEnemigo.recibirCoordenadas(coordenadas);
-		ControladorPartida.getInstancia().getVistaPartida().imprimir("Se ha atacado la casilla : ["+coordenadas.get(1)+"]["+coordenadas.get(0)+"] con El Portaviones");
-		if (atacado == null){
-			ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha fallado");
-		}else{
-			atacado.isBarcoMuerto();
-			ControladorPartida.getInstancia().getVistaPartida().imprimir("El ataque ha acertado");
-		}
-	}
-
-	@Override
-	public boolean habilidadDisponible() {
-		return true;
-	}
+    @Override
+    public boolean habilidadDisponible() {
+        return true;
+    }
 }
