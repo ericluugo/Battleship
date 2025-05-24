@@ -1,6 +1,7 @@
 package org.example.Dato.Partida;
 
 import org.example.Dato.Barcos.Barco;
+import org.example.Dato.Casilla;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,22 +95,7 @@ public class Tablero {
 
         while (!hecho) {
             seleccionadas.clear();
-            int fila = rand.nextInt(numFilas);
-            int columna = rand.nextInt(numColumnas);
-            int direccion = rand.nextInt(2); // 0 = vertical, 1 = horizontal
-
-            boolean valido = true;
-            for (int i = 0; i < tamanio; i++) {
-                int f = fila + (direccion == 0 ? i : 0);
-                int c = columna + (direccion == 1 ? i : 0);
-
-                if (f >= numFilas || c >= numColumnas || tablero[f][c].isOcupada()) {
-                    valido = false;
-                } else {
-                    seleccionadas.add(tablero[f][c]);
-                }
-            }
-
+            boolean valido = seleccionarCasillas(seleccionadas,tamanio);
             // Solo si todas las casillas fueron válidas y suficientes
             if (valido && seleccionadas.size() == tamanio) {
                 for (Casilla casilla : seleccionadas) {
@@ -120,6 +106,52 @@ public class Tablero {
         }
         return seleccionadas;
     }
+
+    private boolean seleccionarCasillas(List<Casilla> seleccionadas,int tamanio){
+        int fila = rand.nextInt(numFilas);
+        int columna = rand.nextInt(numColumnas);
+        int direccion = rand.nextInt(2); // 0 = vertical, 1 = horizontal
+
+        boolean valido = true;
+        for (int i = 0; i < tamanio; i++) {
+            int f = fila + (direccion == 0 ? i : 0);
+            int c = columna + (direccion == 1 ? i : 0);
+
+            if (f >= numFilas || c >= numColumnas || tablero[f][c].isOcupada()) {
+                return false;
+            } else {
+                seleccionadas.add(tablero[f][c]);
+            }
+        }
+        return valido;
+    }
+
+    public int calcularPuntuacion() {
+        int puntuacion = 0;
+        for (int i = 0; i < numFilas; i++) {
+            for (int j = 0; j < numColumnas; j++) {
+                Casilla casilla = tablero[i][j];
+                if (casilla.isEstadoImpactado() && !casilla.isOcupada()) {
+                    puntuacion -= 1;
+                } else if (casilla.isOcupada()) {
+                    for (Barco barco : barcos) {
+                        List<Casilla> list = barco.getCasillas();
+                        for (Casilla casillaBarco : list) {
+                            if (casillaBarco.getFila() == i && casillaBarco.getColumna() == j) {
+                                if (!barco.isVivo()) {
+                                    puntuacion += 5;
+                                } else {
+                                    puntuacion += 2;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return puntuacion;
+    }
+
 
     public int getNumFilas() {
         return numFilas;

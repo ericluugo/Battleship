@@ -76,36 +76,10 @@ public class ControladorPartida implements IControladorPartida {
     public void finalizarPartida(Partida partida) {
         int puntuacionJugador1 = 0;
         int puntuacionJugador2 = 0;
-        for (Barco barcoFinal : partida.getTablero2().getBarcos()) {
-            for (Casilla casilla : barcoFinal.getCasillas()) {
-                if (casilla.isEstadoImpactado() && casilla.isOcupada()) {
-                    if (barcoFinal.isVivo()) puntuacionJugador1 += 2;
-                    else puntuacionJugador1 += 5;
-                }
-            }
-        }
-        for (int indexI = 0; indexI < partida.getTablero2().getTablero().length; indexI++) {
-            for (int indexJ = 0; indexJ < partida.getTablero2().getTablero()[indexI].length; indexJ++) {
-                if (partida.getTablero2().getTablero()[indexI][indexJ].isEstadoVisibilidad() && partida.getTablero2().getTablero()[indexI][indexJ].isEstadoImpactado() && !partida.getTablero2().getTablero()[indexI][indexJ].isOcupada()) {
-                    puntuacionJugador1--;
-                }
-            }
-        }
-        for (Barco barcoFinal : partida.getTablero1().getBarcos()) {
-            for (Casilla casilla : barcoFinal.getCasillas()) {
-                if (casilla.isEstadoImpactado() && casilla.isOcupada()) {
-                    if (barcoFinal.isVivo()) puntuacionJugador2 += 2;
-                    else puntuacionJugador2 += 5;
-                }
-            }
-        }
-        for (int indexI = 0; indexI < partida.getTablero1().getTablero().length; indexI++) {
-            for (int indexJ = 0; indexJ < partida.getTablero1().getTablero()[indexI].length; indexJ++) {
-                if (partida.getTablero1().getTablero()[indexI][indexJ].isEstadoVisibilidad() && partida.getTablero1().getTablero()[indexI][indexJ].isEstadoImpactado() && !partida.getTablero1().getTablero()[indexI][indexJ].isOcupada()) {
-                    puntuacionJugador2--;
-                }
-            }
-        }
+        puntuacionJugador1 += puntosBarcos(partida.getTablero2());
+        puntuacionJugador1 += puntosAgua(partida.getTablero2());
+        puntuacionJugador2 += puntosBarcos(partida.getTablero1());
+        puntuacionJugador2 += puntosAgua(partida.getTablero1());
         if (partida.getGanador() == partida.getJugador1()) {
             puntuacionJugador1 += 20;
             puntuacionJugador2 -= 20;
@@ -116,6 +90,31 @@ public class ControladorPartida implements IControladorPartida {
         partida.setPuntosJugador1(puntuacionJugador1);
         partida.setPuntosJugador2(puntuacionJugador2);
         setPartidaEnJuego(null);
+    }
+
+    private int puntosAgua(Tablero tablero){
+        int puntosRestados = 0;
+        for (int indexI = 0; indexI < tablero.getNumFilas(); indexI++) {
+            for (int indexJ = 0; indexJ < tablero.getNumColumnas(); indexJ++) {
+                if (tablero.getTablero()[indexI][indexJ].isEstadoVisibilidad() && tablero.getTablero()[indexI][indexJ].isEstadoImpactado() && !tablero.getTablero()[indexI][indexJ].isOcupada()) {
+                    puntosRestados--;
+                }
+            }
+        }
+        return puntosRestados;
+    }
+
+    private int puntosBarcos(Tablero tablero){
+        int puntosSumados = 0;
+        for (Barco barcoFinal : tablero.getBarcos()) {
+            for (Casilla casilla : barcoFinal.getCasillas()) {
+                if (casilla.isEstadoImpactado() && casilla.isOcupada()) {
+                    if (barcoFinal.isVivo()) puntosSumados += 2;
+                    else puntosSumados += 5;
+                }
+            }
+        }
+        return puntosSumados;
     }
 
     public void jugarPartida(Partida partida) throws Exception {
@@ -132,20 +131,7 @@ public class ControladorPartida implements IControladorPartida {
                 vistaPartida.imprimir(generarTableros(partida));
                 List<Integer> coordenadasAtacar = partida.getJugador1().seleccionarCasilla();
                 if (!partida.getTablero2().isCasillaImpactada(coordenadasAtacar)) {
-                    Barco atacado = atacar(partida.getTablero2(), coordenadasAtacar);
-                    vistaPartida.imprimirCasillaAtacada(coordenadasAtacar);
-                    // imprimir por pantalla FALLO o Acierto y casilla atacada
-                    if (atacado != null) {
-                        vistaPartida.imprimirObjetoImpacto(atacado.getNombre());
-                        atacado.isBarcoMuerto();
-                        if (atacado.habilidadDisponible()) {
-                            if (partida.getJugador2().decisionHabilidad()) {
-                                atacado.habilidad(partida.getTablero1());
-                            }
-                        } else vistaPartida.imprimir("No tiene la habilidad disponible");
-                    } else {
-                        vistaPartida.imprimirObjetoImpacto("");
-                    }
+                    realizarAtaque(coordenadasAtacar, partida.getJugador2(), partida.getTablero1(),partida.getTablero2());
                 } else
                     vistaPartida.imprimir("Ha atacado a una casilla impactada anteriormente,por ello, ha perdido el turno");
             } else {
@@ -155,21 +141,7 @@ public class ControladorPartida implements IControladorPartida {
                 vistaPartida.imprimir(generarTableros(partida));
                 List<Integer> coordenadasAtacar = partida.getJugador2().seleccionarCasilla();
                 if (!partida.getTablero1().isCasillaImpactada(coordenadasAtacar)) {
-                    Barco atacado = atacar(partida.getTablero1(), coordenadasAtacar);
-                    // imprimir por pantalla FALLO o Acierto y casilla atacada
-                    vistaPartida.imprimirCasillaAtacada(coordenadasAtacar);
-                    if (atacado != null) {
-                        // imprimir por pantalla Tipo barco pegado
-                        vistaPartida.imprimirObjetoImpacto(atacado.getNombre());
-                        atacado.isBarcoMuerto();
-                        if (atacado.habilidadDisponible()) {
-                            if (partida.getJugador1().decisionHabilidad()) {
-                                atacado.habilidad(partida.getTablero2());
-                            }
-                        } else vistaPartida.imprimir("No tiene la habilidad disponible");
-                    } else {
-                        vistaPartida.imprimirObjetoImpacto("");
-                    }
+                    realizarAtaque(coordenadasAtacar, partida.getJugador1(), partida.getTablero2(),partida.getTablero1());
                 } else
                     vistaPartida.imprimir("Ha atacado a una casilla impactada anteriormente,por ello, ha perdido el turno");
             }
@@ -183,6 +155,26 @@ public class ControladorPartida implements IControladorPartida {
         partidas.add(partida);
     }
 
+    private void contrataque(Barco atacado,IJugable jugador,Tablero tablero){
+        vistaPartida.imprimirObjetoImpacto(atacado.getNombre());
+        atacado.isBarcoMuerto();
+        if (atacado.habilidadDisponible()) {
+            if (jugador.decisionHabilidad()) {
+                atacado.habilidad(tablero);
+            }
+        } else vistaPartida.imprimir("No tiene la habilidad disponible");
+    }
+
+    private void realizarAtaque(List<Integer> coordenadasAtacar,IJugable jugadorEnemigo,Tablero tableroPropio,Tablero tableroEnemigo){
+        Barco atacado = atacar(tableroEnemigo, coordenadasAtacar);
+        // imprimir por pantalla FALLO o Acierto y casilla atacada
+        vistaPartida.imprimirCasillaAtacada(coordenadasAtacar);
+        if (atacado != null) {
+            contrataque(atacado, jugadorEnemigo, tableroPropio);
+        } else {
+            vistaPartida.imprimirObjetoImpacto("");
+        }
+    }
     public Barco atacar(Tablero tableroEnemigo, List<Integer> coordenadas) {
         return tableroEnemigo.recibirCoordenadas(coordenadas);
     }
