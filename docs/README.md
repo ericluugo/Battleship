@@ -1,1 +1,2 @@
-En esta carpeta esta el modelado del proyecto
+Battleship es un proyecto desarrollado como parte de la asignatura Fundamentos de Ingeniería de Software. El trabajo se realizó en equipo e incluye una documentación completa del proceso: diagramas UML (clases, secuencia, casos de uso), especificaciones y diseño del sistema.
+Aunque fue un proyecto grupal, me encargué principalmente de la implementación del código, incluyendo la lógica del juego, la estructura de datos y la organización del proyecto. El juego se ejecuta por consola y está diseñado siguiendo principios de modularidad y buenas prácticas de programación.
